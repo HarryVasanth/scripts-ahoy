@@ -7,6 +7,7 @@ Small helpers for daily shell work.
 | Script | What it does | Usage | Added |
 |---|---|---|---|
 | [find-large-files.sh](find-large-files.sh) | List the largest files under a directory. | `find-large-files.sh [-n COUNT] [-d DIR] SIZE` | 2015-10 |
+| [strip-ansi.sh](strip-ansi.sh) | Remove ANSI colour codes from text. | `strip-ansi.sh [FILE...]` | 2015-12 |
 
 ## Requirements
 
