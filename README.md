@@ -10,7 +10,7 @@ confirmation. Every shell script is checked with ShellCheck.
 
 | | Category | Scripts | What it covers |
 |---|---|---:|---|
-| 🐚 | [Bash](bash/README.md) | 5 | Small helpers for daily shell work. |
+| 🐚 | [Bash](bash/README.md) | 6 | Small helpers for daily shell work. |
 | 📝 | [Text](text/README.md) | 1 | Clean, convert, and inspect text and data files. |
 | 🛡️ | [Security](security/README.md) | 1 | Read-only checks for common hardening mistakes. |
 | 🐧 | [Linux](linux/README.md) | 1 | Service, disk, and update checks for Linux hosts. |
