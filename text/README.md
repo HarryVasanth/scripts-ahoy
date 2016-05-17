@@ -7,6 +7,7 @@ Clean, convert, and inspect text and data files.
 | Script | What it does | Usage | Added |
 |---|---|---|---|
 | [csv-to-json.sh](csv-to-json.sh) | Turn a simple CSV file into a JSON array of objects. | `csv-to-json.sh [--numbers] [FILE]` | 2015-11 |
+| [case-convert.sh](case-convert.sh) | Convert text between common naming cases. | `case-convert.sh --to STYLE [TEXT...]` | 2016-05 |
 
 ## Requirements
 
