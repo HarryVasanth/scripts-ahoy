@@ -13,6 +13,7 @@ confirmation. Every shell script is checked with ShellCheck.
 | 🐚 | [Bash](bash/README.md) | 6 | Small helpers for daily shell work. |
 | 📝 | [Text](text/README.md) | 2 | Clean, convert, and inspect text and data files. |
 | 🛡️ | [Security](security/README.md) | 1 | Read-only checks for common hardening mistakes. |
+| 🌿 | [Git](git/README.md) | 1 | Keep repositories tidy and easy to inspect. |
 | 🐧 | [Linux](linux/README.md) | 1 | Service, disk, and update checks for Linux hosts. |
 | 🎬 | [Media](media/README.md) | 1 | Resize, convert, and inspect media without a GUI. |
 | 🧰 | [Proxmox](proxmox/README.md) | 1 | Proxmox VE and PBS maintenance helpers. |
