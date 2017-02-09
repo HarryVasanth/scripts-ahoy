@@ -14,7 +14,7 @@ confirmation. Every shell script is checked with ShellCheck.
 | 📝 | [Text](text/README.md) | 5 | Clean, convert, and inspect text and data files. |
 | 🌐 | [Network](network/README.md) | 3 | Check links, DNS, ports, and TLS from the command line. |
 | 🛡️ | [Security](security/README.md) | 3 | Read-only checks for common hardening mistakes. |
-| 🌿 | [Git](git/README.md) | 2 | Keep repositories tidy and easy to inspect. |
+| 🌿 | [Git](git/README.md) | 3 | Keep repositories tidy and easy to inspect. |
 | 🐧 | [Linux](linux/README.md) | 3 | Service, disk, and update checks for Linux hosts. |
 | 🎬 | [Media](media/README.md) | 2 | Resize, convert, and inspect media without a GUI. |
 | ☁️ | [Cloud](cloud/README.md) | 2 | Small wrappers for AWS, Kubernetes, and Terraform. |
