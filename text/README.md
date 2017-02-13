@@ -11,6 +11,7 @@ Clean, convert, and inspect text and data files.
 | [csv-column.sh](csv-column.sh) | Select or reorder CSV columns by name. | `csv-column.sh -c NAME[,NAME...] [FILE]` | 2016-09 |
 | [sort-csv.sh](sort-csv.sh) | Sort CSV rows by a column and keep the header on top. | `sort-csv.sh [-c COLUMN] [-n] [-r] [FILE]` | 2016-10 |
 | [markdown-toc.sh](markdown-toc.sh) | Build a table of contents from the headings in a Markdown file. | `markdown-toc.sh [-l LEVEL] [FILE]` | 2017-01 |
+| [slugify.sh](slugify.sh) | Turn text into a URL-friendly slug. | `slugify.sh [-s SEP] [TEXT...]` | 2017-02 |
 
 ## Requirements
 
