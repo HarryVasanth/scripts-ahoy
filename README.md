@@ -14,7 +14,7 @@ confirmation. Every shell script is checked with ShellCheck.
 | 📝 | [Text](text/README.md) | 7 | Clean, convert, and inspect text and data files. |
 | 🌐 | [Network](network/README.md) | 3 | Check links, DNS, ports, and TLS from the command line. |
 | 🛡️ | [Security](security/README.md) | 4 | Read-only checks for common hardening mistakes. |
-| 🌿 | [Git](git/README.md) | 3 | Keep repositories tidy and easy to inspect. |
+| 🌿 | [Git](git/README.md) | 4 | Keep repositories tidy and easy to inspect. |
 | 🐧 | [Linux](linux/README.md) | 4 | Service, disk, and update checks for Linux hosts. |
 | 🍎 | [macOS](macos/README.md) | 1 | macOS housekeeping with sane defaults and dry runs. |
 | 🛠️ | [Dev](dev/README.md) | 2 | Project and container chores. |
