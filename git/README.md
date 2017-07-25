@@ -10,6 +10,7 @@ Keep repositories tidy and easy to inspect.
 | [hooks-install.sh](hooks-install.sh) | Install git hooks from .githooks into the repository. | `hooks-install.sh [-f] [-h]` | 2016-12 |
 | [repo-size.sh](repo-size.sh) | Show the object store and working tree size. | `repo-size.sh [-h]` | 2017-02 |
 | [changelog.sh](changelog.sh) | Build a grouped changelog from commit messages. | `changelog.sh [RANGE] [-h]` | 2017-06 |
+| [repo-stats.sh](repo-stats.sh) | Show a quick summary of the current repository. | `repo-stats.sh [-h]` | 2017-07 |
 
 ## Requirements
 
