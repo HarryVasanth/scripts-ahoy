@@ -11,6 +11,7 @@ Keep repositories tidy and easy to inspect.
 | [repo-size.sh](repo-size.sh) | Show the object store and working tree size. | `repo-size.sh [-h]` | 2017-02 |
 | [changelog.sh](changelog.sh) | Build a grouped changelog from commit messages. | `changelog.sh [RANGE] [-h]` | 2017-06 |
 | [repo-stats.sh](repo-stats.sh) | Show a quick summary of the current repository. | `repo-stats.sh [-h]` | 2017-07 |
+| [tag-release.sh](tag-release.sh) | Create an annotated release tag on the latest commit. | `tag-release.sh [-m MESSAGE] TAG` | 2017-08 |
 
 ## Requirements
 
