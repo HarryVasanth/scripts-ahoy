@@ -10,10 +10,13 @@ Service, disk, and update checks for Linux hosts.
 | [open-files.sh](open-files.sh) | Shows the processes with the most open files. | `open-files [-n COUNT] [-h]` | 2016-06 |
 | [service-wait.sh](service-wait.sh) | Waits until a systemd service is active or failed. | `service-wait [-t SECONDS] UNIT [-h]` | 2016-06 |
 | [kernel-modules.sh](kernel-modules.sh) | Lists loaded kernel modules, or shows the parameters of one module. | `kernel-modules [MODULE] [-h]` | 2017-06 |
+| [user-audit.sh](user-audit.sh) | Audits local accounts for weak or risky settings. | `user-audit [-h]` | 2017-11 |
 
 ## Requirements
 
+- /etc/passwd
 - Linux /proc
+- awk
 - dpkg or rpm
 - lsmod
 - systemctl (systemd)
