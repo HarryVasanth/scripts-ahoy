@@ -11,6 +11,7 @@ Check links, DNS, ports, and TLS from the command line.
 | [bandwidth-test.sh](bandwidth-test.sh) | Measure download speed against a public test file. | `bandwidth-test.sh [--size <megabytes>] [url]` | 2016-11 |
 | [port-check.sh](port-check.sh) | Check which TCP ports answer on a host. | `port-check.sh <host> [ports] [timeout]` | 2017-10 |
 | [speed-test.sh](speed-test.sh) | Measure download and upload throughput with curl. | `speed-test.sh [--size <megabytes>]` | 2017-11 |
+| [public-ip.sh](public-ip.sh) | Show the public IP address that this machine uses. | `public-ip.sh [--4\|--6]` | 2018-01 |
 
 ## Requirements
 
