@@ -12,6 +12,7 @@ Keep repositories tidy and easy to inspect.
 | [changelog.sh](changelog.sh) | Build a grouped changelog from commit messages. | `changelog.sh [RANGE] [-h]` | 2017-06 |
 | [repo-stats.sh](repo-stats.sh) | Show a quick summary of the current repository. | `repo-stats.sh [-h]` | 2017-07 |
 | [tag-release.sh](tag-release.sh) | Create an annotated release tag on the latest commit. | `tag-release.sh [-m MESSAGE] TAG` | 2017-08 |
+| [remote-prune.sh](remote-prune.sh) | Prune stale remote-tracking branches. | `remote-prune.sh [-n] [REMOTE...]` | 2018-01 |
 
 ## Requirements
 
