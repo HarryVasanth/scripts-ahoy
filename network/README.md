@@ -12,12 +12,15 @@ Check links, DNS, ports, and TLS from the command line.
 | [port-check.sh](port-check.sh) | Check which TCP ports answer on a host. | `port-check.sh <host> [ports] [timeout]` | 2017-10 |
 | [speed-test.sh](speed-test.sh) | Measure download and upload throughput with curl. | `speed-test.sh [--size <megabytes>]` | 2017-11 |
 | [public-ip.sh](public-ip.sh) | Show the public IP address that this machine uses. | `public-ip.sh [--4\|--6]` | 2018-01 |
+| [dns-lookup.sh](dns-lookup.sh) | Look up DNS records for a name. | `dns-lookup.sh <name> [type] [resolver]` | 2018-02 |
 
 ## Requirements
 
+- Debian: apt install dnsutils)
 - awk
 - curl
 - dd
+- dig (macOS: brew install bind
 - nc (falls back to bash /dev/tcp)
 - openssl
 
