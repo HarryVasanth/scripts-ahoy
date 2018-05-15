@@ -14,6 +14,7 @@ Keep repositories tidy and easy to inspect.
 | [tag-release.sh](tag-release.sh) | Create an annotated release tag on the latest commit. | `tag-release.sh [-m MESSAGE] TAG` | 2017-08 |
 | [remote-prune.sh](remote-prune.sh) | Prune stale remote-tracking branches. | `remote-prune.sh [-n] [REMOTE...]` | 2018-01 |
 | [stash-list.sh](stash-list.sh) | List stashes with age and changed files. | `stash-list.sh [-v] [-h]` | 2018-03 |
+| [worktree-add.sh](worktree-add.sh) | Add a git worktree for a branch. | `worktree-add.sh BRANCH [-d DIR] [--from REF] [-h]` | 2018-05 |
 
 ## Requirements
 
