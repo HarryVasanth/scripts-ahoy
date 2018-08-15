@@ -13,11 +13,13 @@ Resize, convert, and inspect media without a GUI.
 | [subtitle-shift.sh](subtitle-shift.sh) | Shift every timestamp in a SubRip (SRT) subtitle file. | `subtitle-shift [-s SECONDS] [-o FILE] [--force] [--replace] SRT` | 2017-10 |
 | [image-to-pdf.sh](image-to-pdf.sh) | Combine images into one PDF, in the order given. | `image-to-pdf [-o FILE] [--force] IMAGE...` | 2017-12 |
 | [media-info.sh](media-info.sh) | Show a quick summary of media files: format, duration, size and streams. | `media-info FILE...` | 2018-06 |
+| [pdf-split.sh](pdf-split.sh) | Extract a page range from a PDF, or split it into single pages. | `pdf-split [-p RANGE] [--each] [-o DIR] [--force] PDF` | 2018-08 |
 
 ## Requirements
 
 - FFmpeg
 - FFprobe (ships with FFmpeg)
+- Ghostscript; pdfseparate (poppler-utils) for --each
 - ImageMagick (magick
 - or Ghostscript
 - or convert on older systems)
