@@ -14,6 +14,7 @@ Resize, convert, and inspect media without a GUI.
 | [image-to-pdf.sh](image-to-pdf.sh) | Combine images into one PDF, in the order given. | `image-to-pdf [-o FILE] [--force] IMAGE...` | 2017-12 |
 | [media-info.sh](media-info.sh) | Show a quick summary of media files: format, duration, size and streams. | `media-info FILE...` | 2018-06 |
 | [pdf-split.sh](pdf-split.sh) | Extract a page range from a PDF, or split it into single pages. | `pdf-split [-p RANGE] [--each] [-o DIR] [--force] PDF` | 2018-08 |
+| [image-resize.sh](image-resize.sh) | Resize images to fit inside a box, keeping each aspect ratio. | `image-resize [-w WIDTH] [-H HEIGHT] [-o DIR] [--force] [--replace] IMAGE...` | 2018-09 |
 
 ## Requirements
 
