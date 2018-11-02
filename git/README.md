@@ -16,6 +16,7 @@ Keep repositories tidy and easy to inspect.
 | [stash-list.sh](stash-list.sh) | List stashes with age and changed files. | `stash-list.sh [-v] [-h]` | 2018-03 |
 | [worktree-add.sh](worktree-add.sh) | Add a git worktree for a branch. | `worktree-add.sh BRANCH [-d DIR] [--from REF] [-h]` | 2018-05 |
 | [branch-cleanup.sh](branch-cleanup.sh) | Delete local branches that are already merged. | `branch-cleanup.sh [-b BASE] [--delete] [-h]` | 2018-08 |
+| [shortlog.sh](shortlog.sh) | Show a contributor summary by commit count. | `shortlog.sh [-n COUNT] [RANGE]` | 2018-11 |
 
 ## Requirements
 
