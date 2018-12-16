@@ -14,6 +14,7 @@ Service, disk, and update checks for Linux hosts.
 | [boot-time.sh](boot-time.sh) | Shows the boot time and the userspace startup duration. | `boot-time [-h]` | 2018-07 |
 | [mount-info.sh](mount-info.sh) | Lists mounts with the file system type, size and options. | `mount-info [MOUNTPOINT] [-h]` | 2018-09 |
 | [oom-report.sh](oom-report.sh) | Show recent out-of-memory kills on a Linux host. | `oom-report.sh [-n COUNT]` | 2018-11 |
+| [load-average.sh](load-average.sh) | Compares the load average with the number of CPUs. | `load-average [-w PCT] [-h]` | 2018-12 |
 
 ## Requirements
 
