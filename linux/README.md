@@ -15,6 +15,7 @@ Service, disk, and update checks for Linux hosts.
 | [mount-info.sh](mount-info.sh) | Lists mounts with the file system type, size and options. | `mount-info [MOUNTPOINT] [-h]` | 2018-09 |
 | [oom-report.sh](oom-report.sh) | Show recent out-of-memory kills on a Linux host. | `oom-report.sh [-n COUNT]` | 2018-11 |
 | [load-average.sh](load-average.sh) | Compares the load average with the number of CPUs. | `load-average [-w PCT] [-h]` | 2018-12 |
+| [ssd-trim.sh](ssd-trim.sh) | Report SSD TRIM support and the last trim, or run a trim pass. | `ssd-trim.sh [--run] [--dry-run] [MOUNT...]` | 2019-01 |
 
 ## Requirements
 
@@ -24,6 +25,8 @@ Service, disk, and update checks for Linux hosts.
 - dmesg or journalctl
 - dpkg or rpm
 - findmnt (util-linux) or df
+- fstrim (util-linux)
+- lsblk
 - lsmod
 - systemctl (systemd)
 - systemd-analyze (optional)
