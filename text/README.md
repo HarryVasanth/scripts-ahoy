@@ -14,6 +14,7 @@ Clean, convert, and inspect text and data files.
 | [slugify.sh](slugify.sh) | Turn text into a URL-friendly slug. | `slugify.sh [-s SEP] [TEXT...]` | 2017-02 |
 | [split-csv.sh](split-csv.sh) | Split a CSV file into parts, repeating the header row. | `split-csv.sh [-r ROWS] [-n PARTS] [--force] FILE` | 2017-04 |
 | [replace-in-files.sh](replace-in-files.sh) | Replace text in many files, with a safe preview first. | `replace-in-files.sh [--apply] [-E] PATTERN REPLACEMENT FILE...` | 2017-12 |
+| [tab-to-space.sh](tab-to-space.sh) | Convert tabs to spaces, or spaces to tabs. | `tab-to-space.sh [-s] [-w WIDTH] [FILE...]` | 2019-03 |
 
 ## Requirements
 
