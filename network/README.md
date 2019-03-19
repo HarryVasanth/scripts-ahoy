@@ -13,6 +13,7 @@ Check links, DNS, ports, and TLS from the command line.
 | [speed-test.sh](speed-test.sh) | Measure download and upload throughput with curl. | `speed-test.sh [--size <megabytes>]` | 2017-11 |
 | [public-ip.sh](public-ip.sh) | Show the public IP address that this machine uses. | `public-ip.sh [--4\|--6]` | 2018-01 |
 | [dns-lookup.sh](dns-lookup.sh) | Look up DNS records for a name. | `dns-lookup.sh <name> [type] [resolver]` | 2018-02 |
+| [dns-benchmark.sh](dns-benchmark.sh) | Time DNS answers from several public resolvers. | `dns-benchmark.sh [domain] [resolver...]` | 2019-03 |
 
 ## Requirements
 
@@ -20,6 +21,7 @@ Check links, DNS, ports, and TLS from the command line.
 - awk
 - curl
 - dd
+- dig
 - dig (macOS: brew install bind
 - nc (falls back to bash /dev/tcp)
 - openssl
