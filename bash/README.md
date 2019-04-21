@@ -17,6 +17,7 @@ Small helpers for daily shell work.
 | [log-tail.sh](log-tail.sh) | Show the end of several log files with a label on each line. | `log-tail.sh [-n LINES] [-f] FILE...` | 2018-04 |
 | [backup-dir.sh](backup-dir.sh) | Make a dated tar.gz backup of a directory and prune old copies. | `backup-dir.sh [-o OUTDIR] [-k KEEP] DIR` | 2018-12 |
 | [calc.sh](calc.sh) | Do safe arithmetic on an expression with awk. | `calc.sh EXPRESSION` | 2019-04 |
+| [timestamp.sh](timestamp.sh) | Show the current time, or convert an epoch, in a useful format. | `timestamp.sh [--epoch\|--iso\|--file] [--utc] [EPOCH]` | 2019-04 |
 
 ## Requirements
 
