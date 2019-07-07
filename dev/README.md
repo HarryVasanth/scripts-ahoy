@@ -9,6 +9,7 @@ Project and container chores.
 | [gitignore-init.sh](gitignore-init.sh) | Write a starter .gitignore for the detected stack. | `gitignore-init [--force] [DIR]` | 2017-03 |
 | [compose-health.sh](compose-health.sh) | Wait until every Docker Compose service is running or healthy. | `compose-health [-f FILE] [-t SECONDS]` | 2017-03 |
 | [test-watch.sh](test-watch.sh) | Re-run a command when files in a directory change. | `test-watch [-d DIR] [-i SECONDS] -- <command...>` | 2019-05 |
+| [makefile-help.sh](makefile-help.sh) | Print Makefile targets that have a description comment. | `makefile-help [-f FILE]` | 2019-07 |
 
 ## Requirements
 
