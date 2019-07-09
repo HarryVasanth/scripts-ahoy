@@ -15,6 +15,7 @@ Resize, convert, and inspect media without a GUI.
 | [media-info.sh](media-info.sh) | Show a quick summary of media files: format, duration, size and streams. | `media-info FILE...` | 2018-06 |
 | [pdf-split.sh](pdf-split.sh) | Extract a page range from a PDF, or split it into single pages. | `pdf-split [-p RANGE] [--each] [-o DIR] [--force] PDF` | 2018-08 |
 | [image-resize.sh](image-resize.sh) | Resize images to fit inside a box, keeping each aspect ratio. | `image-resize [-w WIDTH] [-H HEIGHT] [-o DIR] [--force] [--replace] IMAGE...` | 2018-09 |
+| [video-compress.sh](video-compress.sh) | Compress a video to an H.264/AAC MP4 file. | `video-compress [-q CRF] [-H HEIGHT] [-p PRESET] [-a KBPS] [-o DIR] [--force] [--replace] VIDEO...` | 2019-07 |
 
 ## Requirements
 
