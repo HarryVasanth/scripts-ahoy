@@ -16,9 +16,10 @@ Clean, convert, and inspect text and data files.
 | [replace-in-files.sh](replace-in-files.sh) | Replace text in many files, with a safe preview first. | `replace-in-files.sh [--apply] [-E] PATTERN REPLACEMENT FILE...` | 2017-12 |
 | [tab-to-space.sh](tab-to-space.sh) | Convert tabs to spaces, or spaces to tabs. | `tab-to-space.sh [-s] [-w WIDTH] [FILE...]` | 2019-03 |
 | [strip-html.sh](strip-html.sh) | Remove HTML tags and decode common entities. | `strip-html.sh [FILE...]` | 2019-06 |
+| [json-pretty.sh](json-pretty.sh) | Pretty-print, compact, or sort a JSON file. | `json-pretty.sh [-c] [-s] [FILE]` | 2019-08 |
 
 ## Requirements
 
-- Standard POSIX tools.
+- jq
 
 Shell scripts with options support `--help`.
