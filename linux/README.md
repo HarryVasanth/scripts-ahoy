@@ -17,6 +17,7 @@ Service, disk, and update checks for Linux hosts.
 | [load-average.sh](load-average.sh) | Compares the load average with the number of CPUs. | `load-average [-w PCT] [-h]` | 2018-12 |
 | [ssd-trim.sh](ssd-trim.sh) | Report SSD TRIM support and the last trim, or run a trim pass. | `ssd-trim.sh [--run] [--dry-run] [MOUNT...]` | 2019-01 |
 | [io-stats.sh](io-stats.sh) | Shows per-device read and write rates from /proc/diskstats. | `io-stats [-i SECONDS] [-n COUNT] [-h]` | 2019-02 |
+| [cpu-info.sh](cpu-info.sh) | Shows the CPU model, core count, flags and current frequency. | `cpu-info [-h]` | 2019-08 |
 
 ## Requirements
 
