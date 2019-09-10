@@ -10,10 +10,16 @@ Project and container chores.
 | [compose-health.sh](compose-health.sh) | Wait until every Docker Compose service is running or healthy. | `compose-health [-f FILE] [-t SECONDS]` | 2017-03 |
 | [test-watch.sh](test-watch.sh) | Re-run a command when files in a directory change. | `test-watch [-d DIR] [-i SECONDS] -- <command...>` | 2019-05 |
 | [makefile-help.sh](makefile-help.sh) | Print Makefile targets that have a description comment. | `makefile-help [-f FILE]` | 2019-07 |
+| [lint-staged.sh](lint-staged.sh) | Run linters on staged files. | `lint-staged` | 2019-09 |
 
 ## Requirements
 
 - Docker Compose (plugin or docker-compose)
 - docker
+- flake8
+- git
+- gofmt
+- plus the linters you use (eslint
+- shellcheck)
 
 Shell scripts with options support `--help`.
