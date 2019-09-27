@@ -11,6 +11,7 @@ Project and container chores.
 | [test-watch.sh](test-watch.sh) | Re-run a command when files in a directory change. | `test-watch [-d DIR] [-i SECONDS] -- <command...>` | 2019-05 |
 | [makefile-help.sh](makefile-help.sh) | Print Makefile targets that have a description comment. | `makefile-help [-f FILE]` | 2019-07 |
 | [lint-staged.sh](lint-staged.sh) | Run linters on staged files. | `lint-staged` | 2019-09 |
+| [license-header.sh](license-header.sh) | Add an SPDX licence header to source files, or check that one is present. | `license-header [--check] <licence-id> <path>...` | 2019-09 |
 
 ## Requirements
 
