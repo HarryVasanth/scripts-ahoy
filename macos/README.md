@@ -11,11 +11,13 @@ macOS housekeeping with sane defaults and dry runs.
 | [lock-keychain.sh](lock-keychain.sh) | Locks a macOS keychain at once. | `lock-keychain [PATH] [-h]` | 2018-07 |
 | [timemachine-status.sh](timemachine-status.sh) | Shows the Time Machine state, destinations and recent backups. | `timemachine-status [-h]` | 2018-10 |
 | [app-list.sh](app-list.sh) | Lists installed applications and their versions. | `app-list [FILTER] [-h]` | 2019-10 |
+| [spotlight-status.sh](spotlight-status.sh) | Shows the Spotlight indexing status for each volume. | `spotlight-status [VOLUME] [-h]` | 2019-11 |
 
 ## Requirements
 
 - defaults
 - launchctl
+- mdutil
 - security
 - tmutil
 
