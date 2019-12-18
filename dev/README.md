@@ -12,6 +12,7 @@ Project and container chores.
 | [makefile-help.sh](makefile-help.sh) | Print Makefile targets that have a description comment. | `makefile-help [-f FILE]` | 2019-07 |
 | [lint-staged.sh](lint-staged.sh) | Run linters on staged files. | `lint-staged` | 2019-09 |
 | [license-header.sh](license-header.sh) | Add an SPDX licence header to source files, or check that one is present. | `license-header [--check] <licence-id> <path>...` | 2019-09 |
+| [port-kill.sh](port-kill.sh) | Find the process that listens on a TCP port and stop it. | `port-kill [--dry-run] [--force] <port>` | 2019-12 |
 
 ## Requirements
 
@@ -20,6 +21,7 @@ Project and container chores.
 - flake8
 - git
 - gofmt
+- lsof (or ss on Linux)
 - plus the linters you use (eslint
 - shellcheck)
 
