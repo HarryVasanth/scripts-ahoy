@@ -18,6 +18,7 @@ Small helpers for daily shell work.
 | [backup-dir.sh](backup-dir.sh) | Make a dated tar.gz backup of a directory and prune old copies. | `backup-dir.sh [-o OUTDIR] [-k KEEP] DIR` | 2018-12 |
 | [calc.sh](calc.sh) | Do safe arithmetic on an expression with awk. | `calc.sh EXPRESSION` | 2019-04 |
 | [timestamp.sh](timestamp.sh) | Show the current time, or convert an epoch, in a useful format. | `timestamp.sh [--epoch\|--iso\|--file] [--utc] [EPOCH]` | 2019-04 |
+| [wait-for-port.sh](wait-for-port.sh) | Wait until a TCP port accepts connections. | `wait-for-port.sh [-t TIMEOUT] [-i INTERVAL] [-q] HOST PORT` | 2020-01 |
 
 ## Requirements
 
