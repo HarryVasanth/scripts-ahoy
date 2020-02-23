@@ -13,6 +13,7 @@ Project and container chores.
 | [lint-staged.sh](lint-staged.sh) | Run linters on staged files. | `lint-staged` | 2019-09 |
 | [license-header.sh](license-header.sh) | Add an SPDX licence header to source files, or check that one is present. | `license-header [--check] <licence-id> <path>...` | 2019-09 |
 | [port-kill.sh](port-kill.sh) | Find the process that listens on a TCP port and stop it. | `port-kill [--dry-run] [--force] <port>` | 2019-12 |
+| [docker-prune.sh](docker-prune.sh) | Clean unused Docker data. The default is a dry run. | `docker-prune [--apply] [--all] [--volumes] [--yes] [--dry-run]` | 2020-02 |
 
 ## Requirements
 
