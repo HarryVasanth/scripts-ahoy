@@ -18,6 +18,7 @@ Keep repositories tidy and easy to inspect.
 | [branch-cleanup.sh](branch-cleanup.sh) | Delete local branches that are already merged. | `branch-cleanup.sh [-b BASE] [--delete] [-h]` | 2018-08 |
 | [shortlog.sh](shortlog.sh) | Show a contributor summary by commit count. | `shortlog.sh [-n COUNT] [RANGE]` | 2018-11 |
 | [undo-commit.sh](undo-commit.sh) | Undo the last commit and keep its changes. | `undo-commit.sh [--unstage] [-y] [-h]` | 2019-10 |
+| [commit-activity.sh](commit-activity.sh) | Show commits over time as a bar chart. | `commit-activity.sh [-n COUNT] [-a AUTHOR] [-d] [-h]` | 2020-03 |
 
 ## Requirements
 
