@@ -14,6 +14,7 @@ Read-only checks for common hardening mistakes.
 | [selinux-status.sh](selinux-status.sh) | Show the SELinux mode and recent denials. | `selinux-status.sh [-n COUNT] [-h]` | 2018-10 |
 | [hash-check.sh](hash-check.sh) | Print or verify SHA-256 checksums. | `hash-check.sh FILE... > SHA256SUMS` | 2019-02 |
 | [ssh-hardening-check.sh](ssh-hardening-check.sh) | Check an sshd config for weak or risky settings. | `ssh-hardening-check.sh [-f CONFIG] [-h]` | 2019-06 |
+| [open-ports.sh](open-ports.sh) | List listening TCP and bound UDP ports. | `open-ports.sh [-h]` | 2020-04 |
 
 ## Requirements
 
