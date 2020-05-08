@@ -15,6 +15,7 @@ Check links, DNS, ports, and TLS from the command line.
 | [dns-lookup.sh](dns-lookup.sh) | Look up DNS records for a name. | `dns-lookup.sh <name> [type] [resolver]` | 2018-02 |
 | [dns-benchmark.sh](dns-benchmark.sh) | Time DNS answers from several public resolvers. | `dns-benchmark.sh [domain] [resolver...]` | 2019-03 |
 | [http-methods.sh](http-methods.sh) | Probe which HTTP methods a URL allows. | `http-methods.sh [--yes] <url>` | 2020-04 |
+| [port-scan.sh](port-scan.sh) | Scan a port range on one host that you own. | `port-scan.sh [--yes] <host> <start>-<end>` | 2020-05 |
 
 ## Requirements
 
@@ -24,6 +25,7 @@ Check links, DNS, ports, and TLS from the command line.
 - dd
 - dig
 - dig (macOS: brew install bind
+- nc
 - nc (falls back to bash /dev/tcp)
 - openssl
 
