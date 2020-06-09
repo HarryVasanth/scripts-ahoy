@@ -12,6 +12,7 @@ macOS housekeeping with sane defaults and dry runs.
 | [timemachine-status.sh](timemachine-status.sh) | Shows the Time Machine state, destinations and recent backups. | `timemachine-status [-h]` | 2018-10 |
 | [app-list.sh](app-list.sh) | Lists installed applications and their versions. | `app-list [FILTER] [-h]` | 2019-10 |
 | [spotlight-status.sh](spotlight-status.sh) | Shows the Spotlight indexing status for each volume. | `spotlight-status [VOLUME] [-h]` | 2019-11 |
+| [brew-maintenance.sh](brew-maintenance.sh) | Updates Homebrew and removes old files. | `brew-maintenance [--dry-run] [-y\|--yes] [--no-upgrade] [-h]` | 2020-06 |
 
 ## Requirements
 
