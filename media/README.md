@@ -16,6 +16,7 @@ Resize, convert, and inspect media without a GUI.
 | [pdf-split.sh](pdf-split.sh) | Extract a page range from a PDF, or split it into single pages. | `pdf-split [-p RANGE] [--each] [-o DIR] [--force] PDF` | 2018-08 |
 | [image-resize.sh](image-resize.sh) | Resize images to fit inside a box, keeping each aspect ratio. | `image-resize [-w WIDTH] [-H HEIGHT] [-o DIR] [--force] [--replace] IMAGE...` | 2018-09 |
 | [video-compress.sh](video-compress.sh) | Compress a video to an H.264/AAC MP4 file. | `video-compress [-q CRF] [-H HEIGHT] [-p PRESET] [-a KBPS] [-o DIR] [--force] [--replace] VIDEO...` | 2019-07 |
+| [audio-trim.sh](audio-trim.sh) | Trim an audio file without re-encoding it. | `audio-trim [-s START] [-d DURATION] [-o FILE] [--force] [--replace] AUDIO` | 2020-06 |
 
 ## Requirements
 
