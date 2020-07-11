@@ -19,6 +19,7 @@ Service, disk, and update checks for Linux hosts.
 | [io-stats.sh](io-stats.sh) | Shows per-device read and write rates from /proc/diskstats. | `io-stats [-i SECONDS] [-n COUNT] [-h]` | 2019-02 |
 | [cpu-info.sh](cpu-info.sh) | Shows the CPU model, core count, flags and current frequency. | `cpu-info [-h]` | 2019-08 |
 | [cron-lint.sh](cron-lint.sh) | Checks cron files for common mistakes. | `cron-lint [-h]` | 2019-11 |
+| [systemd-status.sh](systemd-status.sh) | Shows failed systemd units and the last log lines for each one. | `systemd-status [-a\|--all] [-h\|--help]` | 2020-07 |
 
 ## Requirements
 
@@ -29,9 +30,11 @@ Service, disk, and update checks for Linux hosts.
 - dpkg or rpm
 - findmnt (util-linux) or df
 - fstrim (util-linux)
+- journalctl (systemd)
 - lsblk
 - lsmod
 - sort
+- systemctl
 - systemctl (systemd)
 - systemd-analyze (optional)
 - tail
