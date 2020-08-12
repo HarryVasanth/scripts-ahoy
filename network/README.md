@@ -17,6 +17,7 @@ Check links, DNS, ports, and TLS from the command line.
 | [http-methods.sh](http-methods.sh) | Probe which HTTP methods a URL allows. | `http-methods.sh [--yes] <url>` | 2020-04 |
 | [port-scan.sh](port-scan.sh) | Scan a port range on one host that you own. | `port-scan.sh [--yes] <host> <start>-<end>` | 2020-05 |
 | [lan-scan.sh](lan-scan.sh) | Find devices on the local network and show their MAC addresses. | `lan-scan.sh [--yes] [--dry-run] [cidr]` | 2020-05 |
+| [http-headers.sh](http-headers.sh) | Show response headers and check common security headers. | `http-headers.sh <url>` | 2020-08 |
 
 ## Requirements
 
