@@ -11,12 +11,14 @@ Small wrappers for AWS, Kubernetes, and Terraform.
 | [k8s-secret-keys.sh](k8s-secret-keys.sh) | List the keys in Kubernetes secrets. Values are never shown. | `k8s-secret-keys [--namespace NS] [SECRET]` | 2017-09 |
 | [aws-iam-audit.sh](aws-iam-audit.sh) | Report IAM users without MFA and access keys older than 90 days. | `aws-iam-audit` | 2018-02 |
 | [compose-pull.sh](compose-pull.sh) | Pull images for a Docker Compose project. | `compose-pull [-f FILE] [SERVICE...]` | 2018-05 |
+| [helm-list.sh](helm-list.sh) | List Helm releases across namespaces. | `helm-list [--namespace NS]` | 2020-08 |
 
 ## Requirements
 
 - aws
 - docker-compose
 - gcloud
+- helm 3
 - kubectl
 
 Shell scripts with options support `--help`.
