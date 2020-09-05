@@ -18,6 +18,7 @@ Check links, DNS, ports, and TLS from the command line.
 | [port-scan.sh](port-scan.sh) | Scan a port range on one host that you own. | `port-scan.sh [--yes] <host> <start>-<end>` | 2020-05 |
 | [lan-scan.sh](lan-scan.sh) | Find devices on the local network and show their MAC addresses. | `lan-scan.sh [--yes] [--dry-run] [cidr]` | 2020-05 |
 | [http-headers.sh](http-headers.sh) | Show response headers and check common security headers. | `http-headers.sh <url>` | 2020-08 |
+| [ping-sweep.sh](ping-sweep.sh) | Ping every address in a small block and list the replies. | `ping-sweep.sh [--yes] [--dry-run] <cidr>` | 2020-09 |
 
 ## Requirements
 
