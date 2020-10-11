@@ -20,23 +20,29 @@ Service, disk, and update checks for Linux hosts.
 | [cpu-info.sh](cpu-info.sh) | Shows the CPU model, core count, flags and current frequency. | `cpu-info [-h]` | 2019-08 |
 | [cron-lint.sh](cron-lint.sh) | Checks cron files for common mistakes. | `cron-lint [-h]` | 2019-11 |
 | [systemd-status.sh](systemd-status.sh) | Shows failed systemd units and the last log lines for each one. | `systemd-status [-a\|--all] [-h\|--help]` | 2020-07 |
+| [update-check.sh](update-check.sh) | Counts the package updates that are available. | `update-check [-h]` | 2020-10 |
 
 ## Requirements
 
 - /etc/passwd
 - Linux /proc
+- apk
 - awk
 - dmesg or journalctl
+- dnf
 - dpkg or rpm
 - findmnt (util-linux) or df
 - fstrim (util-linux)
 - journalctl (systemd)
 - lsblk
 - lsmod
+- one of apt-get
+- pacman
 - sort
 - systemctl
 - systemctl (systemd)
 - systemd-analyze (optional)
 - tail
+- zypper
 
 Shell scripts with options support `--help`.
