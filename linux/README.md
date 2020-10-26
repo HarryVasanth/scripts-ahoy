@@ -21,6 +21,7 @@ Service, disk, and update checks for Linux hosts.
 | [cron-lint.sh](cron-lint.sh) | Checks cron files for common mistakes. | `cron-lint [-h]` | 2019-11 |
 | [systemd-status.sh](systemd-status.sh) | Shows failed systemd units and the last log lines for each one. | `systemd-status [-a\|--all] [-h\|--help]` | 2020-07 |
 | [update-check.sh](update-check.sh) | Counts the package updates that are available. | `update-check [-h]` | 2020-10 |
+| [logrotate-check.sh](logrotate-check.sh) | Tests the logrotate configuration in debug mode. | `logrotate-check [CONFIG] [-h]` | 2020-10 |
 
 ## Requirements
 
@@ -34,6 +35,7 @@ Service, disk, and update checks for Linux hosts.
 - findmnt (util-linux) or df
 - fstrim (util-linux)
 - journalctl (systemd)
+- logrotate
 - lsblk
 - lsmod
 - one of apt-get
