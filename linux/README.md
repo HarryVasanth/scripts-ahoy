@@ -22,6 +22,7 @@ Service, disk, and update checks for Linux hosts.
 | [systemd-status.sh](systemd-status.sh) | Shows failed systemd units and the last log lines for each one. | `systemd-status [-a\|--all] [-h\|--help]` | 2020-07 |
 | [update-check.sh](update-check.sh) | Counts the package updates that are available. | `update-check [-h]` | 2020-10 |
 | [logrotate-check.sh](logrotate-check.sh) | Tests the logrotate configuration in debug mode. | `logrotate-check [CONFIG] [-h]` | 2020-10 |
+| [disk-health.sh](disk-health.sh) | Reports disk SMART health and file system usage. | `disk-health [-a\|--all] [-h]` | 2020-12 |
 
 ## Requirements
 
@@ -29,6 +30,7 @@ Service, disk, and update checks for Linux hosts.
 - Linux /proc
 - apk
 - awk
+- df
 - dmesg or journalctl
 - dnf
 - dpkg or rpm
@@ -40,6 +42,7 @@ Service, disk, and update checks for Linux hosts.
 - lsmod
 - one of apt-get
 - pacman
+- smartctl (smartmontools) for SMART data
 - sort
 - systemctl
 - systemctl (systemd)
