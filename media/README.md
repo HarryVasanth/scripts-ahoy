@@ -17,6 +17,7 @@ Resize, convert, and inspect media without a GUI.
 | [image-resize.sh](image-resize.sh) | Resize images to fit inside a box, keeping each aspect ratio. | `image-resize [-w WIDTH] [-H HEIGHT] [-o DIR] [--force] [--replace] IMAGE...` | 2018-09 |
 | [video-compress.sh](video-compress.sh) | Compress a video to an H.264/AAC MP4 file. | `video-compress [-q CRF] [-H HEIGHT] [-p PRESET] [-a KBPS] [-o DIR] [--force] [--replace] VIDEO...` | 2019-07 |
 | [audio-trim.sh](audio-trim.sh) | Trim an audio file without re-encoding it. | `audio-trim [-s START] [-d DURATION] [-o FILE] [--force] [--replace] AUDIO` | 2020-06 |
+| [audio-normalise.sh](audio-normalise.sh) | Normalise audio loudness to the EBU R128 standard with FFmpeg. | `audio-normalise [-i LUFS] [-t TP] [-o DIR] [--force] [--replace] AUDIO...` | 2020-12 |
 
 ## Requirements
 
