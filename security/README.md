@@ -15,6 +15,7 @@ Read-only checks for common hardening mistakes.
 | [hash-check.sh](hash-check.sh) | Print or verify SHA-256 checksums. | `hash-check.sh FILE... > SHA256SUMS` | 2019-02 |
 | [ssh-hardening-check.sh](ssh-hardening-check.sh) | Check an sshd config for weak or risky settings. | `ssh-hardening-check.sh [-f CONFIG] [-h]` | 2019-06 |
 | [open-ports.sh](open-ports.sh) | List listening TCP and bound UDP ports. | `open-ports.sh [-h]` | 2020-04 |
+| [secret-scan.sh](secret-scan.sh) | Scan files for likely secrets and show only their location. | `secret-scan.sh [-q] [PATH...] [-h]` | 2021-01 |
 
 ## Requirements
 
