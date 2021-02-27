@@ -16,11 +16,13 @@ Read-only checks for common hardening mistakes.
 | [ssh-hardening-check.sh](ssh-hardening-check.sh) | Check an sshd config for weak or risky settings. | `ssh-hardening-check.sh [-f CONFIG] [-h]` | 2019-06 |
 | [open-ports.sh](open-ports.sh) | List listening TCP and bound UDP ports. | `open-ports.sh [-h]` | 2020-04 |
 | [secret-scan.sh](secret-scan.sh) | Scan files for likely secrets and show only their location. | `secret-scan.sh [-q] [PATH...] [-h]` | 2021-01 |
+| [gpg-backup.sh](gpg-backup.sh) | Back up GnuPG public keys and trust settings. | `gpg-backup.sh [-o DIR] [-u KEYID] [-f] [-h]` | 2021-02 |
 
 ## Requirements
 
 - aa-status (Debian and Ubuntu)
 - find
+- gpg
 - last
 - openssl
 - sestatus or getenforce (RHEL family)
