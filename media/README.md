@@ -18,6 +18,7 @@ Resize, convert, and inspect media without a GUI.
 | [video-compress.sh](video-compress.sh) | Compress a video to an H.264/AAC MP4 file. | `video-compress [-q CRF] [-H HEIGHT] [-p PRESET] [-a KBPS] [-o DIR] [--force] [--replace] VIDEO...` | 2019-07 |
 | [audio-trim.sh](audio-trim.sh) | Trim an audio file without re-encoding it. | `audio-trim [-s START] [-d DURATION] [-o FILE] [--force] [--replace] AUDIO` | 2020-06 |
 | [audio-normalise.sh](audio-normalise.sh) | Normalise audio loudness to the EBU R128 standard with FFmpeg. | `audio-normalise [-i LUFS] [-t TP] [-o DIR] [--force] [--replace] AUDIO...` | 2020-12 |
+| [screenshot-webp.sh](screenshot-webp.sh) | Convert screenshots to WebP, lossless by default for crisp text. | `screenshot-webp [-q QUALITY] [-o DIR] [--force] [--replace] IMAGE...` | 2021-03 |
 
 ## Requirements
 
