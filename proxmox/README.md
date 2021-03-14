@@ -11,6 +11,7 @@ Proxmox VE and PBS maintenance helpers.
 | [backup-list.sh](backup-list.sh) | List backup files in a Proxmox storage. | `backup-list [-H user@host] [-s STORAGE] [--vmid VMID]` | 2019-01 |
 | [task-list.sh](task-list.sh) | Show recent tasks from the cluster task log. | `task-list [-H user@host] [-n LIMIT]` | 2020-02 |
 | [vm-start.sh](vm-start.sh) | Start a VM and wait until it reports running. | `vm-start [-H user@host] [-t SECONDS] VMID` | 2020-06 |
+| [ct-start.sh](ct-start.sh) | Start a container and wait until it reports running. | `ct-start [-H user@host] [-t SECONDS] CTID` | 2021-03 |
 
 ## Requirements
 
