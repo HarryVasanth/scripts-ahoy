@@ -21,6 +21,7 @@ Small helpers for daily shell work.
 | [wait-for-port.sh](wait-for-port.sh) | Wait until a TCP port accepts connections. | `wait-for-port.sh [-t TIMEOUT] [-i INTERVAL] [-q] HOST PORT` | 2020-01 |
 | [human-size.sh](human-size.sh) | Convert bytes to a human size, or a human size back to bytes. | `human-size.sh [-b] VALUE` | 2020-03 |
 | [ask.sh](ask.sh) | Ask a yes/no question and return the answer as an exit code. | `ask.sh [-y\|-n] PROMPT...` | 2021-02 |
+| [find-dupes.sh](find-dupes.sh) | Find duplicate files by SHA-256 in a directory tree. | `find-dupes.sh [DIR]` | 2021-04 |
 
 ## Requirements
 
