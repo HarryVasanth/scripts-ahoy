@@ -13,6 +13,7 @@ Small wrappers for AWS, Kubernetes, and Terraform.
 | [compose-pull.sh](compose-pull.sh) | Pull images for a Docker Compose project. | `compose-pull [-f FILE] [SERVICE...]` | 2018-05 |
 | [helm-list.sh](helm-list.sh) | List Helm releases across namespaces. | `helm-list [--namespace NS]` | 2020-08 |
 | [s3-sync.sh](s3-sync.sh) | Sync a local path to S3. It is a dry run unless you pass --apply. | `s3-sync [--apply] [--delete] [--exclude GLOB] [--yes] SOURCE s3://BUCKET/PREFIX` | 2020-11 |
+| [gcloud-config.sh](gcloud-config.sh) | List, show or activate gcloud configurations. | `gcloud-config [--current] [CONFIGURATION]` | 2021-04 |
 
 ## Requirements
 
