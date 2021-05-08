@@ -18,6 +18,7 @@ Clean, convert, and inspect text and data files.
 | [strip-html.sh](strip-html.sh) | Remove HTML tags and decode common entities. | `strip-html.sh [FILE...]` | 2019-06 |
 | [json-pretty.sh](json-pretty.sh) | Pretty-print, compact, or sort a JSON file. | `json-pretty.sh [-c] [-s] [FILE]` | 2019-08 |
 | [json-to-csv.sh](json-to-csv.sh) | Flatten a simple JSON array of objects into CSV. | `json-to-csv.sh [FILE]` | 2020-01 |
+| [reading-time.sh](reading-time.sh) | Estimate how long a text takes to read. | `reading-time.sh [-w WPM] [FILE...]` | 2021-05 |
 
 ## Requirements
 
