@@ -20,6 +20,7 @@ Clean, convert, and inspect text and data files.
 | [json-to-csv.sh](json-to-csv.sh) | Flatten a simple JSON array of objects into CSV. | `json-to-csv.sh [FILE]` | 2020-01 |
 | [reading-time.sh](reading-time.sh) | Estimate how long a text takes to read. | `reading-time.sh [-w WPM] [FILE...]` | 2021-05 |
 | [extract-urls.sh](extract-urls.sh) | Pull URLs out of text. | `extract-urls.sh [-a] [FILE...]` | 2021-06 |
+| [join-lines.sh](join-lines.sh) | Join all lines into one line with a separator. | `join-lines.sh [-s SEP] [FILE...]` | 2021-07 |
 
 ## Requirements
 
