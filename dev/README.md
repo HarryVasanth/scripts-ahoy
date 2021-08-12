@@ -15,6 +15,7 @@ Project and container chores.
 | [port-kill.sh](port-kill.sh) | Find the process that listens on a TCP port and stop it. | `port-kill [--dry-run] [--force] <port>` | 2019-12 |
 | [docker-prune.sh](docker-prune.sh) | Clean unused Docker data. The default is a dry run. | `docker-prune [--apply] [--all] [--volumes] [--yes] [--dry-run]` | 2020-02 |
 | [json-to-env.sh](json-to-env.sh) | Turn a JSON document into dotenv lines. | `json-to-env [-f FILE] [--prefix WORD] [--export]` | 2021-06 |
+| [env-example.sh](env-example.sh) | Create a .env.example file from .env with the values removed. | `env-example [--force] [FILE]` | 2021-08 |
 
 ## Requirements
 
