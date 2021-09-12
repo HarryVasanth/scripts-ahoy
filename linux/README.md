@@ -23,6 +23,7 @@ Service, disk, and update checks for Linux hosts.
 | [update-check.sh](update-check.sh) | Counts the package updates that are available. | `update-check [-h]` | 2020-10 |
 | [logrotate-check.sh](logrotate-check.sh) | Tests the logrotate configuration in debug mode. | `logrotate-check [CONFIG] [-h]` | 2020-10 |
 | [disk-health.sh](disk-health.sh) | Reports disk SMART health and file system usage. | `disk-health [-a\|--all] [-h]` | 2020-12 |
+| [kernel-check.sh](kernel-check.sh) | Compares the running kernel with the newest installed one. | `kernel-check [-h]` | 2021-09 |
 
 ## Requirements
 
@@ -48,6 +49,7 @@ Service, disk, and update checks for Linux hosts.
 - systemctl (systemd)
 - systemd-analyze (optional)
 - tail
+- uname
 - zypper
 
 Shell scripts with options support `--help`.
