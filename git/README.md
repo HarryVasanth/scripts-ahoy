@@ -20,6 +20,7 @@ Keep repositories tidy and easy to inspect.
 | [undo-commit.sh](undo-commit.sh) | Undo the last commit and keep its changes. | `undo-commit.sh [--unstage] [-y] [-h]` | 2019-10 |
 | [commit-activity.sh](commit-activity.sh) | Show commits over time as a bar chart. | `commit-activity.sh [-n COUNT] [-a AUTHOR] [-d] [-h]` | 2020-03 |
 | [cherry-pick-range.sh](cherry-pick-range.sh) | Cherry-pick a commit range onto a branch. | `cherry-pick-range.sh [-b BRANCH] [-n] RANGE` | 2020-11 |
+| [log-graph.sh](log-graph.sh) | Show a compact graph log with basic filters. | `log-graph.sh [-n COUNT] [-a AUTHOR] [-g PATTERN] [-b BRANCH] [-h]` | 2021-09 |
 
 ## Requirements
 
