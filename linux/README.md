@@ -24,6 +24,7 @@ Service, disk, and update checks for Linux hosts.
 | [logrotate-check.sh](logrotate-check.sh) | Tests the logrotate configuration in debug mode. | `logrotate-check [CONFIG] [-h]` | 2020-10 |
 | [disk-health.sh](disk-health.sh) | Reports disk SMART health and file system usage. | `disk-health [-a\|--all] [-h]` | 2020-12 |
 | [kernel-check.sh](kernel-check.sh) | Compares the running kernel with the newest installed one. | `kernel-check [-h]` | 2021-09 |
+| [journal-errors.sh](journal-errors.sh) | Shows recent error-level entries from the systemd journal. | `journal-errors [-s\|--since TIME] [-n LINES] [-u\|--unit UNIT] [-h]` | 2021-10 |
 
 ## Requirements
 
