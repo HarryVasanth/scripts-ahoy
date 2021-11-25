@@ -21,6 +21,7 @@ Clean, convert, and inspect text and data files.
 | [reading-time.sh](reading-time.sh) | Estimate how long a text takes to read. | `reading-time.sh [-w WPM] [FILE...]` | 2021-05 |
 | [extract-urls.sh](extract-urls.sh) | Pull URLs out of text. | `extract-urls.sh [-a] [FILE...]` | 2021-06 |
 | [join-lines.sh](join-lines.sh) | Join all lines into one line with a separator. | `join-lines.sh [-s SEP] [FILE...]` | 2021-07 |
+| [column-align.sh](column-align.sh) | Line up columns of text for a clean plain-text table. | `column-align.sh [-s SEP] [-r] [FILE]` | 2021-11 |
 
 ## Requirements
 
