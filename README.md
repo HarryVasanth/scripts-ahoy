@@ -16,7 +16,7 @@ confirmation. Every shell script is checked with ShellCheck.
 | 🔎 | [Recon](recon/README.md) | 5 | Public-source lookups for a domain you own or may test. |
 | 🛡️ | [Security](security/README.md) | 12 | Read-only checks for common hardening mistakes. |
 | 🌿 | [Git](git/README.md) | 16 | Keep repositories tidy and easy to inspect. |
-| 🐧 | [Linux](linux/README.md) | 19 | Service, disk, and update checks for Linux hosts. |
+| 🐧 | [Linux](linux/README.md) | 20 | Service, disk, and update checks for Linux hosts. |
 | 🍎 | [macOS](macos/README.md) | 9 | macOS housekeeping with sane defaults and dry runs. |
 | 🛠️ | [Dev](dev/README.md) | 10 | Project and container chores. |
 | 🎬 | [Media](media/README.md) | 14 | Resize, convert, and inspect media without a GUI. |

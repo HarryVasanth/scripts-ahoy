@@ -25,6 +25,7 @@ Service, disk, and update checks for Linux hosts.
 | [disk-health.sh](disk-health.sh) | Reports disk SMART health and file system usage. | `disk-health [-a\|--all] [-h]` | 2020-12 |
 | [kernel-check.sh](kernel-check.sh) | Compares the running kernel with the newest installed one. | `kernel-check [-h]` | 2021-09 |
 | [journal-errors.sh](journal-errors.sh) | Shows recent error-level entries from the systemd journal. | `journal-errors [-s\|--since TIME] [-n LINES] [-u\|--unit UNIT] [-h]` | 2021-10 |
+| [ntp-status.sh](ntp-status.sh) | Shows the time sync state with timedatectl, chronyc or ntpq. | `ntp-status [-h]` | 2021-12 |
 
 ## Requirements
 
@@ -32,6 +33,7 @@ Service, disk, and update checks for Linux hosts.
 - Linux /proc
 - apk
 - awk
+- chronyc or ntpq
 - df
 - dmesg or journalctl
 - dnf
@@ -50,6 +52,7 @@ Service, disk, and update checks for Linux hosts.
 - systemctl (systemd)
 - systemd-analyze (optional)
 - tail
+- timedatectl
 - uname
 - zypper
 
