@@ -23,6 +23,7 @@ Small helpers for daily shell work.
 | [ask.sh](ask.sh) | Ask a yes/no question and return the answer as an exit code. | `ask.sh [-y\|-n] PROMPT...` | 2021-02 |
 | [find-dupes.sh](find-dupes.sh) | Find duplicate files by SHA-256 in a directory tree. | `find-dupes.sh [DIR]` | 2021-04 |
 | [sudo-keepalive.sh](sudo-keepalive.sh) | Keep the sudo timestamp fresh while a command runs. | `sudo-keepalive.sh COMMAND [ARGS...]` | 2021-10 |
+| [random-password.sh](random-password.sh) | Make strong random passwords from /dev/urandom. | `random-password.sh [-l LENGTH] [-c COUNT] [--no-symbols]` | 2022-01 |
 
 ## Requirements
 
