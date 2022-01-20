@@ -20,6 +20,7 @@ Check links, DNS, ports, and TLS from the command line.
 | [http-headers.sh](http-headers.sh) | Show response headers and check common security headers. | `http-headers.sh <url>` | 2020-08 |
 | [ping-sweep.sh](ping-sweep.sh) | Ping every address in a small block and list the replies. | `ping-sweep.sh [--yes] [--dry-run] <cidr>` | 2020-09 |
 | [http-timing.sh](http-timing.sh) | Show DNS, connect, TLS, and first-byte timing for a URL. | `http-timing.sh <url>` | 2021-05 |
+| [netstat-summary.sh](netstat-summary.sh) | Summarise the listening TCP and UDP sockets on this host. | `netstat-summary.sh` | 2022-01 |
 
 ## Requirements
 
@@ -30,9 +31,12 @@ Check links, DNS, ports, and TLS from the command line.
 - dd
 - dig
 - dig (macOS: brew install bind
+- lsof
 - nc
 - nc (falls back to bash /dev/tcp)
 - openssl
+- or netstat
 - ping
+- ss
 
 Shell scripts with options support `--help`.
