@@ -18,6 +18,7 @@ Read-only checks for common hardening mistakes.
 | [secret-scan.sh](secret-scan.sh) | Scan files for likely secrets and show only their location. | `secret-scan.sh [-q] [PATH...] [-h]` | 2021-01 |
 | [gpg-backup.sh](gpg-backup.sh) | Back up GnuPG public keys and trust settings. | `gpg-backup.sh [-o DIR] [-u KEYID] [-f] [-h]` | 2021-02 |
 | [cert-pin.sh](cert-pin.sh) | Show the SHA-256 public key pin for a TLS certificate. | `cert-pin.sh [-p PORT] [-s NAME] HOST` | 2021-08 |
+| [filevault-status.sh](filevault-status.sh) | Report full-disk encryption status. | `filevault-status.sh [-h]` | 2022-02 |
 
 ## Requirements
 
