@@ -24,10 +24,12 @@ Small helpers for daily shell work.
 | [find-dupes.sh](find-dupes.sh) | Find duplicate files by SHA-256 in a directory tree. | `find-dupes.sh [DIR]` | 2021-04 |
 | [sudo-keepalive.sh](sudo-keepalive.sh) | Keep the sudo timestamp fresh while a command runs. | `sudo-keepalive.sh COMMAND [ARGS...]` | 2021-10 |
 | [random-password.sh](random-password.sh) | Make strong random passwords from /dev/urandom. | `random-password.sh [-l LENGTH] [-c COUNT] [--no-symbols]` | 2022-01 |
+| [shellcheck-all.sh](shellcheck-all.sh) | Run ShellCheck on every shell script in a tree. | `shellcheck-all.sh [-d DIR]` | 2022-02 |
 
 ## Requirements
 
 - sha256sum (Linux) or shasum (macOS)
+- shellcheck
 - sudo
 
 Shell scripts with options support `--help`.
