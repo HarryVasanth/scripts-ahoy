@@ -21,6 +21,7 @@ Check links, DNS, ports, and TLS from the command line.
 | [ping-sweep.sh](ping-sweep.sh) | Ping every address in a small block and list the replies. | `ping-sweep.sh [--yes] [--dry-run] <cidr>` | 2020-09 |
 | [http-timing.sh](http-timing.sh) | Show DNS, connect, TLS, and first-byte timing for a URL. | `http-timing.sh <url>` | 2021-05 |
 | [netstat-summary.sh](netstat-summary.sh) | Summarise the listening TCP and UDP sockets on this host. | `netstat-summary.sh` | 2022-01 |
+| [tcpdump-capture.sh](tcpdump-capture.sh) | Capture network traffic to a pcap file with a filter. | `tcpdump-capture.sh [-i <interface>] [-c <count>] <filter...>` | 2022-03 |
 
 ## Requirements
 
@@ -38,5 +39,6 @@ Check links, DNS, ports, and TLS from the command line.
 - or netstat
 - ping
 - ss
+- tcpdump
 
 Shell scripts with options support `--help`.
