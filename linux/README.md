@@ -26,6 +26,7 @@ Service, disk, and update checks for Linux hosts.
 | [kernel-check.sh](kernel-check.sh) | Compares the running kernel with the newest installed one. | `kernel-check [-h]` | 2021-09 |
 | [journal-errors.sh](journal-errors.sh) | Shows recent error-level entries from the systemd journal. | `journal-errors [-s\|--since TIME] [-n LINES] [-u\|--unit UNIT] [-h]` | 2021-10 |
 | [ntp-status.sh](ntp-status.sh) | Shows the time sync state with timedatectl, chronyc or ntpq. | `ntp-status [-h]` | 2021-12 |
+| [memory-report.sh](memory-report.sh) | Summarises RAM, swap and cache use from /proc/meminfo. | `memory-report [-h]` | 2022-04 |
 
 ## Requirements
 
