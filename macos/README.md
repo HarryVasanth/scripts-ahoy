@@ -15,6 +15,7 @@ macOS housekeeping with sane defaults and dry runs.
 | [brew-maintenance.sh](brew-maintenance.sh) | Updates Homebrew and removes old files. | `brew-maintenance [--dry-run] [-y\|--yes] [--no-upgrade] [-h]` | 2020-06 |
 | [sip-status.sh](sip-status.sh) | Shows the System Integrity Protection status. | `sip-status [-h]` | 2020-07 |
 | [gatekeeper-status.sh](gatekeeper-status.sh) | Shows the Gatekeeper status. | `gatekeeper-status [-h]` | 2020-09 |
+| [notify.sh](notify.sh) | Sends a desktop notification from the terminal. | `notify [-t TITLE] [-s SUBTITLE] [-u\|--urgent] MESSAGE [-h]` | 2022-04 |
 
 ## Requirements
 
@@ -22,6 +23,7 @@ macOS housekeeping with sane defaults and dry runs.
 - defaults
 - launchctl
 - mdutil
+- osascript
 - security
 - spctl
 - tmutil
