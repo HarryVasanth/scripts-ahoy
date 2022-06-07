@@ -22,6 +22,7 @@ Clean, convert, and inspect text and data files.
 | [extract-urls.sh](extract-urls.sh) | Pull URLs out of text. | `extract-urls.sh [-a] [FILE...]` | 2021-06 |
 | [join-lines.sh](join-lines.sh) | Join all lines into one line with a separator. | `join-lines.sh [-s SEP] [FILE...]` | 2021-07 |
 | [column-align.sh](column-align.sh) | Line up columns of text for a clean plain-text table. | `column-align.sh [-s SEP] [-r] [FILE]` | 2021-11 |
+| [extract-emails.sh](extract-emails.sh) | Pull email addresses out of text files. | `extract-emails.sh [-a] [-c] [FILE...]` | 2022-06 |
 
 ## Requirements
 
