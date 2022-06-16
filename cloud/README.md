@@ -15,6 +15,7 @@ Small wrappers for AWS, Kubernetes, and Terraform.
 | [s3-sync.sh](s3-sync.sh) | Sync a local path to S3. It is a dry run unless you pass --apply. | `s3-sync [--apply] [--delete] [--exclude GLOB] [--yes] SOURCE s3://BUCKET/PREFIX` | 2020-11 |
 | [gcloud-config.sh](gcloud-config.sh) | List, show or activate gcloud configurations. | `gcloud-config [--current] [CONFIGURATION]` | 2021-04 |
 | [terraform-plan.sh](terraform-plan.sh) | Run terraform init and plan, and save the plan file. | `terraform-plan [--out FILE] [DIR]` | 2022-05 |
+| [k8s-events.sh](k8s-events.sh) | Show recent warning events in the cluster. | `k8s-events [--tail N] [--namespace NS]` | 2022-06 |
 
 ## Requirements
 
