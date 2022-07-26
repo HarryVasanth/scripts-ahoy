@@ -26,6 +26,7 @@ Small helpers for daily shell work.
 | [random-password.sh](random-password.sh) | Make strong random passwords from /dev/urandom. | `random-password.sh [-l LENGTH] [-c COUNT] [--no-symbols]` | 2022-01 |
 | [shellcheck-all.sh](shellcheck-all.sh) | Run ShellCheck on every shell script in a tree. | `shellcheck-all.sh [-d DIR]` | 2022-02 |
 | [serve-http.sh](serve-http.sh) | Serve a directory over HTTP with the Python standard library. | `serve-http.sh [-p PORT] [-b ADDRESS] [DIR]` | 2022-03 |
+| [clean-temp.sh](clean-temp.sh) | Delete old items from a temporary directory. | `clean-temp.sh [-d DAYS] [--dry-run] [--yes] [DIR]` | 2022-07 |
 
 ## Requirements
 

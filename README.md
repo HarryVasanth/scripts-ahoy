@@ -10,7 +10,7 @@ confirmation. Every shell script is checked with ShellCheck.
 
 | | Category | Scripts | What it covers |
 |---|---|---:|---|
-| 🐚 | [Bash](bash/README.md) | 20 | Small helpers for daily shell work. |
+| 🐚 | [Bash](bash/README.md) | 21 | Small helpers for daily shell work. |
 | 📝 | [Text](text/README.md) | 17 | Clean, convert, and inspect text and data files. |
 | 🌐 | [Network](network/README.md) | 16 | Check links, DNS, ports, and TLS from the command line. |
 | 🔎 | [Recon](recon/README.md) | 5 | Public-source lookups for a domain you own or may test. |
