@@ -15,6 +15,7 @@ Proxmox VE and PBS maintenance helpers.
 | [vm-snapshot.sh](vm-snapshot.sh) | Take, list or delete snapshots of one VM. | `vm-snapshot [-l] [-d NAME] [--dry-run] [-y] [-H user@host] VMID [NAME]` | 2021-11 |
 | [pve7-post-install.sh](pve/pve7-post-install.sh) | Set up a fresh Proxmox VE 7 host: free repos, no nag screen, useful tools. | `sudo ./pve7-post-install.sh` | 2022-06 |
 | [pbs2-post-install.sh](pbs/pbs2-post-install.sh) | Set up a fresh Proxmox Backup Server 2 host: free repos and no nag screen. | `sudo ./pbs2-post-install.sh` | 2022-06 |
+| [vm-config.sh](vm-config.sh) | Show a short configuration summary for one VM. | `vm-config [-H user@host] VMID` | 2022-07 |
 
 ## Requirements
 
