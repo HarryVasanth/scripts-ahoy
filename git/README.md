@@ -22,6 +22,7 @@ Keep repositories tidy and easy to inspect.
 | [cherry-pick-range.sh](cherry-pick-range.sh) | Cherry-pick a commit range onto a branch. | `cherry-pick-range.sh [-b BRANCH] [-n] RANGE` | 2020-11 |
 | [log-graph.sh](log-graph.sh) | Show a compact graph log with basic filters. | `log-graph.sh [-n COUNT] [-a AUTHOR] [-g PATTERN] [-b BRANCH] [-h]` | 2021-09 |
 | [sync-fork.sh](sync-fork.sh) | Update a fork from its upstream remote and push. | `sync-fork.sh [-u UPSTREAM] [-b BRANCH] [--rebase] [-y] [-h]` | 2021-12 |
+| [large-files.sh](large-files.sh) | Find the largest files in the git history. | `large-files.sh [-n COUNT] [-h]` | 2022-08 |
 
 ## Requirements
 
