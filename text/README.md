@@ -23,9 +23,11 @@ Clean, convert, and inspect text and data files.
 | [join-lines.sh](join-lines.sh) | Join all lines into one line with a separator. | `join-lines.sh [-s SEP] [FILE...]` | 2021-07 |
 | [column-align.sh](column-align.sh) | Line up columns of text for a clean plain-text table. | `column-align.sh [-s SEP] [-r] [FILE]` | 2021-11 |
 | [extract-emails.sh](extract-emails.sh) | Pull email addresses out of text files. | `extract-emails.sh [-a] [-c] [FILE...]` | 2022-06 |
+| [diff-words.sh](diff-words.sh) | Show a word-level diff of two files. | `diff-words.sh FILE1 FILE2` | 2022-08 |
 
 ## Requirements
 
+- git
 - jq
 
 Shell scripts with options support `--help`.
