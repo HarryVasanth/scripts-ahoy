@@ -27,12 +27,15 @@ Service, disk, and update checks for Linux hosts.
 | [journal-errors.sh](journal-errors.sh) | Shows recent error-level entries from the systemd journal. | `journal-errors [-s\|--since TIME] [-n LINES] [-u\|--unit UNIT] [-h]` | 2021-10 |
 | [ntp-status.sh](ntp-status.sh) | Shows the time sync state with timedatectl, chronyc or ntpq. | `ntp-status [-h]` | 2021-12 |
 | [memory-report.sh](memory-report.sh) | Summarises RAM, swap and cache use from /proc/meminfo. | `memory-report [-h]` | 2022-04 |
+| [apt-cleanup.sh](apt-cleanup.sh) | Removes unused packages and cached files from an apt system. | `apt-cleanup [--dry-run] [-y\|--yes] [-h]` | 2022-09 |
 
 ## Requirements
 
 - /etc/passwd
 - Linux /proc
+- Ubuntu)
 - apk
+- apt-get (Debian
 - awk
 - chronyc or ntpq
 - df
