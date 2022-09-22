@@ -20,15 +20,18 @@ Read-only checks for common hardening mistakes.
 | [cert-pin.sh](cert-pin.sh) | Show the SHA-256 public key pin for a TLS certificate. | `cert-pin.sh [-p PORT] [-s NAME] HOST` | 2021-08 |
 | [filevault-status.sh](filevault-status.sh) | Report full-disk encryption status. | `filevault-status.sh [-h]` | 2022-02 |
 | [firewall-status.sh](firewall-status.sh) | Show the state of the local firewall. | `firewall-status.sh [-h]` | 2022-05 |
+| [ssh-keys-audit.sh](ssh-keys-audit.sh) | Audit SSH authorised keys files for permissions and options. | `ssh-keys-audit.sh [-h]` | 2022-09 |
 
 ## Requirements
 
 - aa-status (Debian and Ubuntu)
+- awk
 - find
 - gpg
 - last
 - openssl
 - sestatus or getenforce (RHEL family)
 - shasum (macOS) or sha256sum (Linux)
+- stat
 
 Shell scripts with options support `--help`.
