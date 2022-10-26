@@ -21,6 +21,7 @@ Read-only checks for common hardening mistakes.
 | [filevault-status.sh](filevault-status.sh) | Report full-disk encryption status. | `filevault-status.sh [-h]` | 2022-02 |
 | [firewall-status.sh](firewall-status.sh) | Show the state of the local firewall. | `firewall-status.sh [-h]` | 2022-05 |
 | [ssh-keys-audit.sh](ssh-keys-audit.sh) | Audit SSH authorised keys files for permissions and options. | `ssh-keys-audit.sh [-h]` | 2022-09 |
+| [failed-logins.sh](failed-logins.sh) | Summarise failed login attempts from system logs. | `failed-logins.sh [-f LOGFILE] [-n COUNT] [-h]` | 2022-10 |
 
 ## Requirements
 
