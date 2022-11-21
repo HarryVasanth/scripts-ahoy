@@ -24,6 +24,7 @@ Clean, convert, and inspect text and data files.
 | [column-align.sh](column-align.sh) | Line up columns of text for a clean plain-text table. | `column-align.sh [-s SEP] [-r] [FILE]` | 2021-11 |
 | [extract-emails.sh](extract-emails.sh) | Pull email addresses out of text files. | `extract-emails.sh [-a] [-c] [FILE...]` | 2022-06 |
 | [diff-words.sh](diff-words.sh) | Show a word-level diff of two files. | `diff-words.sh FILE1 FILE2` | 2022-08 |
+| [dedupe-lines.sh](dedupe-lines.sh) | Remove duplicate lines from text while keeping the first order. | `dedupe-lines.sh [-c] [-d] [FILE]` | 2022-11 |
 
 ## Requirements
 
