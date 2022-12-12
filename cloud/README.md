@@ -16,6 +16,7 @@ Small wrappers for AWS, Kubernetes, and Terraform.
 | [gcloud-config.sh](gcloud-config.sh) | List, show or activate gcloud configurations. | `gcloud-config [--current] [CONFIGURATION]` | 2021-04 |
 | [terraform-plan.sh](terraform-plan.sh) | Run terraform init and plan, and save the plan file. | `terraform-plan [--out FILE] [DIR]` | 2022-05 |
 | [k8s-events.sh](k8s-events.sh) | Show recent warning events in the cluster. | `k8s-events [--tail N] [--namespace NS]` | 2022-06 |
+| [k8s-logs.sh](k8s-logs.sh) | Follow logs for one pod or for pods that match a label. | `k8s-logs [-n NS] [-p POD \| -l SELECTOR] [-c CONTAINER] [--since DUR] [--tail N] [--previous]` | 2022-12 |
 
 ## Requirements
 
