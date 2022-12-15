@@ -28,6 +28,7 @@ Small helpers for daily shell work.
 | [serve-http.sh](serve-http.sh) | Serve a directory over HTTP with the Python standard library. | `serve-http.sh [-p PORT] [-b ADDRESS] [DIR]` | 2022-03 |
 | [clean-temp.sh](clean-temp.sh) | Delete old items from a temporary directory. | `clean-temp.sh [-d DAYS] [--dry-run] [--yes] [DIR]` | 2022-07 |
 | [shell-info.sh](shell-info.sh) | Show the current shell, its version, its options, and a PATH summary. | `shell-info.sh` | 2022-10 |
+| [date-math.sh](date-math.sh) | Add or subtract days from a date. | `date-math.sh [-b YYYY-MM-DD] OFFSET` | 2022-12 |
 
 ## Requirements
 
