@@ -28,6 +28,7 @@ Service, disk, and update checks for Linux hosts.
 | [ntp-status.sh](ntp-status.sh) | Shows the time sync state with timedatectl, chronyc or ntpq. | `ntp-status [-h]` | 2021-12 |
 | [memory-report.sh](memory-report.sh) | Summarises RAM, swap and cache use from /proc/meminfo. | `memory-report [-h]` | 2022-04 |
 | [apt-cleanup.sh](apt-cleanup.sh) | Removes unused packages and cached files from an apt system. | `apt-cleanup [--dry-run] [-y\|--yes] [-h]` | 2022-09 |
+| [zfs-scrub.sh](zfs-scrub.sh) | Shows or controls ZFS pool scrubs. | `zfs-scrub [--start\|--stop\|--status] [POOL...] [-h]` | 2023-01 |
 
 ## Requirements
 
@@ -58,6 +59,7 @@ Service, disk, and update checks for Linux hosts.
 - tail
 - timedatectl
 - uname
+- zpool (zfsutils-linux)
 - zypper
 
 Shell scripts with options support `--help`.
