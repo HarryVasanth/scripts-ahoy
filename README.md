@@ -18,7 +18,6 @@ Local update multiple repositories from list. List example is [here](bash/list_e
 
 ```bash
 bash git/pull.sh bash/list_example.txt
-
 ```
 
 ### [Push script](git/push.sh)
@@ -31,7 +30,6 @@ Script for pushing git repository to all it's remotes. If it's called without ar
 bash git/push.sh bash/list_example.txt
 # or
 bash git/push.sh
-
 ```
 
 ### [Change author](git/change_author.sh)
