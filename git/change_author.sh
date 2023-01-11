@@ -7,9 +7,9 @@
 # $2 - correct name
 # $3 - correct email
 
-if (( $# < 3 )); then
-    echo "There must be 3 arguments - old (wrong) email, new (correct) name and new (correct) email"
-    exit
+if (($# < 3)); then
+  echo "There must be 3 arguments - old (wrong) email, new (correct) name and new (correct) email"
+  exit
 fi
 
 OLD_EMAIL="$1"
