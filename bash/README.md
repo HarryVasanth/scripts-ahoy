@@ -30,6 +30,9 @@ Small helpers for daily shell work.
 | [shell-info.sh](shell-info.sh) | Show the current shell, its version, its options, and a PATH summary. | `shell-info.sh` | 2022-10 |
 | [date-math.sh](date-math.sh) | Add or subtract days from a date. | `date-math.sh [-b YYYY-MM-DD] OFFSET` | 2022-12 |
 | [parse_filelist.sh](parse_filelist.sh) | Call a command for each directory listed in a text file. | `./parse_filelist.sh FILE COMMAND TEXT` | 2023-01 |
+| [ssh_tar.sh](ssh_tar.sh) | Copy a folder over SSH with tar. This is faster than a plain recursive copy for many small files. | `./ssh_tar.sh user@host /path/to/folder` | 2023-01 |
+| [uncomment.sed](uncomment.sed) | Remove the leading comment marker from a block of shell or config lines. | `./uncomment.sed FILE` | 2023-01 |
+| [wc.sh](wc.sh) | Count words and lines in files of one or more types. | `./wc.sh DIR EXT [EXT...]` | 2023-01 |
 
 ## Requirements
 
