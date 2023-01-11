@@ -23,6 +23,9 @@ Keep repositories tidy and easy to inspect.
 | [log-graph.sh](log-graph.sh) | Show a compact graph log with basic filters. | `log-graph.sh [-n COUNT] [-a AUTHOR] [-g PATTERN] [-b BRANCH] [-h]` | 2021-09 |
 | [sync-fork.sh](sync-fork.sh) | Update a fork from its upstream remote and push. | `sync-fork.sh [-u UPSTREAM] [-b BRANCH] [--rebase] [-y] [-h]` | 2021-12 |
 | [large-files.sh](large-files.sh) | Find the largest files in the git history. | `large-files.sh [-n COUNT] [-h]` | 2022-08 |
+| [change_author.sh](change_author.sh) | Rewrite the author name and email in every commit, branch, and tag. | `./change_author.sh OLD_EMAIL NEW_NAME NEW_EMAIL` | 2023-01 |
+| [pull.sh](pull.sh) | Pull every repository listed in a text file. | `./pull.sh FILE` | 2023-01 |
+| [push.sh](push.sh) | Push the current repository, or a list of repositories, to every remote. | `./push.sh [FILE]` | 2023-01 |
 
 ## Requirements
 
