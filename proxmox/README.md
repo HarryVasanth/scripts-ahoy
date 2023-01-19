@@ -17,13 +17,17 @@ Proxmox VE and PBS maintenance helpers.
 | [pbs2-post-install.sh](pbs/pbs2-post-install.sh) | Set up a fresh Proxmox Backup Server 2 host: free repos and no nag screen. | `sudo ./pbs2-post-install.sh` | 2022-06 |
 | [vm-config.sh](vm-config.sh) | Show a short configuration summary for one VM. | `vm-config [-H user@host] VMID` | 2022-07 |
 | [node-status.sh](node-status.sh) | Show CPU, RAM and storage status for one node. | `node-status [-H user@host] [--node NODE]` | 2022-11 |
+| [clean-old-kernels.sh](all/clean-old-kernels.sh) | Remove old Proxmox kernels and keep the running one. | `./clean-old-kernels.sh [--dry-run] [--force]` | 2023-01 |
 
 ## Requirements
 
+- apt-get
+- dpkg-query
 - jq (Proxmox VE)
 - pct (Proxmox VE)
 - pvesh
 - pvesm (Proxmox VE)
 - qm (Proxmox VE)
+- update-grub (Proxmox VE only)
 
 Shell scripts with options support `--help`.
