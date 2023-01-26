@@ -16,6 +16,7 @@ Project and container chores.
 | [docker-prune.sh](docker-prune.sh) | Clean unused Docker data. The default is a dry run. | `docker-prune [--apply] [--all] [--volumes] [--yes] [--dry-run]` | 2020-02 |
 | [json-to-env.sh](json-to-env.sh) | Turn a JSON document into dotenv lines. | `json-to-env [-f FILE] [--prefix WORD] [--export]` | 2021-06 |
 | [env-example.sh](env-example.sh) | Create a .env.example file from .env with the values removed. | `env-example [--force] [FILE]` | 2021-08 |
+| [pre-commit-run.sh](pre-commit-run.sh) | Run the pre-commit hooks on all files. | `pre-commit-run [ARGS...]` | 2023-01 |
 
 ## Requirements
 
@@ -27,6 +28,7 @@ Project and container chores.
 - jq
 - lsof (or ss on Linux)
 - plus the linters you use (eslint
+- pre-commit
 - shellcheck)
 
 Shell scripts with options support `--help`.
