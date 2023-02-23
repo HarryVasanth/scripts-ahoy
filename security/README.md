@@ -22,6 +22,7 @@ Read-only checks for common hardening mistakes.
 | [firewall-status.sh](firewall-status.sh) | Show the state of the local firewall. | `firewall-status.sh [-h]` | 2022-05 |
 | [ssh-keys-audit.sh](ssh-keys-audit.sh) | Audit SSH authorised keys files for permissions and options. | `ssh-keys-audit.sh [-h]` | 2022-09 |
 | [failed-logins.sh](failed-logins.sh) | Summarise failed login attempts from system logs. | `failed-logins.sh [-f LOGFILE] [-n COUNT] [-h]` | 2022-10 |
+| [umask-check.sh](umask-check.sh) | Show the current and configured umask. | `umask-check.sh [-h]` | 2023-02 |
 
 ## Requirements
 
