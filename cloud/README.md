@@ -17,6 +17,7 @@ Small wrappers for AWS, Kubernetes, and Terraform.
 | [terraform-plan.sh](terraform-plan.sh) | Run terraform init and plan, and save the plan file. | `terraform-plan [--out FILE] [DIR]` | 2022-05 |
 | [k8s-events.sh](k8s-events.sh) | Show recent warning events in the cluster. | `k8s-events [--tail N] [--namespace NS]` | 2022-06 |
 | [k8s-logs.sh](k8s-logs.sh) | Follow logs for one pod or for pods that match a label. | `k8s-logs [-n NS] [-p POD \| -l SELECTOR] [-c CONTAINER] [--since DUR] [--tail N] [--previous]` | 2022-12 |
+| [terraform-fmt.sh](terraform-fmt.sh) | Check or apply terraform fmt across a directory tree. | `terraform-fmt [--write] [--diff] [directory]` | 2023-03 |
 
 ## Requirements
 
