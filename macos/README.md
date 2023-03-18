@@ -16,6 +16,7 @@ macOS housekeeping with sane defaults and dry runs.
 | [sip-status.sh](sip-status.sh) | Shows the System Integrity Protection status. | `sip-status [-h]` | 2020-07 |
 | [gatekeeper-status.sh](gatekeeper-status.sh) | Shows the Gatekeeper status. | `gatekeeper-status [-h]` | 2020-09 |
 | [notify.sh](notify.sh) | Sends a desktop notification from the terminal. | `notify [-t TITLE] [-s SUBTITLE] [-u\|--urgent] MESSAGE [-h]` | 2022-04 |
+| [screen-resolution.sh](screen-resolution.sh) | Lists the displays and their current resolutions. | `screen-resolution [-h]` | 2023-03 |
 
 ## Requirements
 
@@ -26,6 +27,7 @@ macOS housekeeping with sane defaults and dry runs.
 - osascript
 - security
 - spctl
+- system_profiler
 - tmutil
 
 Shell scripts with options support `--help`.
