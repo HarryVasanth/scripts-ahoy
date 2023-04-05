@@ -25,6 +25,7 @@ Clean, convert, and inspect text and data files.
 | [extract-emails.sh](extract-emails.sh) | Pull email addresses out of text files. | `extract-emails.sh [-a] [-c] [FILE...]` | 2022-06 |
 | [diff-words.sh](diff-words.sh) | Show a word-level diff of two files. | `diff-words.sh FILE1 FILE2` | 2022-08 |
 | [dedupe-lines.sh](dedupe-lines.sh) | Remove duplicate lines from text while keeping the first order. | `dedupe-lines.sh [-c] [-d] [FILE]` | 2022-11 |
+| [base64-file.sh](base64-file.sh) | Encode or decode a file with base64. | `base64-file.sh [-d] [-o OUT] [FILE]` | 2023-04 |
 
 ## Requirements
 
