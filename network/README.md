@@ -22,6 +22,7 @@ Check links, DNS, ports, and TLS from the command line.
 | [http-timing.sh](http-timing.sh) | Show DNS, connect, TLS, and first-byte timing for a URL. | `http-timing.sh <url>` | 2021-05 |
 | [netstat-summary.sh](netstat-summary.sh) | Summarise the listening TCP and UDP sockets on this host. | `netstat-summary.sh` | 2022-01 |
 | [tcpdump-capture.sh](tcpdump-capture.sh) | Capture network traffic to a pcap file with a filter. | `tcpdump-capture.sh [-i <interface>] [-c <count>] <filter...>` | 2022-03 |
+| [traceroute-summary.sh](traceroute-summary.sh) | Summarise the route to a host: hop count, loss and last reply. | `traceroute-summary.sh <host> [max-hops]` | 2023-04 |
 
 ## Requirements
 
@@ -40,5 +41,6 @@ Check links, DNS, ports, and TLS from the command line.
 - ping
 - ss
 - tcpdump
+- traceroute
 
 Shell scripts with options support `--help`.
