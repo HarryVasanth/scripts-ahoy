@@ -20,6 +20,7 @@ Resize, convert, and inspect media without a GUI.
 | [audio-normalise.sh](audio-normalise.sh) | Normalise audio loudness to the EBU R128 standard with FFmpeg. | `audio-normalise [-i LUFS] [-t TP] [-o DIR] [--force] [--replace] AUDIO...` | 2020-12 |
 | [screenshot-webp.sh](screenshot-webp.sh) | Convert screenshots to WebP, lossless by default for crisp text. | `screenshot-webp [-q QUALITY] [-o DIR] [--force] [--replace] IMAGE...` | 2021-03 |
 | [ocr-image.sh](ocr-image.sh) | Read text from images with Tesseract. | `ocr-image [-l LANG] [-o FILE] [--force] IMAGE...` | 2021-07 |
+| [image-crop.sh](image-crop.sh) | Crop an image to a geometry, keeping the rest of the image. | `image-crop [-g GEOMETRY] [-o DIR] [--force] [--replace] IMAGE...` | 2023-05 |
 
 ## Requirements
 
