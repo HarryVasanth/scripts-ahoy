@@ -29,6 +29,7 @@ Service, disk, and update checks for Linux hosts.
 | [memory-report.sh](memory-report.sh) | Summarises RAM, swap and cache use from /proc/meminfo. | `memory-report [-h]` | 2022-04 |
 | [apt-cleanup.sh](apt-cleanup.sh) | Removes unused packages and cached files from an apt system. | `apt-cleanup [--dry-run] [-y\|--yes] [-h]` | 2022-09 |
 | [zfs-scrub.sh](zfs-scrub.sh) | Shows or controls ZFS pool scrubs. | `zfs-scrub [--start\|--stop\|--status] [POOL...] [-h]` | 2023-01 |
+| [network-info.sh](network-info.sh) | Shows interfaces, addresses, routes and DNS servers. | `network-info [INTERFACE] [-h]` | 2023-05 |
 
 ## Requirements
 
@@ -45,6 +46,7 @@ Service, disk, and update checks for Linux hosts.
 - dpkg or rpm
 - findmnt (util-linux) or df
 - fstrim (util-linux)
+- ip or ifconfig
 - journalctl (systemd)
 - logrotate
 - lsblk
