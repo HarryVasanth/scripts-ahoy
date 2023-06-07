@@ -12,6 +12,7 @@ Public-source lookups for a domain you own or may test.
 | [http-cookies.sh](http-cookies.sh) | Inspect the Set-Cookie flags on a URL. | `http-cookies.sh <url>` | 2019-12 |
 | [axfr-check.sh](axfr-check.sh) | Test whether a name server allows a zone transfer. | `axfr-check.sh <domain>` | 2021-01 |
 | [cert-info.sh](cert-info.sh) | Show the details of the TLS certificate that a server presents. | `cert-info.sh <host> [port]` | 2023-02 |
+| [security-headers.sh](security-headers.sh) | Check common HTTP security headers on a URL. | `security-headers.sh <url>` | 2023-06 |
 
 ## Requirements
 
