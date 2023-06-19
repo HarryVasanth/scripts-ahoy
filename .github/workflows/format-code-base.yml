@@ -1,44 +1,43 @@
-name: Format Code Base
+name: 💅 Format Codebase
 
 on:
   push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
+    branches:
+      - main
+
+permissions: write-all
 
 jobs:
-  format-code-base:
+  format-codebase:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🐧 Checkout
-        uses: actions/checkout@v2
+      - name: 📀 Checkout Repository
+        uses: actions/checkout@v3
         with:
-          ref: ${{ github.head_ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 💄 Run Prettier
-        uses: creyD/prettier_action@v4.2
+        uses: creyD/prettier_action@v4.3
         with:
           prettier_options: --write **/*.{js,md,yml,sh,html,css}
           prettier_plugins: "prettier-plugin-sh"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 💋 Check files using the Black Formatter
-        uses: rickstaa/action-black@v1
-        id: action_black
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4
         with:
-          black_args: "."
+          python-version: "3.10"
 
-      - name: 🪢 Create Pull Request
-        if: steps.action_black.outputs.is_formatted == 'true'
-        uses: peter-evans/create-pull-request@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          title: "Format Python code with psf/black push"
-          commit-message: "fix(code): :art: Format Python code with psf/black"
-          body: |
-            There appear to be some python formatting errors in ${{ github.sha }}. This pull request
-            uses the [psf/black](https://github.com/psf/black) formatter to fix these issues.
-          base: ${{ github.head_ref }} # Creates pull request onto pull request or commit branch
-          branch: actions-black-formatter
+      - name: 🖤 Format code with black
+        run: |
+          git config --global user.email "hello@harryvasanth.com"
+          git config --global user.name "HarryVasanth"
+          pip install black
+          black . --verbose
+          git add .
+
+      - name: 📎 Push changes
+        run: |
+          git diff-index --quiet HEAD || git commit -m "chore(codebase): format with black" && git push || echo "No changes" && exit
