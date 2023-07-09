@@ -21,6 +21,7 @@ Resize, convert, and inspect media without a GUI.
 | [screenshot-webp.sh](screenshot-webp.sh) | Convert screenshots to WebP, lossless by default for crisp text. | `screenshot-webp [-q QUALITY] [-o DIR] [--force] [--replace] IMAGE...` | 2021-03 |
 | [ocr-image.sh](ocr-image.sh) | Read text from images with Tesseract. | `ocr-image [-l LANG] [-o FILE] [--force] IMAGE...` | 2021-07 |
 | [image-crop.sh](image-crop.sh) | Crop an image to a geometry, keeping the rest of the image. | `image-crop [-g GEOMETRY] [-o DIR] [--force] [--replace] IMAGE...` | 2023-05 |
+| [image-optimise.sh](image-optimise.sh) | Make images smaller with ImageMagick, with little visible loss. | `image-optimise [-q QUALITY] [-o DIR] [--force] [--replace] IMAGE...` | 2023-07 |
 
 ## Requirements
 
