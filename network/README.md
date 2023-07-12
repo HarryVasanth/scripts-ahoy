@@ -23,6 +23,7 @@ Check links, DNS, ports, and TLS from the command line.
 | [netstat-summary.sh](netstat-summary.sh) | Summarise the listening TCP and UDP sockets on this host. | `netstat-summary.sh` | 2022-01 |
 | [tcpdump-capture.sh](tcpdump-capture.sh) | Capture network traffic to a pcap file with a filter. | `tcpdump-capture.sh [-i <interface>] [-c <count>] <filter...>` | 2022-03 |
 | [traceroute-summary.sh](traceroute-summary.sh) | Summarise the route to a host: hop count, loss and last reply. | `traceroute-summary.sh <host> [max-hops]` | 2023-04 |
+| [wol.sh](wol.sh) | Send a Wake-on-LAN magic packet to a MAC address. | `wol.sh [--dry-run] <mac> [broadcast] [port]` | 2023-07 |
 
 ## Requirements
 
