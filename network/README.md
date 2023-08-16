@@ -24,6 +24,7 @@ Check links, DNS, ports, and TLS from the command line.
 | [tcpdump-capture.sh](tcpdump-capture.sh) | Capture network traffic to a pcap file with a filter. | `tcpdump-capture.sh [-i <interface>] [-c <count>] <filter...>` | 2022-03 |
 | [traceroute-summary.sh](traceroute-summary.sh) | Summarise the route to a host: hop count, loss and last reply. | `traceroute-summary.sh <host> [max-hops]` | 2023-04 |
 | [wol.sh](wol.sh) | Send a Wake-on-LAN magic packet to a MAC address. | `wol.sh [--dry-run] <mac> [broadcast] [port]` | 2023-07 |
+| [ping-stats.sh](ping-stats.sh) | Show packet loss and the min, avg, and max latency to a host. | `ping-stats.sh [count] <host>` | 2023-08 |
 
 ## Requirements
 
