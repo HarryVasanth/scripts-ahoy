@@ -17,6 +17,7 @@ Project and container chores.
 | [json-to-env.sh](json-to-env.sh) | Turn a JSON document into dotenv lines. | `json-to-env [-f FILE] [--prefix WORD] [--export]` | 2021-06 |
 | [env-example.sh](env-example.sh) | Create a .env.example file from .env with the values removed. | `env-example [--force] [FILE]` | 2021-08 |
 | [pre-commit-run.sh](pre-commit-run.sh) | Run the pre-commit hooks on all files. | `pre-commit-run [ARGS...]` | 2023-01 |
+| [node-version-check.sh](node-version-check.sh) | Check that the local Node.js version matches the project requirement. | `node-version-check [--min VERSION] [directory]` | 2023-09 |
 
 ## Requirements
 
@@ -26,7 +27,9 @@ Project and container chores.
 - git
 - gofmt
 - jq
+- jq (jq only reads package.json engines)
 - lsof (or ss on Linux)
+- node
 - plus the linters you use (eslint
 - pre-commit
 - shellcheck)
