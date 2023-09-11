@@ -33,6 +33,7 @@ Small helpers for daily shell work.
 | [ssh_tar.sh](ssh_tar.sh) | Copy a folder over SSH with tar. This is faster than a plain recursive copy for many small files. | `./ssh_tar.sh user@host /path/to/folder` | 2023-01 |
 | [uncomment.sed](uncomment.sed) | Remove the leading comment marker from a block of shell or config lines. | `./uncomment.sed FILE` | 2023-01 |
 | [wc.sh](wc.sh) | Count words and lines in files of one or more types. | `./wc.sh DIR EXT [EXT...]` | 2023-01 |
+| [file-age.sh](file-age.sh) | List the oldest and newest files by modification time. | `file-age.sh [-n COUNT] [DIR]` | 2023-09 |
 
 ## Requirements
 
