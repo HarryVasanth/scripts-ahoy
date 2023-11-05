@@ -18,6 +18,7 @@ Project and container chores.
 | [env-example.sh](env-example.sh) | Create a .env.example file from .env with the values removed. | `env-example [--force] [FILE]` | 2021-08 |
 | [pre-commit-run.sh](pre-commit-run.sh) | Run the pre-commit hooks on all files. | `pre-commit-run [ARGS...]` | 2023-01 |
 | [node-version-check.sh](node-version-check.sh) | Check that the local Node.js version matches the project requirement. | `node-version-check [--min VERSION] [directory]` | 2023-09 |
+| [todo-scan.sh](todo-scan.sh) | Find TODO, FIXME, HACK and XXX notes in a tree of source files. | `todo-scan [--count] [--tag TAG] [path]` | 2023-11 |
 
 ## Requirements
 
