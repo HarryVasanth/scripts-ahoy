@@ -19,6 +19,7 @@ Small wrappers for AWS, Kubernetes, and Terraform.
 | [k8s-logs.sh](k8s-logs.sh) | Follow logs for one pod or for pods that match a label. | `k8s-logs [-n NS] [-p POD \| -l SELECTOR] [-c CONTAINER] [--since DUR] [--tail N] [--previous]` | 2022-12 |
 | [terraform-fmt.sh](terraform-fmt.sh) | Check or apply terraform fmt across a directory tree. | `terraform-fmt [--write] [--diff] [directory]` | 2023-03 |
 | [docker-usage.sh](docker-usage.sh) | Show Docker disk usage, with an optional clean-up. | `docker-usage [--prune] [--all] [--volumes] [--dry-run] [--yes]` | 2023-06 |
+| [gcp-bucket-list.sh](gcp-bucket-list.sh) | List GCS buckets with their creation dates. | `gcp-bucket-list` | 2023-12 |
 
 ## Requirements
 
@@ -26,6 +27,7 @@ Small wrappers for AWS, Kubernetes, and Terraform.
 - docker
 - docker-compose
 - gcloud
+- gsutil (Google Cloud SDK)
 - helm 3
 - kubectl
 - terraform
