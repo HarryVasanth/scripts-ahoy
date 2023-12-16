@@ -30,6 +30,7 @@ Service, disk, and update checks for Linux hosts.
 | [apt-cleanup.sh](apt-cleanup.sh) | Removes unused packages and cached files from an apt system. | `apt-cleanup [--dry-run] [-y\|--yes] [-h]` | 2022-09 |
 | [zfs-scrub.sh](zfs-scrub.sh) | Shows or controls ZFS pool scrubs. | `zfs-scrub [--start\|--stop\|--status] [POOL...] [-h]` | 2023-01 |
 | [network-info.sh](network-info.sh) | Shows interfaces, addresses, routes and DNS servers. | `network-info [INTERFACE] [-h]` | 2023-05 |
+| [swap-check.sh](swap-check.sh) | Reports swap usage and swappiness, and warns about risky values. | `swap-check [-w\|--warn PCT] [-h]` | 2023-12 |
 
 ## Requirements
 
