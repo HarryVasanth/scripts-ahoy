@@ -18,6 +18,7 @@ Proxmox VE and PBS maintenance helpers.
 | [vm-config.sh](vm-config.sh) | Show a short configuration summary for one VM. | `vm-config [-H user@host] VMID` | 2022-07 |
 | [node-status.sh](node-status.sh) | Show CPU, RAM and storage status for one node. | `node-status [-H user@host] [--node NODE]` | 2022-11 |
 | [clean-old-kernels.sh](all/clean-old-kernels.sh) | Remove old Proxmox kernels and keep the running one. | `./clean-old-kernels.sh [--dry-run] [--force]` | 2023-01 |
+| [cluster-health.sh](cluster-health.sh) | Report the health of a Proxmox cluster: quorum, nodes and services. | `cluster-health [-H user@host]` | 2024-01 |
 
 ## Requirements
 
@@ -25,6 +26,7 @@ Proxmox VE and PBS maintenance helpers.
 - dpkg-query
 - jq (Proxmox VE)
 - pct (Proxmox VE)
+- pvecm
 - pvesh
 - pvesm (Proxmox VE)
 - qm (Proxmox VE)
