@@ -20,6 +20,7 @@ Small wrappers for AWS, Kubernetes, and Terraform.
 | [terraform-fmt.sh](terraform-fmt.sh) | Check or apply terraform fmt across a directory tree. | `terraform-fmt [--write] [--diff] [directory]` | 2023-03 |
 | [docker-usage.sh](docker-usage.sh) | Show Docker disk usage, with an optional clean-up. | `docker-usage [--prune] [--all] [--volumes] [--dry-run] [--yes]` | 2023-06 |
 | [gcp-bucket-list.sh](gcp-bucket-list.sh) | List GCS buckets with their creation dates. | `gcp-bucket-list` | 2023-12 |
+| [k8s-nodes.sh](k8s-nodes.sh) | Show node status and capacity. | `k8s-nodes` | 2024-01 |
 
 ## Requirements
 
