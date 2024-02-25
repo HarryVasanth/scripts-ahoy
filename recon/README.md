@@ -15,11 +15,13 @@ Public-source lookups for a domain you own or may test.
 | [security-headers.sh](security-headers.sh) | Check common HTTP security headers on a URL. | `security-headers.sh <url>` | 2023-06 |
 | [email-harvest.sh](email-harvest.sh) | Collect email addresses from public web pages. | `email-harvest.sh <url> [url...]` | 2023-08 |
 | [js-endpoints.sh](js-endpoints.sh) | Extract URLs and paths from JavaScript files. | `js-endpoints.sh <url> [url...]` | 2024-02 |
+| [whois-summary.sh](whois-summary.sh) | Summarise the registration data of a domain. | `whois-summary.sh <domain>` | 2024-02 |
 
 ## Requirements
 
 - curl
 - dig
 - openssl
+- whois
 
 Shell scripts with options support `--help`.
