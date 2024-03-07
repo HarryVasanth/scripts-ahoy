@@ -20,10 +20,12 @@ Project and container chores.
 | [node-version-check.sh](node-version-check.sh) | Check that the local Node.js version matches the project requirement. | `node-version-check [--min VERSION] [directory]` | 2023-09 |
 | [todo-scan.sh](todo-scan.sh) | Find TODO, FIXME, HACK and XXX notes in a tree of source files. | `todo-scan [--count] [--tag TAG] [path]` | 2023-11 |
 | [docker-shell.sh](docker-shell.sh) | Open an interactive shell in a running container. | `docker-shell [--shell CMD] <container>` | 2023-11 |
+| [cargo-check.sh](cargo-check.sh) | Run cargo check, clippy and a format check. | `cargo-check [DIR]` | 2024-03 |
 
 ## Requirements
 
 - Docker Compose (plugin or docker-compose)
+- cargo (with the clippy and rustfmt components)
 - docker
 - flake8
 - git
