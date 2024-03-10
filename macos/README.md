@@ -17,6 +17,7 @@ macOS housekeeping with sane defaults and dry runs.
 | [gatekeeper-status.sh](gatekeeper-status.sh) | Shows the Gatekeeper status. | `gatekeeper-status [-h]` | 2020-09 |
 | [notify.sh](notify.sh) | Sends a desktop notification from the terminal. | `notify [-t TITLE] [-s SUBTITLE] [-u\|--urgent] MESSAGE [-h]` | 2022-04 |
 | [screen-resolution.sh](screen-resolution.sh) | Lists the displays and their current resolutions. | `screen-resolution [-h]` | 2023-03 |
+| [dock-reset.sh](dock-reset.sh) | Resets the macOS Dock to its default layout. | `dock-reset [--dry-run] [-y\|--yes] [-h]` | 2024-03 |
 
 ## Requirements
 
