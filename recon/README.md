@@ -16,6 +16,7 @@ Public-source lookups for a domain you own or may test.
 | [email-harvest.sh](email-harvest.sh) | Collect email addresses from public web pages. | `email-harvest.sh <url> [url...]` | 2023-08 |
 | [js-endpoints.sh](js-endpoints.sh) | Extract URLs and paths from JavaScript files. | `js-endpoints.sh <url> [url...]` | 2024-02 |
 | [whois-summary.sh](whois-summary.sh) | Summarise the registration data of a domain. | `whois-summary.sh <domain>` | 2024-02 |
+| [robots-fetch.sh](robots-fetch.sh) | Fetch and summarise a site's robots.txt file. | `robots-fetch.sh [--full] <url-or-host>` | 2024-04 |
 
 ## Requirements
 
