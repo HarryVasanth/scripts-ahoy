@@ -17,6 +17,7 @@ Public-source lookups for a domain you own or may test.
 | [js-endpoints.sh](js-endpoints.sh) | Extract URLs and paths from JavaScript files. | `js-endpoints.sh <url> [url...]` | 2024-02 |
 | [whois-summary.sh](whois-summary.sh) | Summarise the registration data of a domain. | `whois-summary.sh <domain>` | 2024-02 |
 | [robots-fetch.sh](robots-fetch.sh) | Fetch and summarise a site's robots.txt file. | `robots-fetch.sh [--full] <url-or-host>` | 2024-04 |
+| [security-txt.sh](security-txt.sh) | Check a site for a security.txt file and show its key fields. | `security-txt.sh <domain>` | 2024-05 |
 
 ## Requirements
 
