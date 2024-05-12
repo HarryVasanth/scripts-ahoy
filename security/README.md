@@ -23,6 +23,7 @@ Read-only checks for common hardening mistakes.
 | [ssh-keys-audit.sh](ssh-keys-audit.sh) | Audit SSH authorised keys files for permissions and options. | `ssh-keys-audit.sh [-h]` | 2022-09 |
 | [failed-logins.sh](failed-logins.sh) | Summarise failed login attempts from system logs. | `failed-logins.sh [-f LOGFILE] [-n COUNT] [-h]` | 2022-10 |
 | [umask-check.sh](umask-check.sh) | Show the current and configured umask. | `umask-check.sh [-h]` | 2023-02 |
+| [kernel-hardening.sh](kernel-hardening.sh) | Check key kernel settings for hardening. | `kernel-hardening.sh [-h]` | 2024-05 |
 
 ## Requirements
 
@@ -35,5 +36,6 @@ Read-only checks for common hardening mistakes.
 - sestatus or getenforce (RHEL family)
 - shasum (macOS) or sha256sum (Linux)
 - stat
+- sysctl
 
 Shell scripts with options support `--help`.
