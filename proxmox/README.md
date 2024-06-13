@@ -19,6 +19,7 @@ Proxmox VE and PBS maintenance helpers.
 | [node-status.sh](node-status.sh) | Show CPU, RAM and storage status for one node. | `node-status [-H user@host] [--node NODE]` | 2022-11 |
 | [clean-old-kernels.sh](all/clean-old-kernels.sh) | Remove old Proxmox kernels and keep the running one. | `./clean-old-kernels.sh [--dry-run] [--force]` | 2023-01 |
 | [cluster-health.sh](cluster-health.sh) | Report the health of a Proxmox cluster: quorum, nodes and services. | `cluster-health [-H user@host]` | 2024-01 |
+| [cert-renew.sh](cert-renew.sh) | Renew the Proxmox VE node certificate through ACME. | `cert-renew [--dry-run] [-y]` | 2024-06 |
 
 ## Requirements
 
@@ -27,6 +28,7 @@ Proxmox VE and PBS maintenance helpers.
 - jq (Proxmox VE)
 - pct (Proxmox VE)
 - pvecm
+- pvenode (Proxmox VE)
 - pvesh
 - pvesm (Proxmox VE)
 - qm (Proxmox VE)
