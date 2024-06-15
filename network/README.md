@@ -25,6 +25,7 @@ Check links, DNS, ports, and TLS from the command line.
 | [traceroute-summary.sh](traceroute-summary.sh) | Summarise the route to a host: hop count, loss and last reply. | `traceroute-summary.sh <host> [max-hops]` | 2023-04 |
 | [wol.sh](wol.sh) | Send a Wake-on-LAN magic packet to a MAC address. | `wol.sh [--dry-run] <mac> [broadcast] [port]` | 2023-07 |
 | [ping-stats.sh](ping-stats.sh) | Show packet loss and the min, avg, and max latency to a host. | `ping-stats.sh [count] <host>` | 2023-08 |
+| [wifi-info.sh](wifi-info.sh) | Show the current Wi-Fi network name and signal strength. | `wifi-info.sh` | 2024-06 |
 
 ## Requirements
 
@@ -42,6 +43,7 @@ Check links, DNS, ports, and TLS from the command line.
 - or netstat
 - ping
 - ss
+- system_profiler (macOS) or iw/nmcli (Linux)
 - tcpdump
 - traceroute
 
