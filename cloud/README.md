@@ -21,6 +21,7 @@ Small wrappers for AWS, Kubernetes, and Terraform.
 | [docker-usage.sh](docker-usage.sh) | Show Docker disk usage, with an optional clean-up. | `docker-usage [--prune] [--all] [--volumes] [--dry-run] [--yes]` | 2023-06 |
 | [gcp-bucket-list.sh](gcp-bucket-list.sh) | List GCS buckets with their creation dates. | `gcp-bucket-list` | 2023-12 |
 | [k8s-nodes.sh](k8s-nodes.sh) | Show node status and capacity. | `k8s-nodes` | 2024-01 |
+| [tf-state-list.sh](tf-state-list.sh) | List the resources in Terraform state, with an optional filter. | `tf-state-list [-d DIR] [-f PATTERN] [--count]` | 2024-07 |
 
 ## Requirements
 
