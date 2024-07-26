@@ -24,6 +24,7 @@ Read-only checks for common hardening mistakes.
 | [failed-logins.sh](failed-logins.sh) | Summarise failed login attempts from system logs. | `failed-logins.sh [-f LOGFILE] [-n COUNT] [-h]` | 2022-10 |
 | [umask-check.sh](umask-check.sh) | Show the current and configured umask. | `umask-check.sh [-h]` | 2023-02 |
 | [kernel-hardening.sh](kernel-hardening.sh) | Check key kernel settings for hardening. | `kernel-hardening.sh [-h]` | 2024-05 |
+| [password-policy.sh](password-policy.sh) | Check the PAM password quality policy. | `password-policy.sh [-h]` | 2024-07 |
 
 ## Requirements
 
