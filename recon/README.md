@@ -18,6 +18,7 @@ Public-source lookups for a domain you own or may test.
 | [whois-summary.sh](whois-summary.sh) | Summarise the registration data of a domain. | `whois-summary.sh <domain>` | 2024-02 |
 | [robots-fetch.sh](robots-fetch.sh) | Fetch and summarise a site's robots.txt file. | `robots-fetch.sh [--full] <url-or-host>` | 2024-04 |
 | [security-txt.sh](security-txt.sh) | Check a site for a security.txt file and show its key fields. | `security-txt.sh <domain>` | 2024-05 |
+| [dmarc-check.sh](dmarc-check.sh) | Fetch and explain a domain's DMARC record. | `dmarc-check.sh <domain>` | 2024-08 |
 
 ## Requirements
 
