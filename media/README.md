@@ -23,6 +23,7 @@ Resize, convert, and inspect media without a GUI.
 | [image-crop.sh](image-crop.sh) | Crop an image to a geometry, keeping the rest of the image. | `image-crop [-g GEOMETRY] [-o DIR] [--force] [--replace] IMAGE...` | 2023-05 |
 | [image-optimise.sh](image-optimise.sh) | Make images smaller with ImageMagick, with little visible loss. | `image-optimise [-q QUALITY] [-o DIR] [--force] [--replace] IMAGE...` | 2023-07 |
 | [exif-strip.sh](exif-strip.sh) | Remove metadata from images, such as GPS and camera details. | `exif-strip [-o DIR] [--keep-orientation] [--force] [--replace] IMAGE...` | 2023-10 |
+| [contact-sheet.sh](contact-sheet.sh) | Build a contact sheet from many images in one grid. | `contact-sheet [-c COLUMNS] [-s SIZE] [-t TITLE] [-o FILE] [--force] IMAGE...` | 2024-08 |
 
 ## Requirements
 
@@ -31,9 +32,11 @@ Resize, convert, and inspect media without a GUI.
 - FFprobe (ships with FFmpeg)
 - Ghostscript; pdfseparate (poppler-utils) for --each
 - ImageMagick (magick
+- ImageMagick (montage
 - Tesseract
 - or Ghostscript
 - or convert on older systems)
+- or magick montage)
 - pdfunite (poppler-utils)
 
 Shell scripts with options support `--help`.
