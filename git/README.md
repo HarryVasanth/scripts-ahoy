@@ -28,6 +28,7 @@ Keep repositories tidy and easy to inspect.
 | [push.sh](push.sh) | Push the current repository, or a list of repositories, to every remote. | `./push.sh [FILE]` | 2023-01 |
 | [upstream-check.sh](upstream-check.sh) | Compare the current branch with its upstream. | `upstream-check.sh [-h]` | 2023-10 |
 | [blame-summary.sh](blame-summary.sh) | Show the top authors for a file or line range. | `blame-summary.sh [-n COUNT] [-L START,END] FILE` | 2024-04 |
+| [submodule-status.sh](submodule-status.sh) | Summarise the state of submodules. | `submodule-status.sh [-h]` | 2024-09 |
 
 ## Requirements
 
