@@ -21,6 +21,7 @@ Project and container chores.
 | [todo-scan.sh](todo-scan.sh) | Find TODO, FIXME, HACK and XXX notes in a tree of source files. | `todo-scan [--count] [--tag TAG] [path]` | 2023-11 |
 | [docker-shell.sh](docker-shell.sh) | Open an interactive shell in a running container. | `docker-shell [--shell CMD] <container>` | 2023-11 |
 | [cargo-check.sh](cargo-check.sh) | Run cargo check, clippy and a format check. | `cargo-check [DIR]` | 2024-03 |
+| [readme-badges.sh](readme-badges.sh) | Print Markdown badges for a GitHub repository. | `readme-badges --repo OWNER/NAME [--license ID] [--workflow FILE] [--branch NAME] [--tag VERSION]` | 2024-09 |
 
 ## Requirements
 
