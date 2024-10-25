@@ -26,6 +26,7 @@ Check links, DNS, ports, and TLS from the command line.
 | [wol.sh](wol.sh) | Send a Wake-on-LAN magic packet to a MAC address. | `wol.sh [--dry-run] <mac> [broadcast] [port]` | 2023-07 |
 | [ping-stats.sh](ping-stats.sh) | Show packet loss and the min, avg, and max latency to a host. | `ping-stats.sh [count] <host>` | 2023-08 |
 | [wifi-info.sh](wifi-info.sh) | Show the current Wi-Fi network name and signal strength. | `wifi-info.sh` | 2024-06 |
+| [dns-propagation.sh](dns-propagation.sh) | Ask several public resolvers for one DNS record and compare the answers. | `dns-propagation.sh <name> [type]` | 2024-10 |
 
 ## Requirements
 
