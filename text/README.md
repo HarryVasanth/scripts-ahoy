@@ -26,6 +26,7 @@ Clean, convert, and inspect text and data files.
 | [diff-words.sh](diff-words.sh) | Show a word-level diff of two files. | `diff-words.sh FILE1 FILE2` | 2022-08 |
 | [dedupe-lines.sh](dedupe-lines.sh) | Remove duplicate lines from text while keeping the first order. | `dedupe-lines.sh [-c] [-d] [FILE]` | 2022-11 |
 | [base64-file.sh](base64-file.sh) | Encode or decode a file with base64. | `base64-file.sh [-d] [-o OUT] [FILE]` | 2023-04 |
+| [wrap-text.sh](wrap-text.sh) | Wrap long lines to a chosen width. | `wrap-text.sh [-w WIDTH] [FILE...]` | 2024-11 |
 
 ## Requirements
 
