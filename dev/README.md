@@ -22,6 +22,7 @@ Project and container chores.
 | [docker-shell.sh](docker-shell.sh) | Open an interactive shell in a running container. | `docker-shell [--shell CMD] <container>` | 2023-11 |
 | [cargo-check.sh](cargo-check.sh) | Run cargo check, clippy and a format check. | `cargo-check [DIR]` | 2024-03 |
 | [readme-badges.sh](readme-badges.sh) | Print Markdown badges for a GitHub repository. | `readme-badges --repo OWNER/NAME [--license ID] [--workflow FILE] [--branch NAME] [--tag VERSION]` | 2024-09 |
+| [project-bootstrap.sh](project-bootstrap.sh) | Create a small, standard project skeleton without overwriting files. | `project-bootstrap [--dry-run] <directory>` | 2024-11 |
 
 ## Requirements
 
