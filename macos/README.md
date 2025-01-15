@@ -20,17 +20,21 @@ macOS housekeeping with sane defaults and dry runs.
 | [dock-reset.sh](dock-reset.sh) | Resets the macOS Dock to its default layout. | `dock-reset [--dry-run] [-y\|--yes] [-h]` | 2024-03 |
 | [defaults-backup.sh](defaults-backup.sh) | Exports macOS defaults domains to plist files. | `defaults-backup [--out DIR] [DOMAIN...] [-h]` | 2024-10 |
 | [trash-empty.sh](trash-empty.sh) | Empties the Trash after a confirmation. | `trash-empty [--dry-run] [-y\|--yes] [-h]` | 2024-12 |
+| [screenshot-organise.sh](screenshot-organise.sh) | Moves screenshots into year and month folders. | `screenshot-organise [--dir DIR] [--dry-run] [-y] [-h]` | 2025-01 |
 
 ## Requirements
 
 - Finder
 - csrutil
+- date
 - defaults
+- find
 - launchctl
 - mdutil
 - osascript
 - security
 - spctl
+- stat
 - system_profiler
 - tmutil
 
