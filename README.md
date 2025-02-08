@@ -20,7 +20,7 @@ confirmation. Every shell script is checked with ShellCheck.
 | 🍎 | [macOS](macos/README.md) | 16 | macOS housekeeping with sane defaults and dry runs. |
 | 🛠️ | [Dev](dev/README.md) | 18 | Project and container chores. |
 | 🎬 | [Media](media/README.md) | 18 | Resize, convert, and inspect media without a GUI. |
-| ☁️ | [Cloud](cloud/README.md) | 16 | Small wrappers for AWS, Kubernetes, and Terraform. |
+| ☁️ | [Cloud](cloud/README.md) | 17 | Small wrappers for AWS, Kubernetes, and Terraform. |
 | 🧰 | [Proxmox](proxmox/README.md) | 14 | Proxmox VE and PBS maintenance helpers. |
 
 ## Quick start

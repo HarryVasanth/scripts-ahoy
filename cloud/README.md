@@ -22,6 +22,7 @@ Small wrappers for AWS, Kubernetes, and Terraform.
 | [gcp-bucket-list.sh](gcp-bucket-list.sh) | List GCS buckets with their creation dates. | `gcp-bucket-list` | 2023-12 |
 | [k8s-nodes.sh](k8s-nodes.sh) | Show node status and capacity. | `k8s-nodes` | 2024-01 |
 | [tf-state-list.sh](tf-state-list.sh) | List the resources in Terraform state, with an optional filter. | `tf-state-list [-d DIR] [-f PATTERN] [--count]` | 2024-07 |
+| [k8s-context.sh](k8s-context.sh) | List, show or switch kubectl contexts. | `k8s-context [--current] [CONTEXT]` | 2025-02 |
 
 ## Requirements
 
