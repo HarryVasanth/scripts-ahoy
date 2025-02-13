@@ -24,6 +24,7 @@ Project and container chores.
 | [readme-badges.sh](readme-badges.sh) | Print Markdown badges for a GitHub repository. | `readme-badges --repo OWNER/NAME [--license ID] [--workflow FILE] [--branch NAME] [--tag VERSION]` | 2024-09 |
 | [project-bootstrap.sh](project-bootstrap.sh) | Create a small, standard project skeleton without overwriting files. | `project-bootstrap [--dry-run] <directory>` | 2024-11 |
 | [env-diff.sh](env-diff.sh) | Compare the keys of two dotenv files without showing secret values. | `env-diff [--strict] <file-a> <file-b>` | 2024-12 |
+| [editorconfig-check.sh](editorconfig-check.sh) | Check basic .editorconfig rules against files. | `editorconfig-check [FILE...]` | 2025-02 |
 
 ## Requirements
 
