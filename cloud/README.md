@@ -23,6 +23,7 @@ Small wrappers for AWS, Kubernetes, and Terraform.
 | [k8s-nodes.sh](k8s-nodes.sh) | Show node status and capacity. | `k8s-nodes` | 2024-01 |
 | [tf-state-list.sh](tf-state-list.sh) | List the resources in Terraform state, with an optional filter. | `tf-state-list [-d DIR] [-f PATTERN] [--count]` | 2024-07 |
 | [k8s-context.sh](k8s-context.sh) | List, show or switch kubectl contexts. | `k8s-context [--current] [CONTEXT]` | 2025-02 |
+| [aws-cost.sh](aws-cost.sh) | Show this month's AWS cost, grouped by service. | `aws-cost [--top N]` | 2025-03 |
 
 ## Requirements
 
@@ -32,6 +33,7 @@ Small wrappers for AWS, Kubernetes, and Terraform.
 - gcloud
 - gsutil (Google Cloud SDK)
 - helm 3
+- jq
 - kubectl
 - terraform
 
