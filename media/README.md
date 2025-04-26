@@ -24,6 +24,7 @@ Resize, convert, and inspect media without a GUI.
 | [image-optimise.sh](image-optimise.sh) | Make images smaller with ImageMagick, with little visible loss. | `image-optimise [-q QUALITY] [-o DIR] [--force] [--replace] IMAGE...` | 2023-07 |
 | [exif-strip.sh](exif-strip.sh) | Remove metadata from images, such as GPS and camera details. | `exif-strip [-o DIR] [--keep-orientation] [--force] [--replace] IMAGE...` | 2023-10 |
 | [contact-sheet.sh](contact-sheet.sh) | Build a contact sheet from many images in one grid. | `contact-sheet [-c COLUMNS] [-s SIZE] [-t TITLE] [-o FILE] [--force] IMAGE...` | 2024-08 |
+| [audio-convert.sh](audio-convert.sh) | Convert audio files to another format. | `audio-convert [-f FORMAT] [-b BITRATE] [-o DIR] [--force] [--replace] AUDIO...` | 2025-04 |
 
 ## Requirements
 
