@@ -25,6 +25,7 @@ Project and container chores.
 | [project-bootstrap.sh](project-bootstrap.sh) | Create a small, standard project skeleton without overwriting files. | `project-bootstrap [--dry-run] <directory>` | 2024-11 |
 | [env-diff.sh](env-diff.sh) | Compare the keys of two dotenv files without showing secret values. | `env-diff [--strict] <file-a> <file-b>` | 2024-12 |
 | [editorconfig-check.sh](editorconfig-check.sh) | Check basic .editorconfig rules against files. | `editorconfig-check [FILE...]` | 2025-02 |
+| [venv-create.sh](venv-create.sh) | Create a Python virtual environment and print the activate command. | `venv-create [DIR]` | 2025-04 |
 
 ## Requirements
 
@@ -40,6 +41,7 @@ Project and container chores.
 - node
 - plus the linters you use (eslint
 - pre-commit
+- python3
 - shellcheck)
 
 Shell scripts with options support `--help`.
