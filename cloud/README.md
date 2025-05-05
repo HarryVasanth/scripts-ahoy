@@ -24,6 +24,7 @@ Small wrappers for AWS, Kubernetes, and Terraform.
 | [tf-state-list.sh](tf-state-list.sh) | List the resources in Terraform state, with an optional filter. | `tf-state-list [-d DIR] [-f PATTERN] [--count]` | 2024-07 |
 | [k8s-context.sh](k8s-context.sh) | List, show or switch kubectl contexts. | `k8s-context [--current] [CONTEXT]` | 2025-02 |
 | [aws-cost.sh](aws-cost.sh) | Show this month's AWS cost, grouped by service. | `aws-cost [--top N]` | 2025-03 |
+| [aws-region.sh](aws-region.sh) | Show or set the default AWS region. | `aws-region [REGION]` | 2025-05 |
 
 ## Requirements
 
