@@ -28,6 +28,7 @@ Clean, convert, and inspect text and data files.
 | [base64-file.sh](base64-file.sh) | Encode or decode a file with base64. | `base64-file.sh [-d] [-o OUT] [FILE]` | 2023-04 |
 | [wrap-text.sh](wrap-text.sh) | Wrap long lines to a chosen width. | `wrap-text.sh [-w WIDTH] [FILE...]` | 2024-11 |
 | [markdown-lint.sh](markdown-lint.sh) | Check Markdown files for common problems. | `markdown-lint.sh [FILE...]` | 2025-03 |
+| [word-frequency.sh](word-frequency.sh) | Count the most common words in text. | `word-frequency.sh [-n COUNT] [-i] [FILE...]` | 2025-05 |
 
 ## Requirements
 
