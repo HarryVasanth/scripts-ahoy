@@ -22,6 +22,7 @@ macOS housekeeping with sane defaults and dry runs.
 | [trash-empty.sh](trash-empty.sh) | Empties the Trash after a confirmation. | `trash-empty [--dry-run] [-y\|--yes] [-h]` | 2024-12 |
 | [screenshot-organise.sh](screenshot-organise.sh) | Moves screenshots into year and month folders. | `screenshot-organise [--dir DIR] [--dry-run] [-y] [-h]` | 2025-01 |
 | [software-update.sh](software-update.sh) | Checks for macOS software updates, or installs them. | `software-update [--install] [--dry-run] [-y\|--yes] [-h]` | 2025-01 |
+| [finder-show-hidden.sh](finder-show-hidden.sh) | Toggles or sets hidden file display in Finder. | `finder-show-hidden [--show\|--hide\|--status] [-h]` | 2025-06 |
 
 ## Requirements
 
@@ -30,6 +31,7 @@ macOS housekeeping with sane defaults and dry runs.
 - date
 - defaults
 - find
+- killall
 - launchctl
 - mdutil
 - osascript
