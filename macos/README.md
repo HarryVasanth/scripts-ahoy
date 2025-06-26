@@ -23,6 +23,7 @@ macOS housekeeping with sane defaults and dry runs.
 | [screenshot-organise.sh](screenshot-organise.sh) | Moves screenshots into year and month folders. | `screenshot-organise [--dir DIR] [--dry-run] [-y] [-h]` | 2025-01 |
 | [software-update.sh](software-update.sh) | Checks for macOS software updates, or installs them. | `software-update [--install] [--dry-run] [-y\|--yes] [-h]` | 2025-01 |
 | [finder-show-hidden.sh](finder-show-hidden.sh) | Toggles or sets hidden file display in Finder. | `finder-show-hidden [--show\|--hide\|--status] [-h]` | 2025-06 |
+| [quarantine-clear.sh](quarantine-clear.sh) | Removes the quarantine flag from downloaded files. | `quarantine-clear [--dry-run] [-y] [-r] PATH... [-h]` | 2025-06 |
 
 ## Requirements
 
@@ -41,5 +42,6 @@ macOS housekeeping with sane defaults and dry runs.
 - stat
 - system_profiler
 - tmutil
+- xattr
 
 Shell scripts with options support `--help`.
