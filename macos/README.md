@@ -24,10 +24,12 @@ macOS housekeeping with sane defaults and dry runs.
 | [software-update.sh](software-update.sh) | Checks for macOS software updates, or installs them. | `software-update [--install] [--dry-run] [-y\|--yes] [-h]` | 2025-01 |
 | [finder-show-hidden.sh](finder-show-hidden.sh) | Toggles or sets hidden file display in Finder. | `finder-show-hidden [--show\|--hide\|--status] [-h]` | 2025-06 |
 | [quarantine-clear.sh](quarantine-clear.sh) | Removes the quarantine flag from downloaded files. | `quarantine-clear [--dry-run] [-y] [-r] PATH... [-h]` | 2025-06 |
+| [caffeinate-until.sh](caffeinate-until.sh) | Keeps the Mac awake for a time, or until a command finishes. | `caffeinate-until [-t SECONDS \| -- COMMAND [ARGS...]] [-h]` | 2025-07 |
 
 ## Requirements
 
 - Finder
+- caffeinate
 - csrutil
 - date
 - defaults
