@@ -20,6 +20,7 @@ Proxmox VE and PBS maintenance helpers.
 | [clean-old-kernels.sh](all/clean-old-kernels.sh) | Remove old Proxmox kernels and keep the running one. | `./clean-old-kernels.sh [--dry-run] [--force]` | 2023-01 |
 | [cluster-health.sh](cluster-health.sh) | Report the health of a Proxmox cluster: quorum, nodes and services. | `cluster-health [-H user@host]` | 2024-01 |
 | [cert-renew.sh](cert-renew.sh) | Renew the Proxmox VE node certificate through ACME. | `cert-renew [--dry-run] [-y]` | 2024-06 |
+| [vm-migrate.sh](vm-migrate.sh) | Migrate a VM to another cluster node. | `vm-migrate [-H user@host] [--online] [--with-local-disks] [--dry-run] [-y] VMID NODE` | 2025-07 |
 
 ## Requirements
 
