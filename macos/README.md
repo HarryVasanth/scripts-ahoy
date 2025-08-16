@@ -25,6 +25,7 @@ macOS housekeeping with sane defaults and dry runs.
 | [finder-show-hidden.sh](finder-show-hidden.sh) | Toggles or sets hidden file display in Finder. | `finder-show-hidden [--show\|--hide\|--status] [-h]` | 2025-06 |
 | [quarantine-clear.sh](quarantine-clear.sh) | Removes the quarantine flag from downloaded files. | `quarantine-clear [--dry-run] [-y] [-r] PATH... [-h]` | 2025-06 |
 | [caffeinate-until.sh](caffeinate-until.sh) | Keeps the Mac awake for a time, or until a command finishes. | `caffeinate-until [-t SECONDS \| -- COMMAND [ARGS...]] [-h]` | 2025-07 |
+| [battery-health.sh](battery-health.sh) | Reports Mac battery charge, cycle count and capacity health. | `battery-health [-h]` | 2025-08 |
 
 ## Requirements
 
@@ -34,10 +35,12 @@ macOS housekeeping with sane defaults and dry runs.
 - date
 - defaults
 - find
+- ioreg
 - killall
 - launchctl
 - mdutil
 - osascript
+- pmset
 - security
 - softwareupdate
 - spctl
