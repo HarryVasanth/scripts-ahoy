@@ -26,6 +26,7 @@ Read-only checks for common hardening mistakes.
 | [kernel-hardening.sh](kernel-hardening.sh) | Check key kernel settings for hardening. | `kernel-hardening.sh [-h]` | 2024-05 |
 | [password-policy.sh](password-policy.sh) | Check the PAM password quality policy. | `password-policy.sh [-h]` | 2024-07 |
 | [sudoers-audit.sh](sudoers-audit.sh) | Audit sudoers rules for risky settings. | `sudoers-audit.sh [-d DIR] [-h]` | 2025-09 |
+| [perm-audit.sh](perm-audit.sh) | Find world-writable files and setuid binaries. | `perm-audit.sh [-s] [PATH...] [-h]` | 2025-10 |
 
 ## Requirements
 
