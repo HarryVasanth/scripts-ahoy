@@ -27,14 +27,17 @@ macOS housekeeping with sane defaults and dry runs.
 | [caffeinate-until.sh](caffeinate-until.sh) | Keeps the Mac awake for a time, or until a command finishes. | `caffeinate-until [-t SECONDS \| -- COMMAND [ARGS...]] [-h]` | 2025-07 |
 | [battery-health.sh](battery-health.sh) | Reports Mac battery charge, cycle count and capacity health. | `battery-health [-h]` | 2025-08 |
 | [startup-items.sh](startup-items.sh) | Lists login items and launch agents. | `startup-items [-h]` | 2025-08 |
+| [disk-usage.sh](disk-usage.sh) | Shows the biggest items in a folder. | `disk-usage [DIR] [-n COUNT] [-h]` | 2025-11 |
 
 ## Requirements
 
 - Finder
+- awk (POSIX)
 - caffeinate
 - csrutil
 - date
 - defaults
+- du
 - find
 - ioreg
 - killall
@@ -44,6 +47,7 @@ macOS housekeeping with sane defaults and dry runs.
 - pmset
 - security
 - softwareupdate
+- sort
 - spctl
 - stat
 - system_profiler
