@@ -26,12 +26,14 @@ Project and container chores.
 | [env-diff.sh](env-diff.sh) | Compare the keys of two dotenv files without showing secret values. | `env-diff [--strict] <file-a> <file-b>` | 2024-12 |
 | [editorconfig-check.sh](editorconfig-check.sh) | Check basic .editorconfig rules against files. | `editorconfig-check [FILE...]` | 2025-02 |
 | [venv-create.sh](venv-create.sh) | Create a Python virtual environment and print the activate command. | `venv-create [DIR]` | 2025-04 |
+| [docker-logs.sh](docker-logs.sh) | Follow logs for a container or a Docker Compose service. | `docker-logs [--tail N] <name>` | 2025-11 |
 
 ## Requirements
 
 - Docker Compose (plugin or docker-compose)
 - cargo (with the clippy and rustfmt components)
 - docker
+- docker-compose (only for compose services)
 - flake8
 - git
 - gofmt
