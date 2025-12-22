@@ -28,6 +28,7 @@ Check links, DNS, ports, and TLS from the command line.
 | [wifi-info.sh](wifi-info.sh) | Show the current Wi-Fi network name and signal strength. | `wifi-info.sh` | 2024-06 |
 | [dns-propagation.sh](dns-propagation.sh) | Ask several public resolvers for one DNS record and compare the answers. | `dns-propagation.sh <name> [type]` | 2024-10 |
 | [ssh-banner.sh](ssh-banner.sh) | Read the SSH banner and software version from a host. | `ssh-banner.sh <host> [port]` | 2025-10 |
+| [redirect-chain.sh](redirect-chain.sh) | Show each redirect hop and the final URL for a link. | `redirect-chain.sh <url> [max-hops]` | 2025-12 |
 
 ## Requirements
 
