@@ -25,12 +25,14 @@ Resize, convert, and inspect media without a GUI.
 | [exif-strip.sh](exif-strip.sh) | Remove metadata from images, such as GPS and camera details. | `exif-strip [-o DIR] [--keep-orientation] [--force] [--replace] IMAGE...` | 2023-10 |
 | [contact-sheet.sh](contact-sheet.sh) | Build a contact sheet from many images in one grid. | `contact-sheet [-c COLUMNS] [-s SIZE] [-t TITLE] [-o FILE] [--force] IMAGE...` | 2024-08 |
 | [audio-convert.sh](audio-convert.sh) | Convert audio files to another format. | `audio-convert [-f FORMAT] [-b BITRATE] [-o DIR] [--force] [--replace] AUDIO...` | 2025-04 |
+| [pdf-compress.sh](pdf-compress.sh) | Shrink a PDF with Ghostscript, keeping the text selectable. | `pdf-compress [-q PROFILE] [-o FILE] [--force] PDF` | 2026-01 |
 
 ## Requirements
 
 - ExifTool
 - FFmpeg
 - FFprobe (ships with FFmpeg)
+- Ghostscript
 - Ghostscript; pdfseparate (poppler-utils) for --each
 - ImageMagick (magick
 - ImageMagick (montage
