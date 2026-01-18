@@ -22,6 +22,7 @@ Proxmox VE and PBS maintenance helpers.
 | [cert-renew.sh](cert-renew.sh) | Renew the Proxmox VE node certificate through ACME. | `cert-renew [--dry-run] [-y]` | 2024-06 |
 | [vm-migrate.sh](vm-migrate.sh) | Migrate a VM to another cluster node. | `vm-migrate [-H user@host] [--online] [--with-local-disks] [--dry-run] [-y] VMID NODE` | 2025-07 |
 | [storage-usage.sh](storage-usage.sh) | Show free space for Proxmox storages and, when present, ZFS pools. | `storage-usage [-H user@host] [--node NODE]` | 2025-12 |
+| [template-update.sh](template-update.sh) | Refresh LXC appliance templates in a Proxmox storage. | `template-update [-s STORAGE] [--all] [--dry-run] [-y] [TEMPLATE...]` | 2026-01 |
 
 ## Requirements
 
@@ -30,6 +31,7 @@ Proxmox VE and PBS maintenance helpers.
 - jq (Proxmox VE)
 - jq (Proxmox VE); zpool is used when present
 - pct (Proxmox VE)
+- pveam (Proxmox VE)
 - pvecm
 - pvenode (Proxmox VE)
 - pvesh
