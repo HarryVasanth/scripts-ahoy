@@ -20,6 +20,7 @@ Public-source lookups for a domain you own or may test.
 | [security-txt.sh](security-txt.sh) | Check a site for a security.txt file and show its key fields. | `security-txt.sh <domain>` | 2024-05 |
 | [dmarc-check.sh](dmarc-check.sh) | Fetch and explain a domain's DMARC record. | `dmarc-check.sh <domain>` | 2024-08 |
 | [cert-chain.sh](cert-chain.sh) | Print the full TLS certificate chain that a server sends. | `cert-chain.sh <host> [port]` | 2025-09 |
+| [http-tech.sh](http-tech.sh) | Detect the server and framework behind a web page. | `http-tech.sh <url>` | 2026-02 |
 
 ## Requirements
 
