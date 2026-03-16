@@ -21,6 +21,7 @@ Public-source lookups for a domain you own or may test.
 | [dmarc-check.sh](dmarc-check.sh) | Fetch and explain a domain's DMARC record. | `dmarc-check.sh <domain>` | 2024-08 |
 | [cert-chain.sh](cert-chain.sh) | Print the full TLS certificate chain that a server sends. | `cert-chain.sh <host> [port]` | 2025-09 |
 | [http-tech.sh](http-tech.sh) | Detect the server and framework behind a web page. | `http-tech.sh <url>` | 2026-02 |
+| [wayback-urls.sh](wayback-urls.sh) | List archived URLs for a domain from the Wayback Machine. | `wayback-urls.sh <domain> [limit]` | 2026-03 |
 
 ## Requirements
 
