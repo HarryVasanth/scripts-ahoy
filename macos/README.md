@@ -28,6 +28,7 @@ macOS housekeeping with sane defaults and dry runs.
 | [battery-health.sh](battery-health.sh) | Reports Mac battery charge, cycle count and capacity health. | `battery-health [-h]` | 2025-08 |
 | [startup-items.sh](startup-items.sh) | Lists login items and launch agents. | `startup-items [-h]` | 2025-08 |
 | [disk-usage.sh](disk-usage.sh) | Shows the biggest items in a folder. | `disk-usage [DIR] [-n COUNT] [-h]` | 2025-11 |
+| [bluetooth-status.sh](bluetooth-status.sh) | Shows the Bluetooth power state and the paired devices. | `bluetooth-status [-h]` | 2026-04 |
 
 ## Requirements
 
