@@ -21,7 +21,7 @@ confirmation. Every shell script is checked with ShellCheck.
 | 🛠️ | [Dev](dev/README.md) | 21 | Project and container chores. |
 | 🎬 | [Media](media/README.md) | 21 | Resize, convert, and inspect media without a GUI. |
 | ☁️ | [Cloud](cloud/README.md) | 19 | Small wrappers for AWS, Kubernetes, and Terraform. |
-| 🧰 | [Proxmox](proxmox/README.md) | 17 | Proxmox VE and PBS maintenance helpers. |
+| 🧰 | [Proxmox](proxmox/README.md) | 18 | Proxmox VE and PBS maintenance helpers. |
 
 ## Quick start
 

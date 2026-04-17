@@ -23,6 +23,7 @@ Proxmox VE and PBS maintenance helpers.
 | [vm-migrate.sh](vm-migrate.sh) | Migrate a VM to another cluster node. | `vm-migrate [-H user@host] [--online] [--with-local-disks] [--dry-run] [-y] VMID NODE` | 2025-07 |
 | [storage-usage.sh](storage-usage.sh) | Show free space for Proxmox storages and, when present, ZFS pools. | `storage-usage [-H user@host] [--node NODE]` | 2025-12 |
 | [template-update.sh](template-update.sh) | Refresh LXC appliance templates in a Proxmox storage. | `template-update [-s STORAGE] [--all] [--dry-run] [-y] [TEMPLATE...]` | 2026-01 |
+| [vm-backup.sh](vm-backup.sh) | Back up one VM or container with vzdump. | `vm-backup [-s STORAGE] [-m MODE] [-c COMPRESS] [--dry-run] [-y] VMID` | 2026-04 |
 
 ## Requirements
 
@@ -37,6 +38,8 @@ Proxmox VE and PBS maintenance helpers.
 - pvesh
 - pvesm (Proxmox VE)
 - qm (Proxmox VE)
+- qm or pct (Proxmox VE)
 - update-grub (Proxmox VE only)
+- vzdump
 
 Shell scripts with options support `--help`.
