@@ -27,6 +27,7 @@ Project and container chores.
 | [editorconfig-check.sh](editorconfig-check.sh) | Check basic .editorconfig rules against files. | `editorconfig-check [FILE...]` | 2025-02 |
 | [venv-create.sh](venv-create.sh) | Create a Python virtual environment and print the activate command. | `venv-create [DIR]` | 2025-04 |
 | [docker-logs.sh](docker-logs.sh) | Follow logs for a container or a Docker Compose service. | `docker-logs [--tail N] <name>` | 2025-11 |
+| [dependency-outdated.sh](dependency-outdated.sh) | Show outdated dependencies for the project in a directory. | `dependency-outdated [--dir DIR]` | 2026-05 |
 
 ## Requirements
 
@@ -45,5 +46,6 @@ Project and container chores.
 - pre-commit
 - python3
 - shellcheck)
+- the package manager that the project uses
 
 Shell scripts with options support `--help`.

@@ -18,7 +18,7 @@ confirmation. Every shell script is checked with ShellCheck.
 | 🌿 | [Git](git/README.md) | 24 | Keep repositories tidy and easy to inspect. |
 | 🐧 | [Linux](linux/README.md) | 25 | Service, disk, and update checks for Linux hosts. |
 | 🍎 | [macOS](macos/README.md) | 23 | macOS housekeeping with sane defaults and dry runs. |
-| 🛠️ | [Dev](dev/README.md) | 21 | Project and container chores. |
+| 🛠️ | [Dev](dev/README.md) | 22 | Project and container chores. |
 | 🎬 | [Media](media/README.md) | 21 | Resize, convert, and inspect media without a GUI. |
 | ☁️ | [Cloud](cloud/README.md) | 19 | Small wrappers for AWS, Kubernetes, and Terraform. |
 | 🧰 | [Proxmox](proxmox/README.md) | 18 | Proxmox VE and PBS maintenance helpers. |
