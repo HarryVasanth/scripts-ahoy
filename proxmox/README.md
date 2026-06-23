@@ -24,6 +24,7 @@ Proxmox VE and PBS maintenance helpers.
 | [storage-usage.sh](storage-usage.sh) | Show free space for Proxmox storages and, when present, ZFS pools. | `storage-usage [-H user@host] [--node NODE]` | 2025-12 |
 | [template-update.sh](template-update.sh) | Refresh LXC appliance templates in a Proxmox storage. | `template-update [-s STORAGE] [--all] [--dry-run] [-y] [TEMPLATE...]` | 2026-01 |
 | [vm-backup.sh](vm-backup.sh) | Back up one VM or container with vzdump. | `vm-backup [-s STORAGE] [-m MODE] [-c COMPRESS] [--dry-run] [-y] VMID` | 2026-04 |
+| [ct-list.sh](ct-list.sh) | List containers across the cluster with status. | `ct-list [-H user@host] [--node NODE]` | 2026-06 |
 
 ## Requirements
 
