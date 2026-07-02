@@ -23,6 +23,7 @@ Public-source lookups for a domain you own or may test.
 | [http-tech.sh](http-tech.sh) | Detect the server and framework behind a web page. | `http-tech.sh <url>` | 2026-02 |
 | [wayback-urls.sh](wayback-urls.sh) | List archived URLs for a domain from the Wayback Machine. | `wayback-urls.sh <domain> [limit]` | 2026-03 |
 | [reverse-dns.sh](reverse-dns.sh) | Look up the PTR records for an address or a small block. | `reverse-dns.sh <ip\|cidr>` | 2026-06 |
+| [domain-age.sh](domain-age.sh) | Show a domain's creation date and its age from whois data. | `domain-age.sh <domain>` | 2026-07 |
 
 ## Requirements
 
