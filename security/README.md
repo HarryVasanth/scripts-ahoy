@@ -27,10 +27,12 @@ Read-only checks for common hardening mistakes.
 | [password-policy.sh](password-policy.sh) | Check the PAM password quality policy. | `password-policy.sh [-h]` | 2024-07 |
 | [sudoers-audit.sh](sudoers-audit.sh) | Audit sudoers rules for risky settings. | `sudoers-audit.sh [-d DIR] [-h]` | 2025-09 |
 | [perm-audit.sh](perm-audit.sh) | Find world-writable files and setuid binaries. | `perm-audit.sh [-s] [PATH...] [-h]` | 2025-10 |
+| [auditd-status.sh](auditd-status.sh) | Show the auditd status and rule count. | `auditd-status.sh [-h]` | 2026-08 |
 
 ## Requirements
 
 - aa-status (Debian and Ubuntu)
+- auditctl (Linux)
 - awk
 - find
 - gpg
