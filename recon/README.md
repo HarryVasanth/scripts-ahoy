@@ -24,6 +24,7 @@ Public-source lookups for a domain you own or may test.
 | [wayback-urls.sh](wayback-urls.sh) | List archived URLs for a domain from the Wayback Machine. | `wayback-urls.sh <domain> [limit]` | 2026-03 |
 | [reverse-dns.sh](reverse-dns.sh) | Look up the PTR records for an address or a small block. | `reverse-dns.sh <ip\|cidr>` | 2026-06 |
 | [domain-age.sh](domain-age.sh) | Show a domain's creation date and its age from whois data. | `domain-age.sh <domain>` | 2026-07 |
+| [ip-geo.sh](ip-geo.sh) | Show the location and network owner of an IP address. | `ip-geo.sh [ip...]` | 2026-09 |
 
 ## Requirements
 
