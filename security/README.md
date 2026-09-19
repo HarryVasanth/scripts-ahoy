@@ -28,6 +28,7 @@ Read-only checks for common hardening mistakes.
 | [sudoers-audit.sh](sudoers-audit.sh) | Audit sudoers rules for risky settings. | `sudoers-audit.sh [-d DIR] [-h]` | 2025-09 |
 | [perm-audit.sh](perm-audit.sh) | Find world-writable files and setuid binaries. | `perm-audit.sh [-s] [PATH...] [-h]` | 2025-10 |
 | [auditd-status.sh](auditd-status.sh) | Show the auditd status and rule count. | `auditd-status.sh [-h]` | 2026-08 |
+| [world-writable.sh](world-writable.sh) | Find world-writable files and folders. | `world-writable.sh [PATH...]` | 2026-09 |
 
 ## Requirements
 
