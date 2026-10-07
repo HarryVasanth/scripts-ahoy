@@ -25,6 +25,7 @@ Public-source lookups for a domain you own or may test.
 | [reverse-dns.sh](reverse-dns.sh) | Look up the PTR records for an address or a small block. | `reverse-dns.sh <ip\|cidr>` | 2026-06 |
 | [domain-age.sh](domain-age.sh) | Show a domain's creation date and its age from whois data. | `domain-age.sh <domain>` | 2026-07 |
 | [ip-geo.sh](ip-geo.sh) | Show the location and network owner of an IP address. | `ip-geo.sh [ip...]` | 2026-09 |
+| [dns-records.sh](dns-records.sh) | Show the common DNS records for a name. | `dns-records.sh <name>` | 2026-10 |
 
 ## Requirements
 
