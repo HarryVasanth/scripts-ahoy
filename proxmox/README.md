@@ -27,6 +27,7 @@ Proxmox VE and PBS maintenance helpers.
 | [ct-list.sh](ct-list.sh) | List containers across the cluster with status. | `ct-list [-H user@host] [--node NODE]` | 2026-06 |
 | [vm-list.sh](vm-list.sh) | List VMs and containers across a Proxmox cluster with live usage. | `vm-list [-H user@host] [--type vm\|ct\|all] [--node NODE]` | 2026-07 |
 | [ups-status.sh](ups-status.sh) | Show the state of a UPS that Network UPS Tools or apcupsd reports. | `ups-status [-u UPS] [-w SECONDS]` | 2026-08 |
+| [pct-snapshot.sh](pct-snapshot.sh) | Take, list, roll back or delete snapshots of one container. | `pct-snapshot [-l] [-r NAME] [-d NAME] [--dry-run] [-y] CTID [SNAPNAME]` | 2026-10 |
 
 ## Requirements
 
