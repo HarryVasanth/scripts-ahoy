@@ -28,6 +28,7 @@ Project and container chores.
 | [venv-create.sh](venv-create.sh) | Create a Python virtual environment and print the activate command. | `venv-create [DIR]` | 2025-04 |
 | [docker-logs.sh](docker-logs.sh) | Follow logs for a container or a Docker Compose service. | `docker-logs [--tail N] <name>` | 2025-11 |
 | [dependency-outdated.sh](dependency-outdated.sh) | Show outdated dependencies for the project in a directory. | `dependency-outdated [--dir DIR]` | 2026-05 |
+| [go-mod-tidy.sh](go-mod-tidy.sh) | Tidy and verify Go module files. | `go-mod-tidy [DIR]` | 2026-11 |
 
 ## Requirements
 
@@ -37,6 +38,7 @@ Project and container chores.
 - docker-compose (only for compose services)
 - flake8
 - git
+- go (modules need Go 1.11 or later)
 - gofmt
 - jq
 - jq (jq only reads package.json engines)
