@@ -26,11 +26,13 @@ Public-source lookups for a domain you own or may test.
 | [domain-age.sh](domain-age.sh) | Show a domain's creation date and its age from whois data. | `domain-age.sh <domain>` | 2026-07 |
 | [ip-geo.sh](ip-geo.sh) | Show the location and network owner of an IP address. | `ip-geo.sh [ip...]` | 2026-09 |
 | [dns-records.sh](dns-records.sh) | Show the common DNS records for a name. | `dns-records.sh <name>` | 2026-10 |
+| [subdomain-enum.sh](subdomain-enum.sh) | Find subdomains for a domain in public certificate logs. | `./subdomain-enum.sh example.com [-o FILE] [-t SECONDS] [--no-fallback] [--wildcards]` | 2026-11 |
 
 ## Requirements
 
 - curl
 - dig
+- jq (jq is skipped when the fallback APIs are enough)
 - openssl
 - whois
 
