@@ -13,7 +13,7 @@ force=false
 replace=false
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Compress video with H.264 and AAC. The source stays unless --replace.
   -q CRF       Quality 0 to 51, lower is better (default: 23)
   -H HEIGHT    Maximum height (default: 1080)
@@ -26,19 +26,49 @@ Compress video with H.264 and AAC. The source stays unless --replace.
 EOF
 }
 
-die() { printf '❌ %s\n' "$*" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$*" >&2
+  exit 1
+}
 
 while [ $# -gt 0 ]; do
   case "$1" in
-    -q) crf=${2:-}; shift 2 || die "Option -q needs a value." ;;
-    -H) height=${2:-}; shift 2 || die "Option -H needs a value." ;;
-    -p) preset=${2:-}; shift 2 || die "Option -p needs a value." ;;
-    -a) audio=${2:-}; shift 2 || die "Option -a needs a value." ;;
-    -o) outdir=${2:-}; shift 2 || die "Option -o needs a value." ;;
-    --force) force=true; shift ;;
-    --replace) replace=true; shift ;;
-    -h|--help) usage; exit 0 ;;
-    --) shift; break ;;
+    -q)
+      crf=${2:-}
+      shift 2 || die "Option -q needs a value."
+      ;;
+    -H)
+      height=${2:-}
+      shift 2 || die "Option -H needs a value."
+      ;;
+    -p)
+      preset=${2:-}
+      shift 2 || die "Option -p needs a value."
+      ;;
+    -a)
+      audio=${2:-}
+      shift 2 || die "Option -a needs a value."
+      ;;
+    -o)
+      outdir=${2:-}
+      shift 2 || die "Option -o needs a value."
+      ;;
+    --force)
+      force=true
+      shift
+      ;;
+    --replace)
+      replace=true
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      break
+      ;;
     -*) die "Unknown option: $1" ;;
     *) break ;;
   esac
@@ -47,8 +77,11 @@ case "${crf}${height}${audio}" in
   *[!0-9]*) die "CRF, height and audio bitrate must be whole numbers." ;;
 esac
 [ "$crf" -le 51 ] || die "CRF must be 51 or less."
-[ "$#" -gt 0 ] || { usage >&2; die "Give me at least one video."; }
-command -v ffmpeg >/dev/null 2>&1 || die "FFmpeg is missing. Install it with: brew install ffmpeg, or sudo apt install ffmpeg."
+[ "$#" -gt 0 ] || {
+  usage >&2
+  die "Give me at least one video."
+}
+command -v ffmpeg > /dev/null 2>&1 || die "FFmpeg is missing. Install it with: brew install ffmpeg, or sudo apt install ffmpeg."
 tmpdir=$(mktemp -d)
 trap 'rm -rf "$tmpdir"' EXIT
 

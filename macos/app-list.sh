@@ -11,7 +11,7 @@ if [[ $(uname -s) != Darwin ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 app-list - list installed applications and their versions.
 
 Usage: app-list [FILTER]
@@ -47,6 +47,6 @@ for app in /Applications/*.app /Applications/Utilities/*.app "$HOME/Applications
   if [[ -n "$filter" ]] && ! printf '%s' "$name" | grep -qi -- "$filter"; then
     continue
   fi
-  version=$(defaults read "$app/Contents/Info" CFBundleShortVersionString 2>/dev/null || printf 'unknown')
+  version=$(defaults read "$app/Contents/Info" CFBundleShortVersionString 2> /dev/null || printf 'unknown')
   printf '%-40s %s\n' "$name" "$version"
 done

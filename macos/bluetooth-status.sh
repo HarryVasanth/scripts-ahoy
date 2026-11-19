@@ -11,7 +11,7 @@ if [[ $(uname -s) != Darwin ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 bluetooth-status - show Bluetooth power and devices.
 
 Usage: bluetooth-status
@@ -23,14 +23,21 @@ EOF
 
 for arg in "$@"; do
   case "$arg" in
-    -h | --help) show_help; exit 0 ;;
-    *) printf 'Error: unknown argument: %s\n' "$arg" >&2; show_help >&2; exit 1 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
+    *)
+      printf 'Error: unknown argument: %s\n' "$arg" >&2
+      show_help >&2
+      exit 1
+      ;;
   esac
 done
 
-power=$(defaults read /Library/Preferences/com.apple.Bluetooth ControllerPowerState 2>/dev/null || printf '')
+power=$(defaults read /Library/Preferences/com.apple.Bluetooth ControllerPowerState 2> /dev/null || printf '')
 
-raw=$(system_profiler SPBluetoothDataType 2>/dev/null || true)
+raw=$(system_profiler SPBluetoothDataType 2> /dev/null || true)
 if [[ -z "$raw" ]]; then
   printf 'Error: no Bluetooth data. This Mac may have no Bluetooth.\n' >&2
   exit 1

@@ -13,10 +13,13 @@ usage() {
 }
 
 case "${1:-}" in
-  -h|--help) usage; exit 0 ;;
+  -h | --help)
+    usage
+    exit 0
+    ;;
 esac
 
-if ! command -v dig >/dev/null 2>&1; then
+if ! command -v dig > /dev/null 2>&1; then
   printf 'Error: dig is not installed.\n' >&2
   printf 'Install it: brew install bind (macOS) or apt install dnsutils (Debian).\n' >&2
   exit 1
@@ -41,14 +44,14 @@ trap 'rm -f "$tmp"' EXIT
 
 printf '⏱️  DNS timing for %s (average of 3 queries)\n' "$domain"
 for resolver in "${resolvers[@]}"; do
-  answer=$(dig +short +time=2 +tries=1 "@$resolver" "$domain" A 2>/dev/null) || answer=""
+  answer=$(dig +short +time=2 +tries=1 "@$resolver" "$domain" A 2> /dev/null) || answer=""
   if [[ -z $answer ]]; then
     printf '   ⚠️  %s gave no answer. Skipped.\n' "$resolver" >&2
     continue
   fi
   total=0
   for _ in 1 2 3; do
-    elapsed=$( { time dig +short +time=2 +tries=1 "@$resolver" "$domain" A >/dev/null 2>&1; } 2>&1 ) || elapsed=""
+    elapsed=$({ time dig +short +time=2 +tries=1 "@$resolver" "$domain" A > /dev/null 2>&1; } 2>&1) || elapsed=""
     total=$(awk -v a="$total" -v b="$elapsed" 'BEGIN { printf "%.3f", a + b }')
   done
   average=$(awk -v t="$total" 'BEGIN { printf "%.1f", t / 3 * 1000 }')

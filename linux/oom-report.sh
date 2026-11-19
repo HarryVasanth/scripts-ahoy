@@ -37,11 +37,11 @@ fi
 tmp=$(mktemp "${TMPDIR:-/tmp}/oom-report.XXXXXX")
 trap 'rm -f "$tmp"' EXIT
 
-if command -v journalctl >/dev/null 2>&1 && journalctl -k -n 1 >/dev/null 2>&1; then
-  journalctl -k --since '30 days ago' --no-pager >"$tmp" 2>/dev/null || true
+if command -v journalctl > /dev/null 2>&1 && journalctl -k -n 1 > /dev/null 2>&1; then
+  journalctl -k --since '30 days ago' --no-pager > "$tmp" 2> /dev/null || true
   source_name="journalctl"
 else
-  dmesg >"$tmp" 2>/dev/null || true
+  dmesg > "$tmp" 2> /dev/null || true
   source_name="dmesg"
 fi
 

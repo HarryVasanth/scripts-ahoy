@@ -5,7 +5,7 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Usage: todo-scan [--count] [--tag TAG] [path]
 
 Print every note as file:line:text. The default path is the current directory.
@@ -32,8 +32,15 @@ while (($# > 0)); do
       tags="$2"
       shift
       ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf '❌ Unknown option: %s\n' "$1" >&2; usage >&2; exit 1 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf '❌ Unknown option: %s\n' "$1" >&2
+      usage >&2
+      exit 1
+      ;;
     *) root="$1" ;;
   esac
   shift
@@ -54,9 +61,9 @@ trap 'rm -f "$hits"' EXIT
 
 find "$root" \
   \( -name .git -o -name node_modules -o -name vendor -o -name dist \
-     -o -name build -o -name target -o -name .venv \) -prune \
-  -o -type f -print0 |
-  xargs -0 grep -nHEI "($tags)[[:space:]:]" -- > "$hits" 2>/dev/null || true
+  -o -name build -o -name target -o -name .venv \) -prune \
+  -o -type f -print0 \
+  | xargs -0 grep -nHEI "($tags)[[:space:]:]" -- > "$hits" 2> /dev/null || true
 
 if [[ ! -s "$hits" ]]; then
   printf '🎉 No %s notes found in %s.\n' "$tags" "$root" >&2
@@ -68,8 +75,8 @@ total=${total//[[:space:]]/}
 
 if ((count_only == 1)); then
   printf '📊 %s note(s) in %s.\n' "$total" "$root" >&2
-  awk '{ i = index($0, ":"); print substr($0, 1, i - 1) }' "$hits" |
-    sort | uniq -c | sort -rn
+  awk '{ i = index($0, ":"); print substr($0, 1, i - 1) }' "$hits" \
+    | sort | uniq -c | sort -rn
 else
   printf '📊 %s note(s) in %s.\n' "$total" "$root" >&2
   cat "$hits"

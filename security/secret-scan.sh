@@ -9,7 +9,10 @@ QUIET=0
 FOUND=0
 PATHS=()
 
-die() { printf 'Error: %s\n' "$*" >&2; exit 1; }
+die() {
+  printf 'Error: %s\n' "$*" >&2
+  exit 1
+}
 
 usage() {
   awk 'NR > 1 && /^#/ { sub(/^# ?/, ""); print; next } NR > 1 { exit }' "$0"
@@ -17,11 +20,26 @@ usage() {
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    -q|--quiet) QUIET=1; shift ;;
-    -h|--help) usage; exit 0 ;;
-    --) shift; while [ "$#" -gt 0 ]; do PATHS+=("$1"); shift; done ;;
+    -q | --quiet)
+      QUIET=1
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      while [ "$#" -gt 0 ]; do
+        PATHS+=("$1")
+        shift
+      done
+      ;;
     -*) die "unknown option $1" ;;
-    *) PATHS+=("$1"); shift ;;
+    *)
+      PATHS+=("$1")
+      shift
+      ;;
   esac
 done
 
@@ -35,7 +53,7 @@ done
 scan() {
   local pattern=$1 label=$2 hits
   hits=$(grep -rInE --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=vendor \
-    --exclude='*.min.js' --exclude='*.lock' -- "$pattern" "${PATHS[@]}" 2>/dev/null || true)
+    --exclude='*.min.js' --exclude='*.lock' -- "$pattern" "${PATHS[@]}" 2> /dev/null || true)
   [ -n "$hits" ] || return 0
   FOUND=$((FOUND + 1))
   [ "$QUIET" -eq 1 ] && return 0

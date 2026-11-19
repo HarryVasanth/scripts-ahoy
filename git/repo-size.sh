@@ -5,7 +5,10 @@
 
 set -euo pipefail
 
-die() { printf 'Error: %s\n' "$*" >&2; exit 1; }
+die() {
+  printf 'Error: %s\n' "$*" >&2
+  exit 1
+}
 
 usage() {
   awk 'NR > 1 && /^#/ { sub(/^# ?/, ""); print; next } NR > 1 { exit }' "$0"
@@ -13,12 +16,15 @@ usage() {
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    -h|--help) usage; exit 0 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     *) die "unknown option $1" ;;
   esac
 done
 
-git rev-parse --git-dir >/dev/null 2>&1 || die "this is not a git repository."
+git rev-parse --git-dir > /dev/null 2>&1 || die "this is not a git repository."
 
 human() {
   awk -v kb="$1" 'BEGIN {
@@ -28,12 +34,12 @@ human() {
   }'
 }
 
-ROOT=$(git rev-parse --show-toplevel 2>/dev/null || printf '.')
-GIT_KB=$(du -sk "$(git rev-parse --git-dir)" 2>/dev/null | awk '{ print $1 }')
+ROOT=$(git rev-parse --show-toplevel 2> /dev/null || printf '.')
+GIT_KB=$(du -sk "$(git rev-parse --git-dir)" 2> /dev/null | awk '{ print $1 }')
 
 WT_KB=0
-if [ "$(git ls-files 2>/dev/null | wc -l | tr -d ' ')" -gt 0 ]; then
-  WT_KB=$(git ls-files -z | xargs -0 du -k 2>/dev/null | awk '{ total += $1 } END { print total + 0 }')
+if [ "$(git ls-files 2> /dev/null | wc -l | tr -d ' ')" -gt 0 ]; then
+  WT_KB=$(git ls-files -z | xargs -0 du -k 2> /dev/null | awk '{ total += $1 } END { print total + 0 }')
 fi
 
 printf '🔎 Repository size\n\n'
@@ -41,7 +47,7 @@ printf '  %s\n\n' "$ROOT"
 printf '  %-16s %s\n' 'Working tree' "$(human "${WT_KB:-0}")"
 printf '  %-16s %s\n' 'Git folder' "$(human "${GIT_KB:-0}")"
 
-git count-objects -v 2>/dev/null | awk -F': ' '
+git count-objects -v 2> /dev/null | awk -F': ' '
   function human(kb) {
     if (kb >= 1048576) return sprintf("%.2f GB", kb / 1048576)
     if (kb >= 1024) return sprintf("%.1f MB", kb / 1024)

@@ -12,25 +12,46 @@ full=0
 args=()
 for arg in "$@"; do
   case "$arg" in
-    -h|--help) usage; exit 0 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     --full) full=1 ;;
-    -*) printf 'Error: unknown option "%s".\n' "$arg" >&2; exit 1 ;;
+    -*)
+      printf 'Error: unknown option "%s".\n' "$arg" >&2
+      exit 1
+      ;;
     *) args+=("$arg") ;;
   esac
 done
-if (( ${#args[@]} < 1 )); then usage >&2; exit 1; fi
-command -v curl >/dev/null 2>&1 || { printf 'Error: curl is not installed.\n' >&2; exit 1; }
+if ((${#args[@]} < 1)); then
+  usage >&2
+  exit 1
+fi
+command -v curl > /dev/null 2>&1 || {
+  printf 'Error: curl is not installed.\n' >&2
+  exit 1
+}
 
 target=${args[0]}
 scheme=""
 case "$target" in
-  http://*) scheme=http; rest=${target#http://} ;;
-  https://*) scheme=https; rest=${target#https://} ;;
+  http://*)
+    scheme=http
+    rest=${target#http://}
+    ;;
+  https://*)
+    scheme=https
+    rest=${target#https://}
+    ;;
   *) rest=$target ;;
 esac
 host=${rest%%/*}
 [[ $host =~ ^[A-Za-z0-9._:-]+$ ]] \
-  || { printf 'Error: "%s" is not a valid host.\n' "$host" >&2; exit 1; }
+  || {
+    printf 'Error: "%s" is not a valid host.\n' "$host" >&2
+    exit 1
+  }
 
 tmp=$(mktemp)
 trap 'rm -f "$tmp"' EXIT
@@ -52,7 +73,7 @@ if [[ $code != 200 ]]; then
   exit 1
 fi
 printf '🤖 %s\n' "$url"
-if (( full == 1 )); then
+if ((full == 1)); then
   sed 's/\r$//' "$tmp" | sed 's/^/   /'
   exit 0
 fi

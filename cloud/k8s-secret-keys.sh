@@ -6,7 +6,7 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Usage: k8s-secret-keys [--namespace NS] [SECRET]
 
 Print the key names in one secret, or in every secret in the namespace.
@@ -17,22 +17,35 @@ The decoded values are never printed.
 EOF
 }
 
-die() { printf '❌ %s\n' "$1" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$1" >&2
+  exit 1
+}
 
 ns=""
 name=""
 while (($# > 0)); do
   case "$1" in
-    --namespace|-n) shift; (($# > 0)) || die 'Option --namespace needs a name.'; ns="$1" ;;
-    -h|--help) usage; exit 0 ;;
+    --namespace | -n)
+      shift
+      (($# > 0)) || die 'Option --namespace needs a name.'
+      ns="$1"
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     -*) die "Unknown option: $1" ;;
-    *) [[ -z "$name" ]] || die 'Pass one secret only.'; name="$1" ;;
+    *)
+      [[ -z "$name" ]] || die 'Pass one secret only.'
+      name="$1"
+      ;;
   esac
   shift
 done
 
-command -v kubectl >/dev/null 2>&1 ||
-  die 'kubectl is not installed. See https://kubernetes.io/docs/tasks/tools/'
+command -v kubectl > /dev/null 2>&1 \
+  || die 'kubectl is not installed. See https://kubernetes.io/docs/tasks/tools/'
 
 # shellcheck disable=SC2016  # Go template syntax, not shell expansion.
 template='{{range $k, $v := .data}}{{$k}}{{"\n"}}{{end}}'
@@ -50,14 +63,17 @@ if [[ -n "$name" ]]; then
 fi
 
 if [[ -n "$ns" ]]; then
-  list=$(kubectl get secrets -n "$ns" -o name 2>/dev/null) ||
-    die "Cannot list secrets in $ns. Check the name and your credentials."
+  list=$(kubectl get secrets -n "$ns" -o name 2> /dev/null) \
+    || die "Cannot list secrets in $ns. Check the name and your credentials."
 else
-  list=$(kubectl get secrets -o name 2>/dev/null) ||
-    die 'Cannot list secrets. Check your kubeconfig and credentials.'
+  list=$(kubectl get secrets -o name 2> /dev/null) \
+    || die 'Cannot list secrets. Check your kubeconfig and credentials.'
 fi
 
-[[ -n "$list" ]] || { printf 'ℹ️  No secrets found. ✅\n'; exit 0; }
+[[ -n "$list" ]] || {
+  printf 'ℹ️  No secrets found. ✅\n'
+  exit 0
+}
 
 if [[ -n "$ns" ]]; then printf '🔑 Secret keys in namespace %s:\n' "$ns"; else printf '🔑 Secret keys:\n'; fi
 

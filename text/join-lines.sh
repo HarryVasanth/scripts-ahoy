@@ -7,7 +7,7 @@ set -euo pipefail
 sep=" "
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Join lines into a single line.
 Usage: join-lines.sh [-s SEP] [FILE...]
 
@@ -23,17 +23,31 @@ EOF
 
 while (($# > 0)); do
   case "$1" in
-    -s|--separator)
-      (($# >= 2)) || { printf 'error: %s needs a value\n' "$1" >&2; exit 1; }
-      sep="$2"; shift 2 ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+    -s | --separator)
+      (($# >= 2)) || {
+        printf 'error: %s needs a value\n' "$1" >&2
+        exit 1
+      }
+      sep="$2"
+      shift 2
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
     *) break ;;
   esac
 done
 
 for f in "$@"; do
-  [[ -r "$f" ]] || { printf 'error: cannot read %s\n' "$f" >&2; exit 1; }
+  [[ -r "$f" ]] || {
+    printf 'error: cannot read %s\n' "$f" >&2
+    exit 1
+  }
 done
 
 awk -v sep="$sep" '

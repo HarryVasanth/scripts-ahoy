@@ -11,7 +11,7 @@ if [[ $(uname -s) != Darwin ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 defaults-backup - save defaults domains to plist files.
 
 Usage: defaults-backup [--out DIR] [DOMAIN...]
@@ -30,13 +30,25 @@ domains=()
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --out)
-      [[ $# -ge 2 ]] || { printf 'Error: --out needs a value.\n' >&2; exit 1; }
+      [[ $# -ge 2 ]] || {
+        printf 'Error: --out needs a value.\n' >&2
+        exit 1
+      }
       out=$2
       shift 2
       ;;
-    -h | --help) show_help; exit 0 ;;
-    -*) printf 'Error: unknown argument: %s\n' "$1" >&2; exit 1 ;;
-    *) domains+=("$1"); shift ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
+    -*)
+      printf 'Error: unknown argument: %s\n' "$1" >&2
+      exit 1
+      ;;
+    *)
+      domains+=("$1")
+      shift
+      ;;
   esac
 done
 
@@ -61,7 +73,7 @@ fi
 saved=0
 failed=0
 for domain in "${domains[@]}"; do
-  if defaults export "$domain" "$out/$domain.plist" 2>/dev/null; then
+  if defaults export "$domain" "$out/$domain.plist" 2> /dev/null; then
     saved=$((saved + 1))
   else
     printf '⚠️  Could not export: %s\n' "$domain" >&2

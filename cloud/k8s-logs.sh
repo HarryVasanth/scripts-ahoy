@@ -5,7 +5,7 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Usage: k8s-logs [-n NS] [-p POD | -l SELECTOR] [-c CONTAINER]
                 [--since DUR] [--tail N] [--previous]
 
@@ -23,7 +23,10 @@ Pass either -p or -l.
 EOF
 }
 
-die() { printf '❌ %s\n' "$1" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$1" >&2
+  exit 1
+}
 
 namespace=""
 pod=""
@@ -34,19 +37,23 @@ tail=""
 previous=0
 while (($# > 0)); do
   case "$1" in
-    -n|--namespace|-p|--pod|-l|--selector|-c|--container|--since|--tail)
+    -n | --namespace | -p | --pod | -l | --selector | -c | --container | --since | --tail)
       (($# > 1)) || die "$1 needs a value."
       case "$1" in
-        -n|--namespace) namespace="$2" ;;
-        -p|--pod) pod="$2" ;;
-        -l|--selector) selector="$2" ;;
-        -c|--container) container="$2" ;;
+        -n | --namespace) namespace="$2" ;;
+        -p | --pod) pod="$2" ;;
+        -l | --selector) selector="$2" ;;
+        -c | --container) container="$2" ;;
         --since) since="$2" ;;
         --tail) tail="$2" ;;
       esac
-      shift ;;
+      shift
+      ;;
     --previous) previous=1 ;;
-    -h|--help) usage; exit 0 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     *) die "Unknown option: $1" ;;
   esac
   shift
@@ -56,8 +63,8 @@ if [[ -z "$pod" && -z "$selector" ]]; then die 'Pass a pod with -p, or a selecto
 if [[ -n "$pod" && -n "$selector" ]]; then die 'Pass a pod or a selector, not both.'; fi
 if [[ -n "$tail" && ! "$tail" =~ ^[0-9]+$ ]]; then die '--tail needs a number.'; fi
 
-command -v kubectl >/dev/null 2>&1 || die 'kubectl is not installed. Install it: https://kubernetes.io/docs/tasks/tools/'
-kubectl config current-context >/dev/null 2>&1 || die 'No kubectl context is set. Run: kubectl config use-context NAME'
+command -v kubectl > /dev/null 2>&1 || die 'kubectl is not installed. Install it: https://kubernetes.io/docs/tasks/tools/'
+kubectl config current-context > /dev/null 2>&1 || die 'No kubectl context is set. Run: kubectl config use-context NAME'
 
 cmd=(kubectl logs -f)
 [[ -z "$namespace" ]] || cmd+=(-n "$namespace")

@@ -9,7 +9,7 @@ apply=0
 extended=0
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Rename files by applying a sed expression to each name.
 Usage: batch-rename.sh [--apply] [-E] PATTERN REPLACEMENT FILE...
 
@@ -23,14 +23,30 @@ EOF
 
 while (($# > 0)); do
   case "$1" in
-    --apply) apply=1; shift ;;
-    -E|--extended) extended=1; shift ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+    --apply)
+      apply=1
+      shift
+      ;;
+    -E | --extended)
+      extended=1
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
     *) break ;;
   esac
 done
-(($# >= 3)) || { printf 'error: give PATTERN, REPLACEMENT and at least one FILE\n' >&2; usage >&2; exit 1; }
+(($# >= 3)) || {
+  printf 'error: give PATTERN, REPLACEMENT and at least one FILE\n' >&2
+  usage >&2
+  exit 1
+}
 
 pattern="$1"
 replacement="$2"

@@ -11,7 +11,7 @@ if [[ ! -r /proc/meminfo ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 swap-check - show swap usage and the swappiness setting.
 
 Usage: swap-check [--warn PCT]
@@ -28,11 +28,17 @@ warn_pct=80
 while [[ $# -gt 0 ]]; do
   case "$1" in
     -w | --warn)
-      [[ $# -ge 2 ]] || { printf 'Error: %s needs a value.\n' "$1" >&2; exit 1; }
+      [[ $# -ge 2 ]] || {
+        printf 'Error: %s needs a value.\n' "$1" >&2
+        exit 1
+      }
       warn_pct=$2
       shift 2
       ;;
-    -h | --help) show_help; exit 0 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
     *)
       printf 'Error: unknown argument: %s\n' "$1" >&2
       show_help >&2
@@ -48,7 +54,7 @@ fi
 
 total=$(awk '/^SwapTotal:/ {print $2}' /proc/meminfo)
 free_swap=$(awk '/^SwapFree:/ {print $2}' /proc/meminfo)
-swappiness=$(cat /proc/sys/vm/swappiness 2>/dev/null || printf 'unknown')
+swappiness=$(cat /proc/sys/vm/swappiness 2> /dev/null || printf 'unknown')
 
 total_mb=$((total / 1024))
 used_mb=$(((total - free_swap) / 1024))

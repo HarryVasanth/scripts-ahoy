@@ -11,7 +11,7 @@ if [[ $(uname -s) != Darwin ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 sip-status - show the System Integrity Protection status.
 
 Usage: sip-status
@@ -23,12 +23,19 @@ EOF
 
 for arg in "$@"; do
   case "$arg" in
-    -h | --help) show_help; exit 0 ;;
-    *) printf 'Error: unknown argument: %s\n' "$arg" >&2; show_help >&2; exit 1 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
+    *)
+      printf 'Error: unknown argument: %s\n' "$arg" >&2
+      show_help >&2
+      exit 1
+      ;;
   esac
 done
 
-if ! command -v csrutil >/dev/null 2>&1; then
+if ! command -v csrutil > /dev/null 2>&1; then
   printf 'Error: csrutil is not available on this Mac.\n' >&2
   exit 1
 fi

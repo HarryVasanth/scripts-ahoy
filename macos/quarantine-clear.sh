@@ -9,7 +9,7 @@ if [[ $(uname -s) != Darwin ]]; then
   exit 1
 fi
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 quarantine-clear - remove the quarantine flag from files.
 
 Usage: quarantine-clear [--dry-run] [--yes] [--recursive] PATH...
@@ -26,17 +26,42 @@ recursive=0
 paths=()
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --dry-run) dry_run=1; shift ;;
-    -y | --yes) assume_yes=1; shift ;;
-    -r | --recursive) recursive=1; shift ;;
-    -h | --help) show_help; exit 0 ;;
-    -*) printf 'Error: unknown argument: %s\n' "$1" >&2; exit 1 ;;
-    *) paths+=("$1"); shift ;;
+    --dry-run)
+      dry_run=1
+      shift
+      ;;
+    -y | --yes)
+      assume_yes=1
+      shift
+      ;;
+    -r | --recursive)
+      recursive=1
+      shift
+      ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
+    -*)
+      printf 'Error: unknown argument: %s\n' "$1" >&2
+      exit 1
+      ;;
+    *)
+      paths+=("$1")
+      shift
+      ;;
   esac
 done
-[[ ${#paths[@]} -gt 0 ]] || { printf 'Error: give at least one file or folder.\n' >&2; show_help >&2; exit 1; }
+[[ ${#paths[@]} -gt 0 ]] || {
+  printf 'Error: give at least one file or folder.\n' >&2
+  show_help >&2
+  exit 1
+}
 for path in "${paths[@]}"; do
-  [[ -e "$path" ]] || { printf 'Error: path not found: %s\n' "$path" >&2; exit 1; }
+  [[ -e "$path" ]] || {
+    printf 'Error: path not found: %s\n' "$path" >&2
+    exit 1
+  }
 done
 if [[ $recursive -eq 1 ]]; then
   finder() { find "$1" -type f -print0; }
@@ -46,7 +71,7 @@ fi
 found=()
 for path in "${paths[@]}"; do
   while IFS= read -r -d '' file; do
-    if xattr -p com.apple.quarantine "$file" >/dev/null 2>&1; then
+    if xattr -p com.apple.quarantine "$file" > /dev/null 2>&1; then
       found+=("$file")
     fi
   done < <(finder "$path")
@@ -64,7 +89,10 @@ if [[ $dry_run -eq 0 && $assume_yes -eq 0 ]]; then
   read -r answer || answer=""
   case "$answer" in
     [yY]*) ;;
-    *) printf 'Nothing changed.\n'; exit 0 ;;
+    *)
+      printf 'Nothing changed.\n'
+      exit 0
+      ;;
   esac
 fi
 for file in "${found[@]}"; do

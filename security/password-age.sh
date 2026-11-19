@@ -11,7 +11,10 @@ COUNT=0
 OLD=0
 NOPASS=0
 
-die() { printf 'Error: %s\n' "$*" >&2; exit 1; }
+die() {
+  printf 'Error: %s\n' "$*" >&2
+  exit 1
+}
 
 usage() {
   awk 'NR > 1 && /^#/ { sub(/^# ?/, ""); print; next } NR > 1 { exit }' "$0"
@@ -19,15 +22,26 @@ usage() {
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    -f) [ "$#" -ge 2 ] || die "-f needs a path."; SHADOW=$2; shift 2 ;;
-    -d) [ "$#" -ge 2 ] || die "-d needs a number."; DAYS=$2; shift 2 ;;
-    -h|--help) usage; exit 0 ;;
+    -f)
+      [ "$#" -ge 2 ] || die "-f needs a path."
+      SHADOW=$2
+      shift 2
+      ;;
+    -d)
+      [ "$#" -ge 2 ] || die "-d needs a number."
+      DAYS=$2
+      shift 2
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     *) die "unknown option $1" ;;
   esac
 done
 
 case "$DAYS" in
-  ''|*[!0-9]*|0) die "-d needs a number above zero." ;;
+  '' | *[!0-9]* | 0) die "-d needs a number above zero." ;;
 esac
 
 if [ ! -r "$SHADOW" ]; then
@@ -39,7 +53,7 @@ if [ ! -r "$SHADOW" ]; then
   die "cannot read $SHADOW. Try: sudo $0"
 fi
 
-TODAY=$(( $(date +%s) / 86400 ))
+TODAY=$(($(date +%s) / 86400))
 printf '🔎 Accounts with passwords older than %s days\n\n' "$DAYS"
 
 while IFS=: read -r user hash last _; do
@@ -49,10 +63,10 @@ while IFS=: read -r user hash last _; do
     continue
   fi
   case "$hash" in
-    '*'|'!'*|'*LK*') continue ;;
+    '*' | '!'* | '*LK*') continue ;;
   esac
   case "$last" in
-    ''|*[!0-9]*) continue ;;
+    '' | *[!0-9]*) continue ;;
   esac
   [ "$last" -gt 0 ] || continue
   COUNT=$((COUNT + 1))

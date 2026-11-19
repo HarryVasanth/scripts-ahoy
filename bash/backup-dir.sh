@@ -10,7 +10,7 @@ keep=0
 partial=""
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Back up one directory into a dated tar.gz file.
 Usage: backup-dir.sh [-o OUTDIR] [-k KEEP] DIR
 
@@ -22,25 +22,53 @@ EOF
 
 while (($# > 0)); do
   case "$1" in
-    -o|--outdir)
-      (($# >= 2)) || { printf 'error: %s needs a value\n' "$1" >&2; exit 1; }
-      outdir="$2"; shift 2 ;;
-    -k|--keep)
-      (($# >= 2)) || { printf 'error: %s needs a value\n' "$1" >&2; exit 1; }
+    -o | --outdir)
+      (($# >= 2)) || {
+        printf 'error: %s needs a value\n' "$1" >&2
+        exit 1
+      }
+      outdir="$2"
+      shift 2
+      ;;
+    -k | --keep)
+      (($# >= 2)) || {
+        printf 'error: %s needs a value\n' "$1" >&2
+        exit 1
+      }
       keep="$2"
-      [[ "$keep" =~ ^[0-9]+$ ]] || { printf 'error: KEEP must be a number\n' >&2; exit 1; }
-      shift 2 ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+      [[ "$keep" =~ ^[0-9]+$ ]] || {
+        printf 'error: KEEP must be a number\n' >&2
+        exit 1
+      }
+      shift 2
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
     *) break ;;
   esac
 done
 
-(($# == 1)) || { printf 'error: give exactly one directory\n' >&2; usage >&2; exit 1; }
-command -v tar >/dev/null 2>&1 || { printf 'error: tar is needed. Install tar with your package manager.\n' >&2; exit 1; }
+(($# == 1)) || {
+  printf 'error: give exactly one directory\n' >&2
+  usage >&2
+  exit 1
+}
+command -v tar > /dev/null 2>&1 || {
+  printf 'error: tar is needed. Install tar with your package manager.\n' >&2
+  exit 1
+}
 
 dir="${1%/}"
-[[ -d "$dir" ]] || { printf 'error: %s is not a directory\n' "$dir" >&2; exit 1; }
+[[ -d "$dir" ]] || {
+  printf 'error: %s is not a directory\n' "$dir" >&2
+  exit 1
+}
 
 name=$(basename "$dir")
 parent=$(dirname "$dir")
@@ -66,9 +94,9 @@ partial=""
 printf '%s\n' "$archive"
 
 if ((keep > 0)); then
-  find "$outdir" -maxdepth 1 -type f -name "$name-*.tar.gz" -exec ls -1t {} + |
-    tail -n +"$((keep + 1))" |
-    while IFS= read -r old; do
+  find "$outdir" -maxdepth 1 -type f -name "$name-*.tar.gz" -exec ls -1t {} + \
+    | tail -n +"$((keep + 1))" \
+    | while IFS= read -r old; do
       rm -f -- "$old"
       printf '🧹 Removed old backup %s\n' "$old" >&2
     done

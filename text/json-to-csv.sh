@@ -6,7 +6,7 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Turn a JSON array of flat objects into CSV.
 Usage: json-to-csv.sh [FILE]
 
@@ -20,16 +20,32 @@ EOF
 }
 
 case "${1:-}" in
-  -h|--help) usage; exit 0 ;;
-  -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+  -h | --help)
+    usage
+    exit 0
+    ;;
+  -*)
+    printf 'error: unknown option %s\n' "$1" >&2
+    exit 1
+    ;;
 esac
 
-(($# <= 1)) || { printf 'error: give one file at most\n' >&2; usage >&2; exit 1; }
-command -v jq >/dev/null 2>&1 ||
-  { printf 'error: jq is not installed\n  macOS: brew install jq\n  Linux: apt-get install jq\n' >&2; exit 1; }
+(($# <= 1)) || {
+  printf 'error: give one file at most\n' >&2
+  usage >&2
+  exit 1
+}
+command -v jq > /dev/null 2>&1 \
+  || {
+    printf 'error: jq is not installed\n  macOS: brew install jq\n  Linux: apt-get install jq\n' >&2
+    exit 1
+  }
 
 if (($# == 1)); then
-  [[ -r "$1" ]] || { printf 'error: cannot read %s\n' "$1" >&2; exit 1; }
+  [[ -r "$1" ]] || {
+    printf 'error: cannot read %s\n' "$1" >&2
+    exit 1
+  }
   input="$1"
 else
   input="-"

@@ -9,16 +9,28 @@ usage() {
   printf 'Usage: %s <url> [url...]\n' "${0##*/}"
   printf '  Give one or more JavaScript files. The script prints unique URLs and paths.\n'
 }
-if [[ ${1:-} == "-h" || ${1:-} == "--help" ]]; then usage; exit 0; fi
-if [[ $# -lt 1 ]]; then usage >&2; exit 1; fi
-command -v curl >/dev/null 2>&1 || { printf 'Error: curl is not installed.\n' >&2; exit 1; }
+if [[ ${1:-} == "-h" || ${1:-} == "--help" ]]; then
+  usage
+  exit 0
+fi
+if [[ $# -lt 1 ]]; then
+  usage >&2
+  exit 1
+fi
+command -v curl > /dev/null 2>&1 || {
+  printf 'Error: curl is not installed.\n' >&2
+  exit 1
+}
 
 found=$(mktemp)
 trap 'rm -f "$found"' EXIT
 for url in "$@"; do
   case "$url" in
-    http://*|https://*) ;;
-    *) printf '⚠️  Skip "%s". It is not an http or https URL.\n' "$url" >&2; continue ;;
+    http://* | https://*) ;;
+    *)
+      printf '⚠️  Skip "%s". It is not an http or https URL.\n' "$url" >&2
+      continue
+      ;;
   esac
   if ! body=$(curl -sS -L --max-time 20 -A 'js-endpoints/1.0' "$url"); then
     printf '⚠️  Cannot fetch %s.\n' "$url" >&2
@@ -34,7 +46,7 @@ done
 
 sort -u -o "$found" "$found"
 count=$(wc -l < "$found" | tr -d ' ')
-if (( count == 0 )); then
+if ((count == 0)); then
   printf '❌ No URLs or paths found.\n' >&2
   exit 1
 fi

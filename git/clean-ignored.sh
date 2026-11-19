@@ -7,7 +7,10 @@ set -euo pipefail
 
 FORCE=0
 
-die() { printf 'Error: %s\n' "$*" >&2; exit 1; }
+die() {
+  printf 'Error: %s\n' "$*" >&2
+  exit 1
+}
 
 usage() {
   awk 'NR > 1 && /^#/ { sub(/^# ?/, ""); print; next } NR > 1 { exit }' "$0"
@@ -15,16 +18,22 @@ usage() {
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    -f|--force) FORCE=1; shift ;;
-    -h|--help) usage; exit 0 ;;
+    -f | --force)
+      FORCE=1
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     *) die "unknown option $1" ;;
   esac
 done
 
-git rev-parse --git-dir >/dev/null 2>&1 || die "this is not a git repository."
+git rev-parse --git-dir > /dev/null 2>&1 || die "this is not a git repository."
 
 if [ "$FORCE" -eq 0 ]; then
-  LIST=$(git clean -ndX 2>/dev/null || true)
+  LIST=$(git clean -ndX 2> /dev/null || true)
   printf '🔎 Ignored files and folders (dry run)\n\n'
   if [ -z "$LIST" ]; then
     printf '✅ Nothing to clean.\n'

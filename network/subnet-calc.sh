@@ -25,14 +25,14 @@ if [[ $ip == "$cidr" || ! $ip =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ || ! $prefix =
   printf 'Error: "%s" is not an IPv4 CIDR block.\n' "$cidr" >&2
   exit 1
 fi
-if (( prefix > 32 )); then
+if ((prefix > 32)); then
   printf 'Error: the prefix must be from 0 to 32.\n' >&2
   exit 1
 fi
 
 IFS=. read -r o1 o2 o3 o4 <<< "$ip"
 for octet in "$o1" "$o2" "$o3" "$o4"; do
-  if (( 10#$octet > 255 )); then
+  if ((10#$octet > 255)); then
     printf 'Error: "%s" has an octet above 255.\n' "$ip" >&2
     exit 1
   fi
@@ -40,28 +40,28 @@ done
 
 int_to_ip() {
   printf '%s.%s.%s.%s' \
-    "$(( ($1 >> 24) & 255 ))" "$(( ($1 >> 16) & 255 ))" \
-    "$(( ($1 >> 8) & 255 ))" "$(( $1 & 255 ))"
+    "$((($1 >> 24) & 255))" "$((($1 >> 16) & 255))" \
+    "$((($1 >> 8) & 255))" "$(($1 & 255))"
 }
 
-base=$(( (10#$o1 << 24) + (10#$o2 << 16) + (10#$o3 << 8) + 10#$o4 ))
-mask=$(( (0xFFFFFFFF << (32 - prefix)) & 0xFFFFFFFF ))
-network=$(( base & mask ))
-broadcast=$(( network | (~mask & 0xFFFFFFFF) ))
-size=$(( 1 << (32 - prefix) ))
+base=$(((10#$o1 << 24) + (10#$o2 << 16) + (10#$o3 << 8) + 10#$o4))
+mask=$(((0xFFFFFFFF << (32 - prefix)) & 0xFFFFFFFF))
+network=$((base & mask))
+broadcast=$((network | (~mask & 0xFFFFFFFF)))
+size=$((1 << (32 - prefix)))
 
-if (( prefix == 32 )); then
+if ((prefix == 32)); then
   first=$network
   last=$network
   hosts=1
-elif (( prefix == 31 )); then
+elif ((prefix == 31)); then
   first=$network
   last=$broadcast
   hosts=2
 else
-  first=$(( network + 1 ))
-  last=$(( broadcast - 1 ))
-  hosts=$(( size - 2 ))
+  first=$((network + 1))
+  last=$((broadcast - 1))
+  hosts=$((size - 2))
 fi
 
 printf '🌐 %s\n' "$cidr"

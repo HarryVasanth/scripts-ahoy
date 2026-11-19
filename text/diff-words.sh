@@ -6,7 +6,7 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Compare two files word by word.
 Usage: diff-words.sh FILE1 FILE2
 
@@ -20,15 +20,28 @@ EOF
 }
 
 case "${1:-}" in
-  -h|--help) usage; exit 0 ;;
+  -h | --help)
+    usage
+    exit 0
+    ;;
 esac
 
-(($# == 2)) || { printf 'error: give exactly two files\n' >&2; usage >&2; exit 1; }
+(($# == 2)) || {
+  printf 'error: give exactly two files\n' >&2
+  usage >&2
+  exit 1
+}
 for f in "$1" "$2"; do
-  [[ -r "$f" ]] || { printf 'error: cannot read %s\n' "$f" >&2; exit 1; }
+  [[ -r "$f" ]] || {
+    printf 'error: cannot read %s\n' "$f" >&2
+    exit 1
+  }
 done
-command -v git >/dev/null 2>&1 ||
-  { printf 'error: git is not installed\n  macOS: install the command line tools\n  Linux: apt-get install git\n' >&2; exit 1; }
+command -v git > /dev/null 2>&1 \
+  || {
+    printf 'error: git is not installed\n  macOS: install the command line tools\n  Linux: apt-get install git\n' >&2
+    exit 1
+  }
 
 status=0
 diff=$(git diff --no-index --word-diff=plain -- "$1" "$2") || status=$?

@@ -10,13 +10,13 @@ if [[ $(uname -s) != Darwin ]]; then
   exit 1
 fi
 
-if ! command -v tmutil >/dev/null 2>&1; then
+if ! command -v tmutil > /dev/null 2>&1; then
   printf 'Error: tmutil is missing. This tool needs macOS.\n' >&2
   exit 1
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 timemachine-status - report the Time Machine state.
 
 Usage: timemachine-status
@@ -28,7 +28,10 @@ EOF
 
 for arg in "$@"; do
   case "$arg" in
-    -h | --help) show_help; exit 0 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
     *)
       printf 'Error: unknown argument: %s\n' "$arg" >&2
       show_help >&2
@@ -38,7 +41,7 @@ for arg in "$@"; do
 done
 
 printf '== State ==\n'
-status=$(tmutil status 2>/dev/null || true)
+status=$(tmutil status 2> /dev/null || true)
 running=$(printf '%s\n' "$status" | awk -F'= ' '/Running/ {gsub(/;/, "", $2); print $2; exit}')
 case "$running" in
   1)
@@ -57,9 +60,9 @@ destinations=$(tmutil destinationinfo 2>&1 || true)
 printf '%s\n' "$destinations"
 
 printf '\n== Latest backup ==\n'
-latest=$(tmutil latestbackup 2>/dev/null || true)
+latest=$(tmutil latestbackup 2> /dev/null || true)
 printf '%s\n' "${latest:-None.}"
 
 printf '\n== Recent backups ==\n'
-recent=$(tmutil listbackups 2>/dev/null | grep -v '^Command exited' | tail -n 3 || true)
+recent=$(tmutil listbackups 2> /dev/null | grep -v '^Command exited' | tail -n 3 || true)
 printf '%s\n' "${recent:-None.}"

@@ -7,7 +7,7 @@ set -euo pipefail
 columns=""
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Pick CSV columns by name and put them in the order you give.
 Usage: csv-column.sh -c NAME[,NAME...] [FILE]
 
@@ -23,17 +23,36 @@ EOF
 
 while (($# > 0)); do
   case "$1" in
-    -c|--columns)
-      (($# >= 2)) || { printf 'error: %s needs a list\n' "$1" >&2; exit 1; }
-      columns="$2"; shift 2 ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+    -c | --columns)
+      (($# >= 2)) || {
+        printf 'error: %s needs a list\n' "$1" >&2
+        exit 1
+      }
+      columns="$2"
+      shift 2
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
     *) break ;;
   esac
 done
 
-[[ -n "$columns" ]] || { printf 'error: give the columns with -c\n' >&2; usage >&2; exit 1; }
-(($# <= 1)) || { printf 'error: give one file at most\n' >&2; usage >&2; exit 1; }
+[[ -n "$columns" ]] || {
+  printf 'error: give the columns with -c\n' >&2
+  usage >&2
+  exit 1
+}
+(($# <= 1)) || {
+  printf 'error: give one file at most\n' >&2
+  usage >&2
+  exit 1
+}
 
 # shellcheck disable=SC2016  # $1 and $i are awk fields, not shell variables.
 program='
@@ -60,7 +79,10 @@ program='
 '
 
 if (($# == 1)); then
-  [[ -r "$1" ]] || { printf 'error: cannot read %s\n' "$1" >&2; exit 1; }
+  [[ -r "$1" ]] || {
+    printf 'error: cannot read %s\n' "$1" >&2
+    exit 1
+  }
   awk -F, -v want="$columns" "$program" "$1"
 else
   awk -F, -v want="$columns" "$program"

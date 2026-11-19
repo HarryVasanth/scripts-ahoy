@@ -10,7 +10,7 @@ sortkeys=0
 file=""
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Format JSON for reading or for machines.
 Usage: json-pretty.sh [-c] [-s] [FILE]
 
@@ -24,21 +24,39 @@ EOF
 
 while (($# > 0)); do
   case "$1" in
-    -c|--compact) compact=1; shift ;;
-    -s|--sort) sortkeys=1; shift ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+    -c | --compact)
+      compact=1
+      shift
+      ;;
+    -s | --sort)
+      sortkeys=1
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
     *) break ;;
   esac
 done
 
-(($# <= 1)) || { printf 'error: give one file only\n' >&2; exit 1; }
+(($# <= 1)) || {
+  printf 'error: give one file only\n' >&2
+  exit 1
+}
 if (($# == 1)); then
   file="$1"
-  [[ -r "$file" ]] || { printf 'error: cannot read %s\n' "$file" >&2; exit 1; }
+  [[ -r "$file" ]] || {
+    printf 'error: cannot read %s\n' "$file" >&2
+    exit 1
+  }
 fi
 
-if ! command -v jq >/dev/null 2>&1; then
+if ! command -v jq > /dev/null 2>&1; then
   printf 'error: jq is needed for JSON. Install it with: brew install jq (macOS) or apt install jq (Debian/Ubuntu).\n' >&2
   exit 1
 fi

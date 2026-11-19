@@ -12,17 +12,23 @@ usage() {
   printf '  -h, --help  Show this help.\n'
 }
 
-die() { printf '❌ %s\n' "$1" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$1" >&2
+  exit 1
+}
 
 case "${1:-}" in
-  -h|--help) usage; exit 0 ;;
+  -h | --help)
+    usage
+    exit 0
+    ;;
 esac
 [[ -f .editorconfig ]] || die 'No .editorconfig in the current directory.'
 
 files=("$@")
 if ((${#files[@]} == 0)); then
-  command -v git >/dev/null 2>&1 || die 'Pass file names, or install git.'
-  git rev-parse --is-inside-work-tree >/dev/null 2>&1 || die 'Pass file names.'
+  command -v git > /dev/null 2>&1 || die 'Pass file names, or install git.'
+  git rev-parse --is-inside-work-tree > /dev/null 2>&1 || die 'Pass file names.'
   while IFS= read -r path; do files+=("$path"); done < <(git ls-files)
 fi
 
@@ -48,8 +54,10 @@ awk '
 problems=0
 for file in "${files[@]}"; do
   [[ -f "$file" ]] || continue
-  grep -Iq . "$file" 2>/dev/null || continue
-  base=${file##*/}; ext=""; case "$base" in *.*) ext=".${base##*.}" ;; esac
+  grep -Iq . "$file" 2> /dev/null || continue
+  base=${file##*/}
+  ext=""
+  case "$base" in *.*) ext=".${base##*.}" ;; esac
   settings=$(awk -F'\t' -v e="$ext" '
     $2 == "indent_style" && ($3 == e || $3 == "*") { s = $4 }
     $2 == "insert_final_newline" && ($3 == e || $3 == "*") { f = $4 }
@@ -63,8 +71,14 @@ for file in "${files[@]}"; do
   if [[ "$final" == true && -n "$(tail -c 1 "$file")" ]]; then msg="$msg no-final-newline"; fi
   if [[ "$eol" == lf ]] && LC_ALL=C grep -q "$(printf '\r')" "$file"; then msg="$msg crlf"; fi
   if [[ "$style" == space ]] && grep -q "^$(printf '\t')" "$file"; then msg="$msg tab-indent"; fi
-  if [[ -n "$msg" ]]; then printf '❌ %s:%s\n' "$file" "$msg"; problems=1; fi
+  if [[ -n "$msg" ]]; then
+    printf '❌ %s:%s\n' "$file" "$msg"
+    problems=1
+  fi
 done
 
-if ((problems != 0)); then printf '❌ Some files break .editorconfig.\n' >&2; exit 1; fi
+if ((problems != 0)); then
+  printf '❌ Some files break .editorconfig.\n' >&2
+  exit 1
+fi
 printf '✅ All checked files follow .editorconfig.\n'

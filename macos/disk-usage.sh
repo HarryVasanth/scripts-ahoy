@@ -6,7 +6,7 @@ set -euo pipefail
 # Needs: du, sort, awk (POSIX)
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 disk-usage - list the biggest items in a folder.
 
 Usage: disk-usage [DIR] [--count N]
@@ -25,12 +25,21 @@ count=10
 while [[ $# -gt 0 ]]; do
   case "$1" in
     -n | --count)
-      [[ $# -ge 2 ]] || { printf 'Error: %s needs a value.\n' "$1" >&2; exit 1; }
+      [[ $# -ge 2 ]] || {
+        printf 'Error: %s needs a value.\n' "$1" >&2
+        exit 1
+      }
       count=$2
       shift 2
       ;;
-    -h | --help) show_help; exit 0 ;;
-    -*) printf 'Error: unknown argument: %s\n' "$1" >&2; exit 1 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
+    -*)
+      printf 'Error: unknown argument: %s\n' "$1" >&2
+      exit 1
+      ;;
     *)
       dir=$1
       shift
@@ -48,7 +57,7 @@ if [[ ! -d "$dir" ]]; then
   exit 1
 fi
 
-entries=$(du -sk "$dir"/* "$dir"/.[!.]* 2>/dev/null | sort -n | tail -n "$count" || true)
+entries=$(du -sk "$dir"/* "$dir"/.[!.]* 2> /dev/null | sort -n | tail -n "$count" || true)
 
 if [[ -z "$entries" ]]; then
   printf '⚠️  Nothing to measure in %s.\n' "$dir"

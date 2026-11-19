@@ -4,7 +4,7 @@ set -euo pipefail
 # Usage: service-wait [-t SECONDS] UNIT [-h]
 # Needs: systemctl (systemd)
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 service-wait - wait for a systemd service to become active.
 
 Usage: service-wait [--timeout SECONDS] UNIT
@@ -16,7 +16,7 @@ The exit status is 1 on a timeout or a failed unit. This suits start-up
 scripts that must run after a service is ready.
 EOF
 }
-if ! command -v systemctl >/dev/null 2>&1; then
+if ! command -v systemctl > /dev/null 2>&1; then
   printf 'Error: systemctl is missing. This tool needs systemd.\n' >&2
   exit 1
 fi
@@ -25,14 +25,26 @@ unit=""
 while [[ $# -gt 0 ]]; do
   case "$1" in
     -t | --timeout)
-      [[ $# -ge 2 ]] || { printf 'Error: %s needs a value.\n' "$1" >&2; exit 1; }
+      [[ $# -ge 2 ]] || {
+        printf 'Error: %s needs a value.\n' "$1" >&2
+        exit 1
+      }
       timeout=$2
       shift 2
       ;;
-    -h | --help) show_help; exit 0 ;;
-    -*) printf 'Error: unknown argument: %s\n' "$1" >&2; exit 1 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
+    -*)
+      printf 'Error: unknown argument: %s\n' "$1" >&2
+      exit 1
+      ;;
     *)
-      [[ -z "$unit" ]] || { printf 'Error: give one unit only.\n' >&2; exit 1; }
+      [[ -z "$unit" ]] || {
+        printf 'Error: give one unit only.\n' >&2
+        exit 1
+      }
       unit=$1
       shift
       ;;
@@ -49,7 +61,7 @@ if [[ ! $timeout =~ ^[0-9]+$ ]]; then
 fi
 waited=0
 while :; do
-  state=$(systemctl is-active "$unit" 2>/dev/null || true)
+  state=$(systemctl is-active "$unit" 2> /dev/null || true)
   case "$state" in
     active)
       printf '✅ %s is active after %s seconds.\n' "$unit" "$waited"

@@ -1,0 +1,55 @@
+name: ✅ Checks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📀 Checkout
+        uses: actions/checkout@v7
+
+      - name: 🟢 Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+
+      - name: 📦 Install Prettier
+        # shortcut: no npm cache. Two small packages install in seconds and the versions float.
+        run: npm install --no-save --no-package-lock prettier@3 prettier-plugin-sh
+
+      - name: 💄 Prettier
+        env:
+          IS_MAIN: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        run: |
+          if [[ "$IS_MAIN" == "true" ]]; then
+            npx prettier --write "**/*.{js,md,yml,sh,html,css}" --plugin=prettier-plugin-sh
+          else
+            npx prettier --check "**/*.{js,md,yml,sh,html,css}" --plugin=prettier-plugin-sh
+          fi
+
+      - name: 🐚 ShellCheck
+        run: find . -type f -name '*.sh' -not -path './.git/*' -not -path './node_modules/*' -exec shellcheck {} +
+
+      - name: 📎 Commit formatting
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          if git diff --quiet; then
+            echo "Already formatted."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rm -rf node_modules
+          git add -A
+          git commit -m "chore: format code"
+          git push

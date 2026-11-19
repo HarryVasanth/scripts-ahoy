@@ -9,7 +9,7 @@ output=merged.pdf
 force=false
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Merge PDF files. The first file becomes the first pages of the result.
 
 Options:
@@ -19,20 +19,38 @@ Options:
 EOF
 }
 
-die() { printf '❌ %s\n' "$*" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$*" >&2
+  exit 1
+}
 
 while [ $# -gt 0 ]; do
   case "$1" in
-    -o) output=${2:-}; shift 2 || die "Option -o needs a value." ;;
-    --force) force=true; shift ;;
-    -h|--help) usage; exit 0 ;;
-    --) shift; break ;;
+    -o)
+      output=${2:-}
+      shift 2 || die "Option -o needs a value."
+      ;;
+    --force)
+      force=true
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      break
+      ;;
     -*) die "Unknown option: $1" ;;
     *) break ;;
   esac
 done
 
-[ "$#" -gt 0 ] || { usage >&2; die "Give me at least one PDF."; }
+[ "$#" -gt 0 ] || {
+  usage >&2
+  die "Give me at least one PDF."
+}
 [ -e "$output" ] && [ "$force" = false ] && die "Output exists: $output (use --force to overwrite)"
 
 inputs=()
@@ -44,10 +62,10 @@ for file in "$@"; do
   inputs+=("$file")
 done
 
-if command -v pdfunite >/dev/null 2>&1; then
+if command -v pdfunite > /dev/null 2>&1; then
   printf '📚 Merging %s files into %s\n' "$#" "$output" >&2
   pdfunite "${inputs[@]}" "$output"
-elif command -v gs >/dev/null 2>&1; then
+elif command -v gs > /dev/null 2>&1; then
   printf '📚 Merging %s files into %s\n' "$#" "$output" >&2
   gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile="$output" "${inputs[@]}"
 else

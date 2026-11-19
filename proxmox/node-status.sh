@@ -8,7 +8,7 @@ remote=
 node=
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Print live usage for one node and its storages.
 
 Options:
@@ -18,14 +18,29 @@ Options:
 EOF
 }
 
-die() { printf '❌ %s\n' "$*" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$*" >&2
+  exit 1
+}
 
 while [ $# -gt 0 ]; do
   case "$1" in
-    -H) remote=${2:-}; shift 2 || die "Option -H needs a value." ;;
-    --node) node=${2:-}; shift 2 || die "Option --node needs a value." ;;
-    -h|--help) usage; exit 0 ;;
-    --) shift; break ;;
+    -H)
+      remote=${2:-}
+      shift 2 || die "Option -H needs a value."
+      ;;
+    --node)
+      node=${2:-}
+      shift 2 || die "Option --node needs a value."
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      break
+      ;;
     -*) die "Unknown option: $1" ;;
     *) break ;;
   esac
@@ -33,14 +48,14 @@ done
 
 [ "$#" -eq 0 ] || die "Too many arguments."
 if [ -n "$remote" ]; then
-  command -v ssh >/dev/null 2>&1 || die "ssh is missing. Install OpenSSH."
+  command -v ssh > /dev/null 2>&1 || die "ssh is missing. Install OpenSSH."
   # shellcheck disable=SC2029  # The command must expand on the remote side.
   run() { ssh "$remote" "$@"; }
 else
-  command -v pvesh >/dev/null 2>&1 || die "pvesh is missing. This script must run on a Proxmox VE node."
+  command -v pvesh > /dev/null 2>&1 || die "pvesh is missing. This script must run on a Proxmox VE node."
   run() { "$@"; }
 fi
-command -v jq >/dev/null 2>&1 || die "jq is missing. Install it with: sudo apt install jq."
+command -v jq > /dev/null 2>&1 || die "jq is missing. Install it with: sudo apt install jq."
 [ -n "$node" ] || node=$(run hostname -s) || die "Cannot read the node name. Use --node."
 status=$(run pvesh get "/nodes/$node/status" --output-format json) || die "Cannot read node '$node'."
 printf '🖥️  Node %s\n\n' "$node"

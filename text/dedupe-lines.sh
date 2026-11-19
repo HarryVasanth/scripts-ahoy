@@ -8,7 +8,7 @@ mode="unique"
 file=""
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Drop repeated lines, or show only the repeats.
 Usage: dedupe-lines.sh [-c] [-d] [FILE]
 
@@ -22,18 +22,36 @@ EOF
 
 while (($# > 0)); do
   case "$1" in
-    -c|--count) mode="count"; shift ;;
-    -d|--dupe) mode="dupe"; shift ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+    -c | --count)
+      mode="count"
+      shift
+      ;;
+    -d | --dupe)
+      mode="dupe"
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
     *) break ;;
   esac
 done
 
-(($# <= 1)) || { printf 'error: give one file only\n' >&2; exit 1; }
+(($# <= 1)) || {
+  printf 'error: give one file only\n' >&2
+  exit 1
+}
 if (($# == 1)); then
   file="$1"
-  [[ -r "$file" ]] || { printf 'error: cannot read %s\n' "$file" >&2; exit 1; }
+  [[ -r "$file" ]] || {
+    printf 'error: cannot read %s\n' "$file" >&2
+    exit 1
+  }
 fi
 
 run() {

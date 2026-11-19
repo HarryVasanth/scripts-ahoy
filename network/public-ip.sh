@@ -14,14 +14,21 @@ usage() {
 family=""
 for arg in "$@"; do
   case "$arg" in
-    -h|--help) usage; exit 0 ;;
-    -4|--4) family=4 ;;
-    -6|--6) family=6 ;;
-    *) printf 'Error: unknown option "%s".\n' "$arg" >&2; usage >&2; exit 1 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -4 | --4) family=4 ;;
+    -6 | --6) family=6 ;;
+    *)
+      printf 'Error: unknown option "%s".\n' "$arg" >&2
+      usage >&2
+      exit 1
+      ;;
   esac
 done
 
-if ! command -v curl >/dev/null 2>&1; then
+if ! command -v curl > /dev/null 2>&1; then
   printf 'Error: curl is not installed.\n' >&2
   printf 'Install it: brew install curl (macOS) or apt install curl (Debian).\n' >&2
   exit 1
@@ -32,7 +39,7 @@ endpoints=(https://icanhazip.com https://api.ipify.org https://ifconfig.co)
 lookup() {
   local fam=$1 url answer
   for url in "${endpoints[@]}"; do
-    if ! answer=$(curl "-$fam" -fsS --max-time 5 "$url" 2>/dev/null); then
+    if ! answer=$(curl "-$fam" -fsS --max-time 5 "$url" 2> /dev/null); then
       continue
     fi
     answer=$(printf '%s' "$answer" | tr -d '[:space:]')
@@ -66,6 +73,6 @@ if [[ -z $family || $family == 6 ]]; then
   fi
 fi
 
-if [[ -n $family ]] && (( failed == 1 )); then
+if [[ -n $family ]] && ((failed == 1)); then
   exit 1
 fi

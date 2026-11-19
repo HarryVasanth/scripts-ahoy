@@ -8,7 +8,10 @@ set -euo pipefail
 MSG=
 TAG=
 
-die() { printf 'Error: %s\n' "$*" >&2; exit 1; }
+die() {
+  printf 'Error: %s\n' "$*" >&2
+  exit 1
+}
 
 usage() {
   awk 'NR > 1 && /^#/ { sub(/^# ?/, ""); print; next } NR > 1 { exit }' "$0"
@@ -16,8 +19,15 @@ usage() {
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    -m) [ "$#" -ge 2 ] || die "-m needs a message."; MSG=$2; shift 2 ;;
-    -h|--help) usage; exit 0 ;;
+    -m)
+      [ "$#" -ge 2 ] || die "-m needs a message."
+      MSG=$2
+      shift 2
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     -*) die "unknown option $1" ;;
     *)
       [ -z "$TAG" ] || die "give one tag name only."
@@ -29,11 +39,11 @@ done
 
 [ -n "$TAG" ] || die "give a tag name. See --help."
 
-git rev-parse --git-dir >/dev/null 2>&1 || die "this is not a git repository."
-git rev-parse --verify -q HEAD >/dev/null || die "there are no commits yet."
+git rev-parse --git-dir > /dev/null 2>&1 || die "this is not a git repository."
+git rev-parse --verify -q HEAD > /dev/null || die "there are no commits yet."
 git check-ref-format "refs/tags/$TAG" || die "invalid tag name: $TAG"
 
-if git rev-parse --verify -q "refs/tags/$TAG" >/dev/null; then
+if git rev-parse --verify -q "refs/tags/$TAG" > /dev/null; then
   die "tag $TAG already exists."
 fi
 

@@ -12,7 +12,7 @@ if [[ $(uname -s) != Linux ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 kernel-check - check the running kernel and pending reboots.
 
 Usage: kernel-check
@@ -24,7 +24,10 @@ EOF
 
 for arg in "$@"; do
   case "$arg" in
-    -h | --help) show_help; exit 0 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
     *)
       printf 'Error: unknown argument: %s\n' "$arg" >&2
       show_help >&2
@@ -37,9 +40,9 @@ running=$(uname -r)
 printf 'Running kernel: %s\n' "$running"
 
 newest=""
-if compgen -G "/boot/vmlinuz-*" >/dev/null 2>&1; then
-  newest=$(for f in /boot/vmlinuz-*; do basename "$f"; done |
-    sed 's/^vmlinuz-//' | sort -V | tail -n 1)
+if compgen -G "/boot/vmlinuz-*" > /dev/null 2>&1; then
+  newest=$(for f in /boot/vmlinuz-*; do basename "$f"; done \
+    | sed 's/^vmlinuz-//' | sort -V | tail -n 1)
   printf 'Newest kernel:  %s\n' "$newest"
 else
   printf 'Newest kernel:  unknown (no kernel images in /boot)\n'

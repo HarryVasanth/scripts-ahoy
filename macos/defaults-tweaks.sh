@@ -8,7 +8,7 @@ if [[ $(uname -s) != Darwin ]]; then
   exit 1
 fi
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 defaults-tweaks - useful macOS defaults, in one place.
 
 Usage: defaults-tweaks --list
@@ -39,15 +39,26 @@ for arg in "$@"; do
     --apply) action="apply" ;;
     --dry-run) dry_run=1 ;;
     -y | --yes) assume_yes=1 ;;
-    -h | --help) show_help; exit 0 ;;
-    *) printf 'Error: unknown argument: %s\n' "$arg" >&2; show_help >&2; exit 1 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
+    *)
+      printf 'Error: unknown argument: %s\n' "$arg" >&2
+      show_help >&2
+      exit 1
+      ;;
   esac
 done
-[[ -n "$action" ]] || { printf 'Error: give --list or --apply.\n' >&2; show_help >&2; exit 1; }
+[[ -n "$action" ]] || {
+  printf 'Error: give --list or --apply.\n' >&2
+  show_help >&2
+  exit 1
+}
 if [[ "$action" = "list" ]]; then
   for tweak in "${tweaks[@]}"; do
-    IFS='|' read -r domain key _ _ desc <<<"$tweak"
-    current=$(defaults read "$domain" "$key" 2>/dev/null || printf '(not set)')
+    IFS='|' read -r domain key _ _ desc <<< "$tweak"
+    current=$(defaults read "$domain" "$key" 2> /dev/null || printf '(not set)')
     printf '%s\n  %s %s = %s\n' "$desc" "$domain" "$key" "$current"
   done
   exit 0
@@ -57,11 +68,14 @@ if [[ $dry_run -eq 0 && $assume_yes -eq 0 ]]; then
   read -r answer || answer=""
   case "$answer" in
     [yY]*) ;;
-    *) printf 'Nothing changed.\n'; exit 0 ;;
+    *)
+      printf 'Nothing changed.\n'
+      exit 0
+      ;;
   esac
 fi
 for tweak in "${tweaks[@]}"; do
-  IFS='|' read -r domain key kind value desc <<<"$tweak"
+  IFS='|' read -r domain key kind value desc <<< "$tweak"
   if [[ $dry_run -eq 1 ]]; then
     printf 'defaults write %s %s -%s %s\n' "$domain" "$key" "$kind" "$value"
   else

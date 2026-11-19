@@ -7,7 +7,7 @@ set -euo pipefail
 # Note: the tool checks /etc/crontab, /etc/cron.d and the current user crontab.
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 cron-lint - check cron files for common mistakes.
 
 Usage: cron-lint
@@ -19,8 +19,15 @@ EOF
 
 for arg in "$@"; do
   case "$arg" in
-    -h | --help) show_help; exit 0 ;;
-    *) printf 'Error: unknown argument: %s\n' "$arg" >&2; show_help >&2; exit 1 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
+    *)
+      printf 'Error: unknown argument: %s\n' "$arg" >&2
+      show_help >&2
+      exit 1
+      ;;
   esac
 done
 
@@ -33,7 +40,7 @@ check_file() {
   local file=$1 offset=$2 label=$3 line
   printf '== %s ==\n' "$label"
 
-  if grep -q $'\r' "$file" 2>/dev/null; then
+  if grep -q $'\r' "$file" 2> /dev/null; then
     printf '  ❌ CRLF line endings. Convert the file to Unix line endings.\n'
     problems=$((problems + 1))
   fi
@@ -64,9 +71,9 @@ for f in /etc/crontab /etc/cron.d/*; do
   fi
 done
 
-if command -v crontab >/dev/null 2>&1; then
+if command -v crontab > /dev/null 2>&1; then
   tmp=$(mktemp "${TMPDIR:-/tmp}/cron-lint.XXXXXX")
-  if crontab -l >"$tmp" 2>/dev/null; then
+  if crontab -l > "$tmp" 2> /dev/null; then
     check_file "$tmp" 6 "current user crontab"
   fi
 fi

@@ -4,7 +4,10 @@
 
 set -euo pipefail
 
-(($# > 0)) || { printf 'error: give at least one command\n' >&2; exit 1; }
+(($# > 0)) || {
+  printf 'error: give at least one command\n' >&2
+  exit 1
+}
 
 status=0
 for cmd in "$@"; do

@@ -12,7 +12,7 @@ if [[ $(uname -s) != Linux ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 update-check - count available package updates.
 
 Usage: update-check
@@ -25,7 +25,10 @@ EOF
 
 for arg in "$@"; do
   case "$arg" in
-    -h | --help) show_help; exit 0 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
     *)
       printf 'Error: unknown argument: %s\n' "$arg" >&2
       show_help >&2
@@ -37,21 +40,21 @@ done
 count=""
 hint=""
 
-if command -v apt-get >/dev/null 2>&1; then
-  count=$(apt-get -s -o Debug::NoLocking=1 upgrade 2>/dev/null | grep -c '^Inst' || true)
+if command -v apt-get > /dev/null 2>&1; then
+  count=$(apt-get -s -o Debug::NoLocking=1 upgrade 2> /dev/null | grep -c '^Inst' || true)
   hint='apt list --upgradable'
-elif command -v dnf >/dev/null 2>&1; then
-  count=$(dnf -q check-update 2>/dev/null |
-    awk 'NF >= 3 && $1 ~ /\./ {n++} END {print n + 0}')
+elif command -v dnf > /dev/null 2>&1; then
+  count=$(dnf -q check-update 2> /dev/null \
+    | awk 'NF >= 3 && $1 ~ /\./ {n++} END {print n + 0}')
   hint='dnf list updates'
-elif command -v pacman >/dev/null 2>&1; then
-  count=$(pacman -Qu 2>/dev/null | wc -l | tr -d ' ')
+elif command -v pacman > /dev/null 2>&1; then
+  count=$(pacman -Qu 2> /dev/null | wc -l | tr -d ' ')
   hint='pacman -Qu'
-elif command -v zypper >/dev/null 2>&1; then
-  count=$(zypper -q lu 2>/dev/null | awk 'NF >= 3 && $1 ~ /^\|/ {n++} END {print n + 0}')
+elif command -v zypper > /dev/null 2>&1; then
+  count=$(zypper -q lu 2> /dev/null | awk 'NF >= 3 && $1 ~ /^\|/ {n++} END {print n + 0}')
   hint='zypper list-updates'
-elif command -v apk >/dev/null 2>&1; then
-  count=$(apk version -l '<' 2>/dev/null | grep -vc '^Installed' || true)
+elif command -v apk > /dev/null 2>&1; then
+  count=$(apk version -l '<' 2> /dev/null | grep -vc '^Installed' || true)
   hint='apk version -l "<"'
 else
   printf 'Error: no supported package manager found.\n' >&2

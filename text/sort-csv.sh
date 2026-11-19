@@ -9,7 +9,7 @@ numeric=0
 reverse=0
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Sort CSV rows by one column.
 Usage: sort-csv.sh [-c COLUMN] [-n] [-r] [FILE]
 
@@ -25,20 +25,44 @@ EOF
 
 while (($# > 0)); do
   case "$1" in
-    -c|--column)
-      (($# >= 2)) || { printf 'error: %s needs a column\n' "$1" >&2; exit 1; }
-      column="$2"; shift 2 ;;
-    -n|--numeric) numeric=1; shift ;;
-    -r|--reverse) reverse=1; shift ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+    -c | --column)
+      (($# >= 2)) || {
+        printf 'error: %s needs a column\n' "$1" >&2
+        exit 1
+      }
+      column="$2"
+      shift 2
+      ;;
+    -n | --numeric)
+      numeric=1
+      shift
+      ;;
+    -r | --reverse)
+      reverse=1
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
     *) break ;;
   esac
 done
 
-(($# <= 1)) || { printf 'error: give one file at most\n' >&2; usage >&2; exit 1; }
+(($# <= 1)) || {
+  printf 'error: give one file at most\n' >&2
+  usage >&2
+  exit 1
+}
 if (($# == 1)); then
-  [[ -r "$1" ]] || { printf 'error: cannot read %s\n' "$1" >&2; exit 1; }
+  [[ -r "$1" ]] || {
+    printf 'error: cannot read %s\n' "$1" >&2
+    exit 1
+  }
   file="$1"
 else
   tmp=$(mktemp "${TMPDIR:-/tmp}/sort-csv.XXXXXX") || exit 1
@@ -48,7 +72,10 @@ else
 fi
 
 header=$(head -n 1 "$file")
-[[ -n "$header" ]] || { printf 'error: the input has no header row\n' >&2; exit 1; }
+[[ -n "$header" ]] || {
+  printf 'error: the input has no header row\n' >&2
+  exit 1
+}
 
 if [[ "$column" =~ ^[0-9]+$ ]]; then
   idx="$column"
@@ -59,7 +86,10 @@ else
         gsub(/^[ \t]+|[ \t]+$/, "", field)
         if (field == name) { print i; exit }
       } }')
-  [[ -n "$idx" ]] || { printf 'error: no column named %s\n' "${column:-1}" >&2; exit 1; }
+  [[ -n "$idx" ]] || {
+    printf 'error: no column named %s\n' "${column:-1}" >&2
+    exit 1
+  }
 fi
 
 set -- -t, -k "$idx,$idx"

@@ -10,20 +10,37 @@ OUT="gpg-backup-$(date +%Y%m%d)"
 KEY=
 FORCE=0
 
-die() { printf 'Error: %s\n' "$*" >&2; exit 1; }
+die() {
+  printf 'Error: %s\n' "$*" >&2
+  exit 1
+}
 
 usage() {
   awk 'NR > 1 && /^#/ { sub(/^# ?/, ""); print; next } NR > 1 { exit }' "$0"
 }
 
-command -v gpg >/dev/null 2>&1 || die "gpg is not installed. Try: brew install gnupg or apt install gnupg"
+command -v gpg > /dev/null 2>&1 || die "gpg is not installed. Try: brew install gnupg or apt install gnupg"
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    -o) [ "$#" -ge 2 ] || die "-o needs a path."; OUT=$2; shift 2 ;;
-    -u) [ "$#" -ge 2 ] || die "-u needs a key ID."; KEY=$2; shift 2 ;;
-    -f|--force) FORCE=1; shift ;;
-    -h|--help) usage; exit 0 ;;
+    -o)
+      [ "$#" -ge 2 ] || die "-o needs a path."
+      OUT=$2
+      shift 2
+      ;;
+    -u)
+      [ "$#" -ge 2 ] || die "-u needs a key ID."
+      KEY=$2
+      shift 2
+      ;;
+    -f | --force)
+      FORCE=1
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     *) die "unknown option $1" ;;
   esac
 done
@@ -43,7 +60,7 @@ else
   gpg --batch --armor --export > "$TMP1" || die "export failed"
 fi
 [ -s "$TMP1" ] || die "no public keys found in the keyring."
-gpg --batch --export-ownertrust > "$TMP2" 2>/dev/null || true
+gpg --batch --export-ownertrust > "$TMP2" 2> /dev/null || true
 
 mv "$TMP1" "$OUT/public-keys.asc"
 mv "$TMP2" "$OUT/ownertrust.txt"

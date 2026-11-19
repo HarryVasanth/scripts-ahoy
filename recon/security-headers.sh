@@ -8,14 +8,26 @@ set -euo pipefail
 usage() {
   printf 'Usage: %s <url>\nExample: %s https://example.com\n' "${0##*/}" "${0##*/}"
 }
-if [[ ${1:-} == "-h" || ${1:-} == "--help" ]]; then usage; exit 0; fi
-if [[ $# -lt 1 || -z ${1:-} ]]; then usage >&2; exit 1; fi
-command -v curl >/dev/null 2>&1 || { printf 'Error: curl is not installed.\n' >&2; exit 1; }
+if [[ ${1:-} == "-h" || ${1:-} == "--help" ]]; then
+  usage
+  exit 0
+fi
+if [[ $# -lt 1 || -z ${1:-} ]]; then
+  usage >&2
+  exit 1
+fi
+command -v curl > /dev/null 2>&1 || {
+  printf 'Error: curl is not installed.\n' >&2
+  exit 1
+}
 
 url=$1
 case "$url" in
-  http://*|https://*) ;;
-  *) printf 'Error: give a URL that starts with http:// or https://.\n' >&2; exit 1 ;;
+  http://* | https://*) ;;
+  *)
+    printf 'Error: give a URL that starts with http:// or https://.\n' >&2
+    exit 1
+    ;;
 esac
 
 tmp=$(mktemp)
@@ -40,7 +52,7 @@ check() {
     printf '   ✅ %-28s %s\n' "$1" "$value"
   else
     printf '   ❌ %-28s missing\n' "$1"
-    missing=$(( missing + 1 ))
+    missing=$((missing + 1))
   fi
 }
 

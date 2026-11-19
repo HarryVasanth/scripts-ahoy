@@ -6,7 +6,7 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Find duplicate files by content.
 Usage: find-dupes.sh [DIR]
 
@@ -18,16 +18,28 @@ EOF
 }
 
 case "${1:-}" in
-  -h|--help) usage; exit 0 ;;
-  -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+  -h | --help)
+    usage
+    exit 0
+    ;;
+  -*)
+    printf 'error: unknown option %s\n' "$1" >&2
+    exit 1
+    ;;
 esac
-(($# <= 1)) || { printf 'error: give one directory at most\n' >&2; exit 1; }
+(($# <= 1)) || {
+  printf 'error: give one directory at most\n' >&2
+  exit 1
+}
 dir="${1:-.}"
-[[ -d "$dir" ]] || { printf 'error: %s is not a directory\n' "$dir" >&2; exit 1; }
+[[ -d "$dir" ]] || {
+  printf 'error: %s is not a directory\n' "$dir" >&2
+  exit 1
+}
 
-if command -v sha256sum >/dev/null 2>&1; then
+if command -v sha256sum > /dev/null 2>&1; then
   hashtool="sha256sum"
-elif command -v shasum >/dev/null 2>&1; then
+elif command -v shasum > /dev/null 2>&1; then
   hashtool="shasum"
 else
   printf 'error: no SHA-256 tool found\n  macOS: shasum ships with the system\n  Linux: install coreutils\n' >&2

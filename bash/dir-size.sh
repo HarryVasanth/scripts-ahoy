@@ -8,7 +8,7 @@ count=15
 dir="."
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 List directory entries by size, largest first.
 Usage: dir-size.sh [-n COUNT] [DIR]
 
@@ -21,22 +21,42 @@ EOF
 
 while (($# > 0)); do
   case "$1" in
-    -n|--count)
-      (($# >= 2)) || { printf 'error: %s needs a value\n' "$1" >&2; exit 1; }
-      count="$2"; shift ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+    -n | --count)
+      (($# >= 2)) || {
+        printf 'error: %s needs a value\n' "$1" >&2
+        exit 1
+      }
+      count="$2"
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
     *) break ;;
   esac
   shift
 done
 
-(($# <= 1)) || { printf 'error: give one directory only\n' >&2; exit 1; }
-[[ "$count" =~ ^[0-9]+$ ]] || { printf 'error: COUNT must be a whole number\n' >&2; exit 1; }
+(($# <= 1)) || {
+  printf 'error: give one directory only\n' >&2
+  exit 1
+}
+[[ "$count" =~ ^[0-9]+$ ]] || {
+  printf 'error: COUNT must be a whole number\n' >&2
+  exit 1
+}
 if (($# == 1)); then
   dir="$1"
 fi
-[[ -d "$dir" ]] || { printf 'error: %s is not a directory\n' "$dir" >&2; exit 1; }
+[[ -d "$dir" ]] || {
+  printf 'error: %s is not a directory\n' "$dir" >&2
+  exit 1
+}
 
 printf '📊 Sizes inside %s\n' "$dir" >&2
 

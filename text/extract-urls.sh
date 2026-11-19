@@ -8,7 +8,7 @@ keep=0
 files=()
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Find http and https URLs in text.
 Usage: extract-urls.sh [-a] [FILE...]
 
@@ -22,16 +22,31 @@ EOF
 
 while (($# > 0)); do
   case "$1" in
-    -a|--all) keep=1; shift ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
-    *) files+=("$1"); shift ;;
+    -a | --all)
+      keep=1
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
+    *)
+      files+=("$1")
+      shift
+      ;;
   esac
 done
 
 if ((${#files[@]} > 0)); then
   for f in "${files[@]}"; do
-    [[ -r "$f" ]] || { printf 'error: cannot read %s\n' "$f" >&2; exit 1; }
+    [[ -r "$f" ]] || {
+      printf 'error: cannot read %s\n' "$f" >&2
+      exit 1
+    }
   done
 fi
 

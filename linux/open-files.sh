@@ -11,7 +11,7 @@ if [[ ! -d /proc/1/fd ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 open-files - show the processes with the most open files.
 
 Usage: open-files [-n COUNT]
@@ -28,11 +28,17 @@ count=10
 while [[ $# -gt 0 ]]; do
   case "$1" in
     -n | --count)
-      [[ $# -ge 2 ]] || { printf 'Error: %s needs a value.\n' "$1" >&2; exit 1; }
+      [[ $# -ge 2 ]] || {
+        printf 'Error: %s needs a value.\n' "$1" >&2
+        exit 1
+      }
       count=$2
       shift 2
       ;;
-    -h | --help) show_help; exit 0 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
     *)
       printf 'Error: unknown argument: %s\n' "$1" >&2
       show_help >&2
@@ -53,16 +59,16 @@ fi
 
 tmp=$(mktemp) || exit 1
 trap 'rm -f "$tmp"' EXIT
-find /proc/[0-9]*/fd -mindepth 1 -maxdepth 1 2>/dev/null >"$tmp" || true
+find /proc/[0-9]*/fd -mindepth 1 -maxdepth 1 2> /dev/null > "$tmp" || true
 
 printf '📂 Top %s processes by open file count\n' "$count"
 printf '%6s  %-20s %s\n' 'FILES' 'PROCESS' 'PID'
-awk -F/ '{print $3}' "$tmp" |
-  sort |
-  uniq -c |
-  sort -rn |
-  head -n "$count" |
-  while read -r files pid; do
-    name=$(cat "/proc/$pid/comm" 2>/dev/null || printf 'unknown')
+awk -F/ '{print $3}' "$tmp" \
+  | sort \
+  | uniq -c \
+  | sort -rn \
+  | head -n "$count" \
+  | while read -r files pid; do
+    name=$(cat "/proc/$pid/comm" 2> /dev/null || printf 'unknown')
     printf '%6s  %-20s %s\n' "$files" "$name" "$pid"
   done

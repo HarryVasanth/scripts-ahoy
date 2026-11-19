@@ -12,7 +12,7 @@ DRY_RUN=0
 FORCE=0
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Usage: clean-old-kernels.sh [--dry-run] [--force]
 
 Remove old Proxmox kernels and keep the running one.
@@ -44,8 +44,8 @@ for arg in "$@"; do
 done
 
 [[ $(uname -s) == "Linux" ]] || die "This script only runs on Linux."
-command -v dpkg-query >/dev/null 2>&1 || die "dpkg-query is missing. Is this a Debian system?"
-command -v apt-get >/dev/null 2>&1 || die "apt-get is missing. Is this a Debian system?"
+command -v dpkg-query > /dev/null 2>&1 || die "dpkg-query is missing. Is this a Debian system?"
+command -v apt-get > /dev/null 2>&1 || die "apt-get is missing. Is this a Debian system?"
 
 if ((EUID != 0)) && ((DRY_RUN == 0)); then
   die "Run this script as root, or add --dry-run."
@@ -55,14 +55,14 @@ CURRENT_KERNEL=$(uname -r)
 KERNELS=()
 while IFS= read -r kernel; do
   [[ -n $kernel ]] && KERNELS+=("$kernel")
-done < <(dpkg-query -W -f='${Package}\n' 'proxmox-kernel-*' 'pve-kernel-*' 2>/dev/null | sort -V || true)
+done < <(dpkg-query -W -f='${Package}\n' 'proxmox-kernel-*' 'pve-kernel-*' 2> /dev/null | sort -V || true)
 
 if ((${#KERNELS[@]} == 0)); then
   printf '[!] No Proxmox kernel packages found. 😊\n'
   exit 0
 fi
 
-read -r boot_used boot_free < <(df -P /boot 2>/dev/null | awk 'NR == 2 { gsub("%", "", $5); print $5, $4 }')
+read -r boot_used boot_free < <(df -P /boot 2> /dev/null | awk 'NR == 2 { gsub("%", "", $5); print $5, $4 }')
 boot_used=${boot_used:-0}
 boot_free=${boot_free:-unknown}
 
@@ -101,11 +101,11 @@ if ((FORCE == 0)); then
 fi
 
 printf '[*] Removing old kernels...\n'
-apt-get purge -y "${TO_REMOVE[@]}" >/dev/null
+apt-get purge -y "${TO_REMOVE[@]}" > /dev/null
 
-if command -v update-grub >/dev/null 2>&1; then
+if command -v update-grub > /dev/null 2>&1; then
   printf '[*] Updating GRUB...\n'
-  update-grub >/dev/null
+  update-grub > /dev/null
 fi
 
 printf '[✓] Cleanup finished successfully.\n'

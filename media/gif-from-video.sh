@@ -13,7 +13,7 @@ output=
 force=false
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Build a GIF from one video. A two-pass palette keeps the colours clean.
 
 Options:
@@ -27,18 +27,45 @@ Options:
 EOF
 }
 
-die() { printf '❌ %s\n' "$*" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$*" >&2
+  exit 1
+}
 
 while [ $# -gt 0 ]; do
   case "$1" in
-    -s) width=${2:-}; shift 2 || die "Option -s needs a value." ;;
-    -f) fps=${2:-}; shift 2 || die "Option -f needs a value." ;;
-    -t) start=${2:-}; shift 2 || die "Option -t needs a value." ;;
-    -d) duration=${2:-}; shift 2 || die "Option -d needs a value." ;;
-    -o) output=${2:-}; shift 2 || die "Option -o needs a value." ;;
-    --force) force=true; shift ;;
-    -h|--help) usage; exit 0 ;;
-    --) shift; break ;;
+    -s)
+      width=${2:-}
+      shift 2 || die "Option -s needs a value."
+      ;;
+    -f)
+      fps=${2:-}
+      shift 2 || die "Option -f needs a value."
+      ;;
+    -t)
+      start=${2:-}
+      shift 2 || die "Option -t needs a value."
+      ;;
+    -d)
+      duration=${2:-}
+      shift 2 || die "Option -d needs a value."
+      ;;
+    -o)
+      output=${2:-}
+      shift 2 || die "Option -o needs a value."
+      ;;
+    --force)
+      force=true
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      break
+      ;;
     -*) die "Unknown option: $1" ;;
     *) break ;;
   esac
@@ -48,9 +75,12 @@ case "${width}${fps}" in
   *[!0-9]*) die "Width and FPS must be whole numbers." ;;
 esac
 [ -n "$start" ] || die "Start time cannot be empty."
-[ "$#" -eq 1 ] || { usage >&2; die "Give me exactly one video."; }
+[ "$#" -eq 1 ] || {
+  usage >&2
+  die "Give me exactly one video."
+}
 [ -f "$1" ] || die "Not a file: $1"
-command -v ffmpeg >/dev/null 2>&1 || die "FFmpeg is missing. Install it with: brew install ffmpeg, or sudo apt install ffmpeg."
+command -v ffmpeg > /dev/null 2>&1 || die "FFmpeg is missing. Install it with: brew install ffmpeg, or sudo apt install ffmpeg."
 
 src=$1
 if [ -z "$output" ]; then

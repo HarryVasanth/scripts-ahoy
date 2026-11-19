@@ -9,7 +9,10 @@ set -euo pipefail
 BASE=
 DO_DELETE=0
 
-die() { printf 'Error: %s\n' "$*" >&2; exit 1; }
+die() {
+  printf 'Error: %s\n' "$*" >&2
+  exit 1
+}
 
 usage() {
   awk 'NR > 1 && /^#/ { sub(/^# ?/, ""); print; next } NR > 1 { exit }' "$0"
@@ -17,17 +20,27 @@ usage() {
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    -b) [ "$#" -ge 2 ] || die "-b needs a branch."; BASE=$2; shift 2 ;;
-    --delete) DO_DELETE=1; shift ;;
-    -h|--help) usage; exit 0 ;;
+    -b)
+      [ "$#" -ge 2 ] || die "-b needs a branch."
+      BASE=$2
+      shift 2
+      ;;
+    --delete)
+      DO_DELETE=1
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     *) die "unknown option $1" ;;
   esac
 done
 
-git rev-parse --is-inside-work-tree >/dev/null 2>&1 || die "this is not a git repository."
-git rev-parse --verify -q HEAD >/dev/null || die "no commits yet."
+git rev-parse --is-inside-work-tree > /dev/null 2>&1 || die "this is not a git repository."
+git rev-parse --verify -q HEAD > /dev/null || die "no commits yet."
 
-CURRENT=$(git symbolic-ref --short -q HEAD 2>/dev/null || true)
+CURRENT=$(git symbolic-ref --short -q HEAD 2> /dev/null || true)
 if [ -z "$BASE" ]; then
   if git show-ref --verify --quiet refs/heads/main; then
     BASE=main
@@ -41,7 +54,7 @@ if [ -z "$BASE" ]; then
 fi
 git show-ref --verify --quiet "refs/heads/$BASE" || die "no local branch called $BASE"
 
-LIST=$(git branch --merged "$BASE" --format='%(refname:short)' 2>/dev/null || true)
+LIST=$(git branch --merged "$BASE" --format='%(refname:short)' 2> /dev/null || true)
 TARGETS=
 while IFS= read -r b; do
   [ -n "$b" ] || continue
@@ -67,7 +80,10 @@ fi
 
 printf 'Type yes to delete these branches: '
 read -r answer
-[ "$answer" = yes ] || { printf 'Cancelled.\n'; exit 0; }
+[ "$answer" = yes ] || {
+  printf 'Cancelled.\n'
+  exit 0
+}
 
 while IFS= read -r b; do
   [ -n "$b" ] || continue

@@ -8,7 +8,7 @@ remote=
 timeout=60
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Start one container and wait for the running state.
 
 Options:
@@ -18,33 +18,51 @@ Options:
 EOF
 }
 
-die() { printf '❌ %s\n' "$*" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$*" >&2
+  exit 1
+}
 
 while [ $# -gt 0 ]; do
   case "$1" in
-    -H) remote=${2:-}; shift 2 || die "Option -H needs a value." ;;
-    -t) timeout=${2:-}; shift 2 || die "Option -t needs a value." ;;
-    -h|--help) usage; exit 0 ;;
-    --) shift; break ;;
+    -H)
+      remote=${2:-}
+      shift 2 || die "Option -H needs a value."
+      ;;
+    -t)
+      timeout=${2:-}
+      shift 2 || die "Option -t needs a value."
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      break
+      ;;
     -*) die "Unknown option: $1" ;;
     *) break ;;
   esac
 done
 
-[ "$#" -eq 1 ] || { usage >&2; die "Give me exactly one container ID."; }
+[ "$#" -eq 1 ] || {
+  usage >&2
+  die "Give me exactly one container ID."
+}
 ctid=$1
-case "$ctid" in ''|*[!0-9]*) die "The container ID must be a number." ;; esac
-case "$timeout" in ''|*[!0-9]*) die "The timeout must be a whole number." ;; esac
+case "$ctid" in '' | *[!0-9]*) die "The container ID must be a number." ;; esac
+case "$timeout" in '' | *[!0-9]*) die "The timeout must be a whole number." ;; esac
 if [ -n "$remote" ]; then
-  command -v ssh >/dev/null 2>&1 || die "ssh is missing. Install OpenSSH."
+  command -v ssh > /dev/null 2>&1 || die "ssh is missing. Install OpenSSH."
   # shellcheck disable=SC2029  # The command must expand on the remote side.
   run() { ssh "$remote" "$@"; }
 else
-  command -v pct >/dev/null 2>&1 || die "pct is missing. This script must run on a Proxmox VE node."
+  command -v pct > /dev/null 2>&1 || die "pct is missing. This script must run on a Proxmox VE node."
   run() { "$@"; }
 fi
 
-run pct config "$ctid" >/dev/null 2>&1 || die "No container with ID $ctid was found."
+run pct config "$ctid" > /dev/null 2>&1 || die "No container with ID $ctid was found."
 status=$(run pct status "$ctid" | awk '{print $2}') || die "Cannot read the status of container $ctid."
 if [ "$status" = running ]; then
   printf '✅ Container %s is already running.\n' "$ctid" >&2

@@ -11,7 +11,7 @@ manifest=""
 files=()
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Make or check a SHA-256 checksum manifest.
 Usage: checksum-verify.sh -g FILE... | -c MANIFEST
 
@@ -25,22 +25,32 @@ EOF
 
 while (($# > 0)); do
   case "$1" in
-    -g|--generate) mode="gen" ;;
-    -c|--check)
-      (($# >= 2)) || { printf 'error: %s needs a manifest\n' "$1" >&2; exit 1; }
+    -g | --generate) mode="gen" ;;
+    -c | --check)
+      (($# >= 2)) || {
+        printf 'error: %s needs a manifest\n' "$1" >&2
+        exit 1
+      }
       mode="check"
       manifest="$2"
-      shift ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
     *) files+=("$1") ;;
   esac
   shift
 done
 
-if command -v sha256sum >/dev/null 2>&1; then
+if command -v sha256sum > /dev/null 2>&1; then
   tool="sha256sum"
-elif command -v shasum >/dev/null 2>&1; then
+elif command -v shasum > /dev/null 2>&1; then
   tool="shasum"
 else
   printf 'error: no SHA-256 tool found. Install coreutils, or use the shasum that ships with macOS.\n' >&2
@@ -48,9 +58,15 @@ else
 fi
 
 if [[ "$mode" == "gen" ]]; then
-  ((${#files[@]} > 0)) || { printf 'error: give at least one file to hash\n' >&2; exit 1; }
+  ((${#files[@]} > 0)) || {
+    printf 'error: give at least one file to hash\n' >&2
+    exit 1
+  }
   for f in "${files[@]}"; do
-    [[ -f "$f" ]] || { printf 'error: %s is not a file\n' "$f" >&2; exit 1; }
+    [[ -f "$f" ]] || {
+      printf 'error: %s is not a file\n' "$f" >&2
+      exit 1
+    }
   done
   if [[ "$tool" == "sha256sum" ]]; then
     sha256sum "${files[@]}"
@@ -58,7 +74,10 @@ if [[ "$mode" == "gen" ]]; then
     shasum -a 256 "${files[@]}"
   fi
 elif [[ "$mode" == "check" ]]; then
-  [[ -f "$manifest" ]] || { printf 'error: cannot read %s\n' "$manifest" >&2; exit 1; }
+  [[ -f "$manifest" ]] || {
+    printf 'error: cannot read %s\n' "$manifest" >&2
+    exit 1
+  }
   printf '🔍 Checking files listed in %s ...\n' "$manifest" >&2
   if [[ "$tool" == "sha256sum" ]]; then
     sha256sum -c "$manifest"

@@ -11,7 +11,7 @@ if [[ ! -r /proc/stat ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 boot-time - show the boot time and the startup duration.
 
 Usage: boot-time
@@ -23,15 +23,22 @@ EOF
 
 for arg in "$@"; do
   case "$arg" in
-    -h | --help) show_help; exit 0 ;;
-    *) printf 'Error: unknown argument: %s\n' "$arg" >&2; show_help >&2; exit 1 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
+    *)
+      printf 'Error: unknown argument: %s\n' "$arg" >&2
+      show_help >&2
+      exit 1
+      ;;
   esac
 done
 
-if command -v systemd-analyze >/dev/null 2>&1; then
+if command -v systemd-analyze > /dev/null 2>&1; then
   systemd-analyze time
   printf '\n🐢 Slowest units:\n'
-  systemd-analyze blame 2>/dev/null | head -n 5 || true
+  systemd-analyze blame 2> /dev/null | head -n 5 || true
   exit 0
 fi
 

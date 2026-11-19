@@ -9,8 +9,14 @@ set -euo pipefail
 usage() {
   printf 'Usage: %s [ip...]\n  With no address, the script looks up your public address.\n' "${0##*/}"
 }
-if [[ ${1:-} == "-h" || ${1:-} == "--help" ]]; then usage; exit 0; fi
-command -v curl >/dev/null 2>&1 || { printf 'Error: curl is not installed.\n' >&2; exit 1; }
+if [[ ${1:-} == "-h" || ${1:-} == "--help" ]]; then
+  usage
+  exit 0
+fi
+command -v curl > /dev/null 2>&1 || {
+  printf 'Error: curl is not installed.\n' >&2
+  exit 1
+}
 
 json_field() {
   printf '%s' "$1" | tr ',' '\n' | grep -i "\"$2\"" | head -1 \
@@ -19,7 +25,7 @@ json_field() {
 show() { [[ -z $2 ]] || printf '   %-9s%s\n' "$1" "$2"; }
 
 addresses=("$@")
-if (( ${#addresses[@]} == 0 )); then
+if ((${#addresses[@]} == 0)); then
   addresses=("")
 fi
 
@@ -32,15 +38,15 @@ for ip in "${addresses[@]}"; do
   json=""
   provider=""
   if [[ -n $ip ]]; then
-    if json=$(curl -fsS --max-time 8 "https://ipinfo.io/$ip/json" 2>/dev/null); then
+    if json=$(curl -fsS --max-time 8 "https://ipinfo.io/$ip/json" 2> /dev/null); then
       provider='ipinfo.io'
     fi
     if [[ -z $json ]] && json=$(curl -fsS --max-time 8 \
-      "http://ip-api.com/json/$ip?fields=status,country,regionName,city,isp,org,as,query" 2>/dev/null); then
+      "http://ip-api.com/json/$ip?fields=status,country,regionName,city,isp,org,as,query" 2> /dev/null); then
       provider='ip-api.com'
     fi
   else
-    if json=$(curl -fsS --max-time 8 "https://ipinfo.io/json" 2>/dev/null); then
+    if json=$(curl -fsS --max-time 8 "https://ipinfo.io/json" 2> /dev/null); then
       provider='ipinfo.io'
       ip=$(json_field "$json" ip)
     fi
@@ -51,7 +57,7 @@ for ip in "${addresses[@]}"; do
   fi
   if [[ $json == *'"bogon":true'* ]]; then
     printf '🏠 %s is a private or reserved address.\n' "$ip"
-    ok=$(( ok + 1 ))
+    ok=$((ok + 1))
     continue
   fi
 
@@ -75,6 +81,6 @@ for ip in "${addresses[@]}"; do
   show 'ASN:' "$asn"
   show 'Host:' "$hostname"
   printf '   Source:  %s\n' "$provider"
-  ok=$(( ok + 1 ))
+  ok=$((ok + 1))
 done
-(( ok > 0 )) || exit 1
+((ok > 0)) || exit 1

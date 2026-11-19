@@ -12,7 +12,7 @@ if [[ $(uname -s) != Linux ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 disk-health - show disk health and file system usage.
 
 Usage: disk-health [--all]
@@ -28,7 +28,10 @@ show_all=0
 for arg in "$@"; do
   case "$arg" in
     -a | --all) show_all=1 ;;
-    -h | --help) show_help; exit 0 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
     *)
       printf 'Error: unknown argument: %s\n' "$arg" >&2
       show_help >&2
@@ -37,12 +40,12 @@ for arg in "$@"; do
   esac
 done
 
-if command -v smartctl >/dev/null 2>&1 && command -v lsblk >/dev/null 2>&1; then
+if command -v smartctl > /dev/null 2>&1 && command -v lsblk > /dev/null 2>&1; then
   printf 'SMART health:\n'
   while read -r name; do
     [[ -z "$name" ]] && continue
-    status=$(smartctl -H "/dev/$name" 2>/dev/null |
-      awk -F': ' '/overall-health|SMART Health Status/ {print $2; exit}')
+    status=$(smartctl -H "/dev/$name" 2> /dev/null \
+      | awk -F': ' '/overall-health|SMART Health Status/ {print $2; exit}')
     printf '  %-12s %s\n' "$name" "${status:-unknown (run with sudo)}"
   done < <(lsblk -dno NAME,TYPE | awk '$2 == "disk" {print $1}')
 else

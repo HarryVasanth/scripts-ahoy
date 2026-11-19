@@ -7,7 +7,7 @@ set -euo pipefail
 width=80
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Wrap text at spaces near the chosen width.
 Usage: wrap-text.sh [-w WIDTH] [FILE...]
 
@@ -21,11 +21,22 @@ EOF
 
 while (($# > 0)); do
   case "$1" in
-    -w|--width)
-      (($# >= 2)) || { printf 'error: %s needs a width\n' "$1" >&2; exit 1; }
-      width="$2"; shift 2 ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+    -w | --width)
+      (($# >= 2)) || {
+        printf 'error: %s needs a width\n' "$1" >&2
+        exit 1
+      }
+      width="$2"
+      shift 2
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
     *) break ;;
   esac
 done
@@ -36,7 +47,10 @@ if ! [[ "$width" =~ ^[0-9]+$ ]] || ((width == 0)); then
 fi
 
 for f in "$@"; do
-  [[ -r "$f" ]] || { printf 'error: cannot read %s\n' "$f" >&2; exit 1; }
+  [[ -r "$f" ]] || {
+    printf 'error: cannot read %s\n' "$f" >&2
+    exit 1
+  }
 done
 
 fold -s -w "$width" "$@"

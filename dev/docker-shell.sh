@@ -6,7 +6,7 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Usage: docker-shell [--shell CMD] <container>
 
 Open bash when the image has it. Fall back to sh when it does not.
@@ -17,14 +17,24 @@ The container must be running.
 EOF
 }
 
-die() { printf '❌ %s\n' "$1" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$1" >&2
+  exit 1
+}
 
 shell=""
 container=""
 while (($# > 0)); do
   case "$1" in
-    --shell) shift; (($# > 0)) || die 'Option --shell needs a command.'; shell="$1" ;;
-    -h|--help) usage; exit 0 ;;
+    --shell)
+      shift
+      (($# > 0)) || die 'Option --shell needs a command.'
+      shell="$1"
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     -*) die "Unknown option: $1" ;;
     *)
       [[ -z "$container" ]] || die 'Pass one container only.'
@@ -34,13 +44,16 @@ while (($# > 0)); do
   shift
 done
 
-[[ -n "$container" ]] || { usage >&2; die 'Pass a container name.'; }
-command -v docker >/dev/null 2>&1 ||
-  die 'docker is not installed. See https://docs.docker.com/get-docker/'
+[[ -n "$container" ]] || {
+  usage >&2
+  die 'Pass a container name.'
+}
+command -v docker > /dev/null 2>&1 \
+  || die 'docker is not installed. See https://docs.docker.com/get-docker/'
 [[ -t 0 ]] || die 'Run this from an interactive terminal.'
 
-running=$(docker inspect -f '{{.State.Running}}' "$container" 2>/dev/null) ||
-  die "No container named $container."
+running=$(docker inspect -f '{{.State.Running}}' "$container" 2> /dev/null) \
+  || die "No container named $container."
 
 if [[ "$running" != "true" ]]; then
   die "$container is not running. Start it with: docker start $container"
@@ -51,7 +64,7 @@ if [[ -n "$shell" ]]; then
 fi
 
 shell="sh"
-if docker exec "$container" bash -c 'exit 0' >/dev/null 2>&1; then
+if docker exec "$container" bash -c 'exit 0' > /dev/null 2>&1; then
   shell="bash"
 fi
 

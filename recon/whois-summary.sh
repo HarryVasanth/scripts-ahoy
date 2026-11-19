@@ -8,16 +8,28 @@ set -euo pipefail
 usage() {
   printf 'Usage: %s <domain>\nExample: %s example.com\n' "${0##*/}" "${0##*/}"
 }
-if [[ ${1:-} == "-h" || ${1:-} == "--help" ]]; then usage; exit 0; fi
-if [[ $# -lt 1 || -z ${1:-} ]]; then usage >&2; exit 1; fi
-command -v whois >/dev/null 2>&1 \
-  || { printf 'Error: whois is not installed. Try: brew install whois or apt install whois.\n' >&2; exit 1; }
+if [[ ${1:-} == "-h" || ${1:-} == "--help" ]]; then
+  usage
+  exit 0
+fi
+if [[ $# -lt 1 || -z ${1:-} ]]; then
+  usage >&2
+  exit 1
+fi
+command -v whois > /dev/null 2>&1 \
+  || {
+    printf 'Error: whois is not installed. Try: brew install whois or apt install whois.\n' >&2
+    exit 1
+  }
 
 domain=$1
 [[ $domain =~ ^[A-Za-z0-9._-]+$ ]] \
-  || { printf 'Error: "%s" is not a valid domain.\n' "$domain" >&2; exit 1; }
+  || {
+    printf 'Error: "%s" is not a valid domain.\n' "$domain" >&2
+    exit 1
+  }
 
-data=$(whois "$domain" 2>/dev/null) || data=""
+data=$(whois "$domain" 2> /dev/null) || data=""
 if [[ -z $data ]]; then
   printf 'Error: whois gave no answer for "%s".\n' "$domain" >&2
   exit 1
@@ -28,9 +40,9 @@ if printf '%s\n' "$data" | grep -qiE 'rate limit|quota exceeded|too many request
 fi
 if ! printf '%s\n' "$data" | grep -qiE '^(registrar|name server):'; then
   tld=${domain##*.}
-  refer=$(whois -h whois.iana.org "$tld" 2>/dev/null | awk 'tolower($1) == "refer:" || tolower($1) == "whois:" { print $2; exit }')
+  refer=$(whois -h whois.iana.org "$tld" 2> /dev/null | awk 'tolower($1) == "refer:" || tolower($1) == "whois:" { print $2; exit }')
   if [[ -n $refer ]]; then
-    data=$(whois -h "$refer" "$domain" 2>/dev/null) || data=""
+    data=$(whois -h "$refer" "$domain" 2> /dev/null) || data=""
   fi
 fi
 
@@ -46,7 +58,10 @@ first_field() {
   local value
   for key in "$@"; do
     value=$(field "$key")
-    if [[ -n $value ]]; then printf '%s' "$value"; return 0; fi
+    if [[ -n $value ]]; then
+      printf '%s' "$value"
+      return 0
+    fi
   done
 }
 

@@ -34,7 +34,10 @@ fi
 
 if (($# > 0)); then
   for file in "$@"; do
-    [[ -r $file ]] || { printf '[-] Cannot read: %s\n' "$file" >&2; exit 1; }
+    [[ -r $file ]] || {
+      printf '[-] Cannot read: %s\n' "$file" >&2
+      exit 1
+    }
   done
   source_text=$(cat "$@")
 else

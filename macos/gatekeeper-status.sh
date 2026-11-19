@@ -11,7 +11,7 @@ if [[ $(uname -s) != Darwin ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 gatekeeper-status - show the Gatekeeper status.
 
 Usage: gatekeeper-status
@@ -24,8 +24,15 @@ EOF
 
 for arg in "$@"; do
   case "$arg" in
-    -h | --help) show_help; exit 0 ;;
-    *) printf 'Error: unknown argument: %s\n' "$arg" >&2; show_help >&2; exit 1 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
+    *)
+      printf 'Error: unknown argument: %s\n' "$arg" >&2
+      show_help >&2
+      exit 1
+      ;;
   esac
 done
 

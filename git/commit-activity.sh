@@ -10,7 +10,10 @@ COUNT=12
 AUTHOR=
 DAILY=0
 
-die() { printf 'Error: %s\n' "$*" >&2; exit 1; }
+die() {
+  printf 'Error: %s\n' "$*" >&2
+  exit 1
+}
 
 usage() {
   awk 'NR > 1 && /^#/ { sub(/^# ?/, ""); print; next } NR > 1 { exit }' "$0"
@@ -18,19 +21,33 @@ usage() {
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    -n) [ "$#" -ge 2 ] || die "-n needs a number."; COUNT=$2; shift 2 ;;
-    -a) [ "$#" -ge 2 ] || die "-a needs a name."; AUTHOR=$2; shift 2 ;;
-    -d|--daily) DAILY=1; shift ;;
-    -h|--help) usage; exit 0 ;;
+    -n)
+      [ "$#" -ge 2 ] || die "-n needs a number."
+      COUNT=$2
+      shift 2
+      ;;
+    -a)
+      [ "$#" -ge 2 ] || die "-a needs a name."
+      AUTHOR=$2
+      shift 2
+      ;;
+    -d | --daily)
+      DAILY=1
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     *) die "unknown option $1" ;;
   esac
 done
 
 case "$COUNT" in
-  ''|*[!0-9]*|0) die "-n needs a number above zero." ;;
+  '' | *[!0-9]* | 0) die "-n needs a number above zero." ;;
 esac
 
-git rev-parse --is-inside-work-tree >/dev/null 2>&1 || die "this is not a git repository."
+git rev-parse --is-inside-work-tree > /dev/null 2>&1 || die "this is not a git repository."
 
 if [ "$DAILY" -eq 1 ]; then
   SINCE="$COUNT days ago"
@@ -47,7 +64,7 @@ if [ -n "$AUTHOR" ]; then
   LOG+=(--author="$AUTHOR")
 fi
 
-OUT=$("${LOG[@]}" 2>/dev/null || true)
+OUT=$("${LOG[@]}" 2> /dev/null || true)
 if [ -z "$OUT" ]; then
   printf 'ℹ️  No commits in this period.\n'
   exit 0

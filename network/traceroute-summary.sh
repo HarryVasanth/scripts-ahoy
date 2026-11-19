@@ -19,7 +19,7 @@ if [[ $# -lt 1 || -z ${1:-} ]]; then
   exit 1
 fi
 
-if ! command -v traceroute >/dev/null 2>&1; then
+if ! command -v traceroute > /dev/null 2>&1; then
   printf 'Error: traceroute is not installed.\n' >&2
   printf 'Install it: brew install traceroute (macOS) or apt install traceroute (Debian).\n' >&2
   exit 1
@@ -31,7 +31,7 @@ if [[ ! $host =~ ^[A-Za-z0-9._:-]+$ ]]; then
   printf 'Error: "%s" is not a valid host.\n' "$host" >&2
   exit 1
 fi
-if [[ ! $max_hops =~ ^[0-9]+$ ]] || (( max_hops < 1 || max_hops > 64 )); then
+if [[ ! $max_hops =~ ^[0-9]+$ ]] || ((max_hops < 1 || max_hops > 64)); then
   printf 'Error: max-hops must be a number from 1 to 64.\n' >&2
   exit 1
 fi
@@ -42,7 +42,7 @@ if [[ -z $trace ]]; then
   exit 1
 fi
 case "$trace" in
-  *"Unknown host"*|*"unknown host"*|*"Name or service not known"*)
+  *"Unknown host"* | *"unknown host"* | *"Name or service not known"*)
     printf 'Error: cannot resolve "%s".\n' "$host" >&2
     exit 1
     ;;

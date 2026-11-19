@@ -8,7 +8,7 @@ decode=0
 out=""
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Encode a file to base64, or decode it back.
 Usage: base64-file.sh [-d] [-o OUT] [FILE]
 
@@ -23,26 +23,47 @@ EOF
 
 while (($# > 0)); do
   case "$1" in
-    -d|--decode) decode=1; shift ;;
-    -o|--output)
-      (($# >= 2)) || { printf 'error: %s needs a file name\n' "$1" >&2; exit 1; }
-      out="$2"; shift 2 ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+    -d | --decode)
+      decode=1
+      shift
+      ;;
+    -o | --output)
+      (($# >= 2)) || {
+        printf 'error: %s needs a file name\n' "$1" >&2
+        exit 1
+      }
+      out="$2"
+      shift 2
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
     *) break ;;
   esac
 done
 
-(($# <= 1)) || { printf 'error: give one file at most\n' >&2; usage >&2; exit 1; }
+(($# <= 1)) || {
+  printf 'error: give one file at most\n' >&2
+  usage >&2
+  exit 1
+}
 if (($# == 1)); then
-  [[ -r "$1" ]] || { printf 'error: cannot read %s\n' "$1" >&2; exit 1; }
+  [[ -r "$1" ]] || {
+    printf 'error: cannot read %s\n' "$1" >&2
+    exit 1
+  }
   src="$1"
 else
   src="/dev/stdin"
 fi
 
 # GNU base64 uses --decode. The base64 in macOS uses -D.
-if printf '' | base64 --decode >/dev/null 2>&1; then
+if printf '' | base64 --decode > /dev/null 2>&1; then
   decode_flag="--decode"
 else
   decode_flag="-D"

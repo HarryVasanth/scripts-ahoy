@@ -11,7 +11,7 @@ dry_run=false
 yes=false
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Download fresh appliance templates into a Proxmox storage.
 Without names, the script lists the installed templates.
   -s STORAGE   Target storage (default: local)
@@ -22,23 +22,44 @@ Without names, the script lists the installed templates.
 EOF
 }
 
-die() { printf '❌ %s\n' "$*" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$*" >&2
+  exit 1
+}
 while [ $# -gt 0 ]; do
   case "$1" in
-    -s) storage=${2:-}; shift 2 || die "Option -s needs a value." ;;
-    --all) all=true; shift ;;
-    --dry-run) dry_run=true; shift ;;
-    -y) yes=true; shift ;;
-    -h|--help) usage; exit 0 ;;
-    --) shift; break ;;
+    -s)
+      storage=${2:-}
+      shift 2 || die "Option -s needs a value."
+      ;;
+    --all)
+      all=true
+      shift
+      ;;
+    --dry-run)
+      dry_run=true
+      shift
+      ;;
+    -y)
+      yes=true
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      break
+      ;;
     -*) die "Unknown option: $1" ;;
     *) break ;;
   esac
 done
 
 [ "$(id -u)" -eq 0 ] || die "Run this script as root."
-command -v pveam >/dev/null 2>&1 || die "pveam is missing. This script must run on a Proxmox VE node."
-pveam list "$storage" >/dev/null 2>&1 || die "Storage '$storage' is not ready, or it does not hold templates."
+command -v pveam > /dev/null 2>&1 || die "pveam is missing. This script must run on a Proxmox VE node."
+pveam list "$storage" > /dev/null 2>&1 || die "Storage '$storage' is not ready, or it does not hold templates."
 if [ "$all" = false ] && [ "$#" -eq 0 ]; then
   printf '📦 Templates in %s:\n' "$storage"
   pveam list "$storage" || true
@@ -46,7 +67,7 @@ if [ "$all" = false ] && [ "$#" -eq 0 ]; then
   exit 0
 fi
 printf '🔄 Refreshing the template list from the mirror...\n' >&2
-pveam update >/dev/null || die "Could not refresh the template list. Check the network."
+pveam update > /dev/null || die "Could not refresh the template list. Check the network."
 templates=()
 if [ "$all" = true ]; then
   while read -r name; do
@@ -66,13 +87,16 @@ fi
 if [ "$yes" = false ]; then
   printf 'Download %s templates into %s? [y/N] ' "${#templates[@]}" "$storage"
   read -r reply
-  case "$reply" in [yY]|[yY][eE][sS]) ;; *) die "Cancelled. Nothing was changed." ;; esac
+  case "$reply" in [yY] | [yY][eE][sS]) ;; *) die "Cancelled. Nothing was changed." ;; esac
 fi
 for name in "${templates[@]}"; do
   name=${name##*/}
   case "$name" in
-    *.tar.gz|*.tar.xz|*.tar.zst) ;;
-    *) printf '⏭️  Skip %s: not a template archive name.\n' "$name" >&2; continue ;;
+    *.tar.gz | *.tar.xz | *.tar.zst) ;;
+    *)
+      printf '⏭️  Skip %s: not a template archive name.\n' "$name" >&2
+      continue
+      ;;
   esac
   printf '📥 %s -> %s\n' "$name" "$storage" >&2
   pveam download "$storage" "$name"

@@ -6,7 +6,7 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Usage: s3-sync [--apply] [--delete] [--exclude GLOB] [--yes] SOURCE TARGET
 
 Copy a directory or file to S3 with aws s3 sync.
@@ -21,7 +21,10 @@ The default is a dry run, so you can read the plan first.
 EOF
 }
 
-die() { printf '❌ %s\n' "$1" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$1" >&2
+  exit 1
+}
 
 apply=0
 delete=0
@@ -36,23 +39,30 @@ while (($# > 0)); do
     --exclude)
       (($# > 1)) || die '--exclude needs a pattern.'
       excludes+=("$2")
-      shift ;;
-    -h|--help) usage; exit 0 ;;
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     -*) die "Unknown option: $1" ;;
     *) args+=("$1") ;;
   esac
   shift
 done
 
-((${#args[@]} == 2)) || { usage >&2; die 'Pass a source and an s3:// target.'; }
+((${#args[@]} == 2)) || {
+  usage >&2
+  die 'Pass a source and an s3:// target.'
+}
 src="${args[0]}"
 dst="${args[1]}"
 [[ -e "$src" ]] || die "Source not found: $src"
 [[ "$dst" == s3://* ]] || die 'The target must start with s3://'
 if ((delete == 1 && apply == 0)); then die '--delete needs --apply. Nothing was changed.'; fi
-command -v aws >/dev/null 2>&1 || die 'aws is not installed. Install the AWS CLI: https://docs.aws.amazon.com/cli/'
-aws sts get-caller-identity >/dev/null 2>&1 ||
-  die 'The AWS session is missing or expired. Run: aws sso login (or aws configure for static keys)'
+command -v aws > /dev/null 2>&1 || die 'aws is not installed. Install the AWS CLI: https://docs.aws.amazon.com/cli/'
+aws sts get-caller-identity > /dev/null 2>&1 \
+  || die 'The AWS session is missing or expired. Run: aws sso login (or aws configure for static keys)'
 
 flags=()
 if ((apply == 0)); then
@@ -71,7 +81,10 @@ if ((apply == 1)); then
   fi
   if ((yes == 0)); then
     read -r -p 'Continue? [y/N] ' reply
-    [[ "$reply" =~ ^[Yy]$ ]] || { printf '👋 Nothing was copied.\n' >&2; exit 0; }
+    [[ "$reply" =~ ^[Yy]$ ]] || {
+      printf '👋 Nothing was copied.\n' >&2
+      exit 0
+    }
   fi
 else
   printf '🔍 Dry run. Add --apply to copy the files.\n' >&2

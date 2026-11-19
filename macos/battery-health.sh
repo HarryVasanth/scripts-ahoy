@@ -11,7 +11,7 @@ if [[ $(uname -s) != Darwin ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 battery-health - report the state of the Mac battery.
 
 Usage: battery-health
@@ -24,20 +24,27 @@ EOF
 
 for arg in "$@"; do
   case "$arg" in
-    -h | --help) show_help; exit 0 ;;
-    *) printf 'Error: unknown argument: %s\n' "$arg" >&2; show_help >&2; exit 1 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
+    *)
+      printf 'Error: unknown argument: %s\n' "$arg" >&2
+      show_help >&2
+      exit 1
+      ;;
   esac
 done
 
-raw=$(ioreg -rn AppleSmartBattery 2>/dev/null || true)
+raw=$(ioreg -rn AppleSmartBattery 2> /dev/null || true)
 if [[ -z "$raw" ]]; then
   printf 'Error: no battery found. This Mac has no internal battery.\n' >&2
   exit 1
 fi
 
 value_of() {
-  printf '%s\n' "$raw" | grep -o "\"$1\"[ ]*=[ ]*[0-9]*" | head -n 1 |
-    sed 's/[^0-9]//g' || true
+  printf '%s\n' "$raw" | grep -o "\"$1\"[ ]*=[ ]*[0-9]*" | head -n 1 \
+    | sed 's/[^0-9]//g' || true
 }
 
 design=$(value_of DesignCapacity)

@@ -7,7 +7,7 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Usage: k8s-events [--tail N] [--namespace NS]
 
 Print warning events, newest first. With no namespace, read all namespaces.
@@ -18,34 +18,48 @@ Print warning events, newest first. With no namespace, read all namespaces.
 EOF
 }
 
-die() { printf '❌ %s\n' "$1" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$1" >&2
+  exit 1
+}
 
 tail="25"
 ns=""
 while (($# > 0)); do
   case "$1" in
-    --tail) shift; (($# > 0)) || die 'Option --tail needs a count.'; tail="$1" ;;
-    --namespace|-n) shift; (($# > 0)) || die 'Option --namespace needs a name.'; ns="$1" ;;
-    -h|--help) usage; exit 0 ;;
+    --tail)
+      shift
+      (($# > 0)) || die 'Option --tail needs a count.'
+      tail="$1"
+      ;;
+    --namespace | -n)
+      shift
+      (($# > 0)) || die 'Option --namespace needs a name.'
+      ns="$1"
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     *) die "Unknown argument: $1" ;;
   esac
   shift
 done
 case "$tail" in
-  ''|*[!0-9]*) die "The tail count must be a number: $tail" ;;
+  '' | *[!0-9]*) die "The tail count must be a number: $tail" ;;
 esac
 
-command -v kubectl >/dev/null 2>&1 ||
-  die 'kubectl is not installed. See https://kubernetes.io/docs/tasks/tools/'
+command -v kubectl > /dev/null 2>&1 \
+  || die 'kubectl is not installed. See https://kubernetes.io/docs/tasks/tools/'
 
 if [[ -n "$ns" ]]; then
   events=$(kubectl get events -n "$ns" --field-selector type=Warning \
-    --sort-by=.lastTimestamp 2>&1) ||
-    die "Cannot read namespace $ns. Check the name and your credentials."
+    --sort-by=.lastTimestamp 2>&1) \
+    || die "Cannot read namespace $ns. Check the name and your credentials."
 else
   events=$(kubectl get events --all-namespaces --field-selector type=Warning \
-    --sort-by=.lastTimestamp 2>&1) ||
-    die 'Cannot read events. Check "kubectl config current-context".'
+    --sort-by=.lastTimestamp 2>&1) \
+    || die 'Cannot read events. Check "kubectl config current-context".'
 fi
 
 if [[ -z "$events" ]]; then

@@ -5,8 +5,8 @@
 set -euo pipefail
 
 case "${1:-}" in
-  -h|--help)
-    cat <<'EOF'
+  -h | --help)
+    cat << 'EOF'
 Find simple Markdown problems.
 Usage: markdown-lint.sh [FILE...]
 
@@ -19,12 +19,19 @@ The script checks for:
 Reads standard input when no FILE is given.
 Findings go to stderr. The exit code is 1 when any are found.
 EOF
-    exit 0 ;;
-  -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+    exit 0
+    ;;
+  -*)
+    printf 'error: unknown option %s\n' "$1" >&2
+    exit 1
+    ;;
 esac
 
 for f in "$@"; do
-  [[ -r "$f" ]] || { printf 'error: cannot read %s\n' "$f" >&2; exit 1; }
+  [[ -r "$f" ]] || {
+    printf 'error: cannot read %s\n' "$f" >&2
+    exit 1
+  }
 done
 
 findings=$(awk '

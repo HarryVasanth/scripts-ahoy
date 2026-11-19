@@ -8,7 +8,10 @@ set -euo pipefail
 
 PATHS=()
 
-die() { printf 'Error: %s\n' "$*" >&2; exit 1; }
+die() {
+  printf 'Error: %s\n' "$*" >&2
+  exit 1
+}
 
 usage() {
   awk 'NR > 1 && /^#/ { sub(/^# ?/, ""); print; next } NR > 1 { exit }' "$0"
@@ -16,10 +19,22 @@ usage() {
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    -h|--help) usage; exit 0 ;;
-    --) shift; while [ "$#" -gt 0 ]; do PATHS+=("$1"); shift; done ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      while [ "$#" -gt 0 ]; do
+        PATHS+=("$1")
+        shift
+      done
+      ;;
     -*) die "unknown option $1" ;;
-    *) PATHS+=("$1"); shift ;;
+    *)
+      PATHS+=("$1")
+      shift
+      ;;
   esac
 done
 
@@ -37,7 +52,7 @@ fi
 
 scan() {
   local label=$1 bits=$2 out count
-  out=$(find "${PATHS[@]}" -xdev -type f -perm -"$bits" 2>/dev/null || true)
+  out=$(find "${PATHS[@]}" -xdev -type f -perm -"$bits" 2> /dev/null || true)
   if [ -z "$out" ]; then
     printf '✅ %s: none.\n' "$label"
     return 0

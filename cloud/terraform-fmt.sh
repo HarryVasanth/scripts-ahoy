@@ -6,7 +6,7 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Usage: terraform-fmt [--write] [--diff] [directory]
 
 With no flags, check the format and exit 1 when a file needs a change.
@@ -26,14 +26,21 @@ while (($# > 0)); do
   case "$1" in
     --write) write=1 ;;
     --diff) diff=1 ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf '❌ Unknown option: %s\n' "$1" >&2; usage >&2; exit 1 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf '❌ Unknown option: %s\n' "$1" >&2
+      usage >&2
+      exit 1
+      ;;
     *) dir="$1" ;;
   esac
   shift
 done
 
-if ! command -v terraform >/dev/null 2>&1; then
+if ! command -v terraform > /dev/null 2>&1; then
   printf '❌ terraform is not installed. Install it: https://developer.hashicorp.com/terraform/install\n' >&2
   exit 1
 fi

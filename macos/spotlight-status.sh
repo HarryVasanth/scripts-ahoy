@@ -11,7 +11,7 @@ if [[ $(uname -s) != Darwin ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 spotlight-status - show the Spotlight indexing status.
 
 Usage: spotlight-status [VOLUME]

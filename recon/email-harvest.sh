@@ -19,7 +19,7 @@ if [[ $# -lt 1 ]]; then
   usage >&2
   exit 1
 fi
-if ! command -v curl >/dev/null 2>&1; then
+if ! command -v curl > /dev/null 2>&1; then
   printf 'Error: curl is not installed.\n' >&2
   exit 1
 fi
@@ -31,8 +31,11 @@ trap 'rm -f "$page" "$out"' EXIT
 
 for url in "$@"; do
   case "$url" in
-    http://*|https://*) ;;
-    *) printf 'Error: "%s" is not an http or https URL.\n' "$url" >&2; exit 1 ;;
+    http://* | https://*) ;;
+    *)
+      printf 'Error: "%s" is not an http or https URL.\n' "$url" >&2
+      exit 1
+      ;;
   esac
   if curl -sS -L --max-time 15 -A 'Mozilla/5.0 (email-check)' -o "$page" "$url"; then
     grep -Eoi '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}' "$page" >> "$out" || true

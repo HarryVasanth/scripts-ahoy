@@ -12,7 +12,7 @@ if [[ $(uname -s) != Darwin ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 notify - send a macOS desktop notification.
 
 Usage: notify [options] MESSAGE
@@ -39,20 +39,38 @@ escape() {
 while [[ $# -gt 0 ]]; do
   case "$1" in
     -t | --title)
-      [[ $# -ge 2 ]] || { printf 'Error: %s needs a value.\n' "$1" >&2; exit 1; }
+      [[ $# -ge 2 ]] || {
+        printf 'Error: %s needs a value.\n' "$1" >&2
+        exit 1
+      }
       title=$2
       shift 2
       ;;
     -s | --subtitle)
-      [[ $# -ge 2 ]] || { printf 'Error: %s needs a value.\n' "$1" >&2; exit 1; }
+      [[ $# -ge 2 ]] || {
+        printf 'Error: %s needs a value.\n' "$1" >&2
+        exit 1
+      }
       subtitle=$2
       shift 2
       ;;
-    -u | --urgent) sound=1; shift ;;
-    -h | --help) show_help; exit 0 ;;
-    -*) printf 'Error: unknown argument: %s\n' "$1" >&2; exit 1 ;;
+    -u | --urgent)
+      sound=1
+      shift
+      ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
+    -*)
+      printf 'Error: unknown argument: %s\n' "$1" >&2
+      exit 1
+      ;;
     *)
-      [[ -z "$message" ]] || { printf 'Error: give one message only.\n' >&2; exit 1; }
+      [[ -z "$message" ]] || {
+        printf 'Error: give one message only.\n' >&2
+        exit 1
+      }
       message=$1
       shift
       ;;

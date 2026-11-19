@@ -10,7 +10,7 @@ utc=0
 epoch=""
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Show the current time in a chosen format.
 Usage: timestamp.sh [--epoch|--iso|--file] [--utc] [EPOCH]
 
@@ -30,8 +30,15 @@ while (($# > 0)); do
     --iso) mode="iso" ;;
     --file) mode="file" ;;
     --utc) utc=1 ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; usage >&2; exit 1 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      usage >&2
+      exit 1
+      ;;
     *)
       if [[ -n "$epoch" ]]; then
         printf 'error: give one epoch only\n' >&2
@@ -65,7 +72,7 @@ if [[ "$mode" == "file" ]]; then
 fi
 
 # BSD date reads epochs with -r, GNU date with -d @.
-if date -r 0 +%s >/dev/null 2>&1; then
+if date -r 0 +%s > /dev/null 2>&1; then
   date -r "$epoch" "$fmt"
 else
   date -d "@$epoch" "$fmt"

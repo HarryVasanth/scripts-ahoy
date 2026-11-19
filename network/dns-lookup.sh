@@ -22,7 +22,7 @@ if [[ $# -lt 1 || -z ${1:-} ]]; then
   exit 1
 fi
 
-if ! command -v dig >/dev/null 2>&1; then
+if ! command -v dig > /dev/null 2>&1; then
   printf 'Error: dig is not installed.\n' >&2
   printf 'Install it: brew install bind (macOS) or apt install dnsutils (Debian).\n' >&2
   exit 1
@@ -45,7 +45,7 @@ if [[ -z $type ]]; then
 else
   type=$(printf '%s' "$type" | tr '[:lower:]' '[:upper:]')
   case "$type" in
-    A|AAAA|MX|TXT|NS|CNAME|SOA|SRV|CAA) types=("$type") ;;
+    A | AAAA | MX | TXT | NS | CNAME | SOA | SRV | CAA) types=("$type") ;;
     ANY) types=(A AAAA MX TXT NS CNAME) ;;
     *)
       printf 'Error: unsupported record type "%s".\n' "$type" >&2
@@ -56,9 +56,9 @@ fi
 
 for record in "${types[@]}"; do
   if [[ -n $resolver ]]; then
-    answer=$(dig +short +time=3 +tries=1 "@$resolver" "$name" "$record" 2>/dev/null) || answer=""
+    answer=$(dig +short +time=3 +tries=1 "@$resolver" "$name" "$record" 2> /dev/null) || answer=""
   else
-    answer=$(dig +short +time=3 +tries=1 "$name" "$record" 2>/dev/null) || answer=""
+    answer=$(dig +short +time=3 +tries=1 "$name" "$record" 2> /dev/null) || answer=""
   fi
   printf '🔎 %s %s\n' "$name" "$record"
   if [[ -z $answer ]]; then

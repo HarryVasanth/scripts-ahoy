@@ -18,7 +18,7 @@ if [[ $# -lt 1 || -z ${1:-} ]]; then
   usage >&2
   exit 1
 fi
-if ! command -v curl >/dev/null 2>&1; then
+if ! command -v curl > /dev/null 2>&1; then
   printf 'Error: curl is not installed.\n' >&2
   exit 1
 fi
@@ -60,7 +60,7 @@ fi
 printf '%s\n' "$fields" | sed 's/^/   /'
 
 contacts=$(printf '%s\n' "$fields" | grep -ci '^contact:' || true)
-if (( contacts == 0 )); then
+if ((contacts == 0)); then
   printf '   ⚠️  No Contact field. RFC 9116 requires one.\n'
 fi
 

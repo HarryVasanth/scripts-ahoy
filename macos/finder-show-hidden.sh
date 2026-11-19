@@ -11,7 +11,7 @@ if [[ $(uname -s) != Darwin ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 finder-show-hidden - toggle hidden files in Finder.
 
 Usage: finder-show-hidden [--show|--hide|--status]
@@ -32,7 +32,10 @@ for arg in "$@"; do
     --show) mode=show ;;
     --hide) mode=hide ;;
     --status) mode=status ;;
-    -h | --help) show_help; exit 0 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
     *)
       printf 'Error: unknown argument: %s\n' "$arg" >&2
       show_help >&2
@@ -41,7 +44,7 @@ for arg in "$@"; do
   esac
 done
 
-current=$(defaults read com.apple.finder AppleShowAllFiles 2>/dev/null || printf '0')
+current=$(defaults read com.apple.finder AppleShowAllFiles 2> /dev/null || printf '0')
 case "$current" in
   1 | true | YES) state=on ;;
   *) state=off ;;
@@ -67,4 +70,4 @@ else
   printf '🙈 Hidden files are now hidden.\n'
 fi
 
-killall Finder 2>/dev/null || printf 'Note: Finder is not running.\n' >&2
+killall Finder 2> /dev/null || printf 'Note: Finder is not running.\n' >&2

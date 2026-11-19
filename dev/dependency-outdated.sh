@@ -5,7 +5,7 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Usage: dependency-outdated [--dir DIR]
 
 Find the project type, then run its outdated report:
@@ -16,17 +16,27 @@ pnpm, npm, yarn, cargo, go, pip, bundler or composer.
 EOF
 }
 
-die() { printf '❌ %s\n' "$1" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$1" >&2
+  exit 1
+}
 
 require() {
-  command -v "$1" >/dev/null 2>&1 || die "$1 is not installed. $2"
+  command -v "$1" > /dev/null 2>&1 || die "$1 is not installed. $2"
 }
 
 dir="."
 while (($# > 0)); do
   case "$1" in
-    --dir) (($# > 1)) || die '--dir needs a path.'; dir="$2"; shift ;;
-    -h|--help) usage; exit 0 ;;
+    --dir)
+      (($# > 1)) || die '--dir needs a path.'
+      dir="$2"
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     *) die "Unknown option: $1" ;;
   esac
   shift
@@ -53,7 +63,7 @@ elif [[ -f go.mod ]]; then
   go list -m -u all || true
 elif [[ -f requirements.txt || -f pyproject.toml ]]; then
   require python3 'Install Python from https://python.org'
-  python3 -m pip --version >/dev/null 2>&1 || die 'pip is not available. Run: python3 -m ensurepip'
+  python3 -m pip --version > /dev/null 2>&1 || die 'pip is not available. Run: python3 -m ensurepip'
   python3 -m pip list --outdated || true
 elif [[ -f Gemfile ]]; then
   require bundle 'Install it with: gem install bundler'

@@ -11,7 +11,7 @@ extended=0
 tmp=""
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Find and replace text across files.
 Usage: replace-in-files.sh [--apply] [-E] PATTERN REPLACEMENT FILE...
 
@@ -25,22 +25,41 @@ EOF
 
 while (($# > 0)); do
   case "$1" in
-    --apply) apply=1; shift ;;
-    -E|--extended) extended=1; shift ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+    --apply)
+      apply=1
+      shift
+      ;;
+    -E | --extended)
+      extended=1
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
     *) break ;;
   esac
 done
 
-(($# >= 3)) || { printf 'error: give PATTERN, REPLACEMENT and at least one FILE\n' >&2; usage >&2; exit 1; }
+(($# >= 3)) || {
+  printf 'error: give PATTERN, REPLACEMENT and at least one FILE\n' >&2
+  usage >&2
+  exit 1
+}
 
 pattern="$1"
 replacement="$2"
 shift 2
 
 for f in "$@"; do
-  [[ -f "$f" ]] || { printf 'error: %s is not a file\n' "$f" >&2; exit 1; }
+  [[ -f "$f" ]] || {
+    printf 'error: %s is not a file\n' "$f" >&2
+    exit 1
+  }
 done
 
 tmp=$(mktemp "${TMPDIR:-/tmp}/replace.XXXXXX")

@@ -30,7 +30,7 @@ if [[ "$(uname -s)" != "Linux" ]]; then
   printf '[-] This script only runs on Linux. 🐧\n' >&2
   exit 1
 fi
-if ! command -v lsblk >/dev/null 2>&1; then
+if ! command -v lsblk > /dev/null 2>&1; then
   printf '[-] lsblk is missing. Install util-linux.\n' >&2
   exit 1
 fi
@@ -44,22 +44,22 @@ for mount in "${mounts[@]}"; do
     printf '⚠️  %s is not a directory. Skip.\n' "$mount" >&2
     continue
   fi
-  device=$(findmnt -no SOURCE --target "$mount" 2>/dev/null || true)
+  device=$(findmnt -no SOURCE --target "$mount" 2> /dev/null || true)
   if [[ -z $device ]]; then
     printf '⚠️  %s is not a mount point. Skip.\n' "$mount" >&2
     continue
   fi
   base=${device%%\[*}
   printf '📂 %s → %s\n' "$mount" "$base"
-  if lsblk -Dno DISC-GRAN "$base" 2>/dev/null | grep -qv '^0B$'; then
+  if lsblk -Dno DISC-GRAN "$base" 2> /dev/null | grep -qv '^0B$'; then
     printf '   ✅ Discard is supported.\n'
   else
     printf '   ⚠️  Discard looks unsupported or is hidden by the device stack.\n'
   fi
 done
 
-if command -v systemctl >/dev/null 2>&1; then
-  state=$(systemctl is-enabled fstrim.timer 2>/dev/null || true)
+if command -v systemctl > /dev/null 2>&1; then
+  state=$(systemctl is-enabled fstrim.timer 2> /dev/null || true)
   printf '\n⏱️  fstrim.timer: %s\n' "${state:-not found}"
 fi
 

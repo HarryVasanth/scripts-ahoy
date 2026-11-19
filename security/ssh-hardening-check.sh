@@ -8,7 +8,10 @@ set -euo pipefail
 CONFIG=/etc/ssh/sshd_config
 ISSUES=0
 
-die() { printf 'Error: %s\n' "$*" >&2; exit 1; }
+die() {
+  printf 'Error: %s\n' "$*" >&2
+  exit 1
+}
 
 usage() {
   awk 'NR > 1 && /^#/ { sub(/^# ?/, ""); print; next } NR > 1 { exit }' "$0"
@@ -16,8 +19,15 @@ usage() {
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    -f) [ "$#" -ge 2 ] || die "-f needs a path."; CONFIG=$2; shift 2 ;;
-    -h|--help) usage; exit 0 ;;
+    -f)
+      [ "$#" -ge 2 ] || die "-f needs a path."
+      CONFIG=$2
+      shift 2
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     *) die "unknown option $1" ;;
   esac
 done
@@ -32,9 +42,9 @@ if [ "$CONFIG" = /etc/ssh/sshd_config ] && [ -d /etc/ssh/sshd_config.d ]; then
 fi
 
 values() {
-  grep -hiE "^[[:space:]]*$1([[:space:]]|=)" "${FILES[@]}" 2>/dev/null |
-    sed 's/#.*//; s/=/ /' |
-    awk -v k="$1" 'tolower($1) == tolower(k) { print tolower($2) }' || true
+  grep -hiE "^[[:space:]]*$1([[:space:]]|=)" "${FILES[@]}" 2> /dev/null \
+    | sed 's/#.*//; s/=/ /' \
+    | awk -v k="$1" 'tolower($1) == tolower(k) { print tolower($2) }' || true
 }
 
 check() {
@@ -63,7 +73,7 @@ check KbdInteractiveAuthentication yes "Turn off keyboard-interactive logins."
 check ChallengeResponseAuthentication yes "Turn off challenge-response logins."
 
 while IFS= read -r v; do
-  case "$v" in ''|*[!0-9]*) continue ;; esac
+  case "$v" in '' | *[!0-9]*) continue ;; esac
   if [ "$v" -gt 4 ]; then
     printf '⚠️  MaxAuthTries is %s. Keep it at 4 or less.\n' "$v"
     ISSUES=$((ISSUES + 1))

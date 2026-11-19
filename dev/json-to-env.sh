@@ -6,7 +6,7 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Usage: json-to-env [-f FILE] [--prefix WORD] [--export]
 
 Read JSON from a file or stdin, then print KEY=value lines.
@@ -22,7 +22,10 @@ Example:
 EOF
 }
 
-die() { printf '❌ %s\n' "$1" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$1" >&2
+  exit 1
+}
 
 # The jq program uses $ names, so no shell expansion must happen here.
 # shellcheck disable=SC2016
@@ -39,21 +42,25 @@ prefix=""
 export=0
 while (($# > 0)); do
   case "$1" in
-    -f|--file|--prefix)
+    -f | --file | --prefix)
       (($# > 1)) || die "$1 needs a value."
       case "$1" in
-        -f|--file) file="$2" ;;
+        -f | --file) file="$2" ;;
         --prefix) prefix="$2" ;;
       esac
-      shift ;;
+      shift
+      ;;
     --export) export=1 ;;
-    -h|--help) usage; exit 0 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     *) die "Unknown option: $1" ;;
   esac
   shift
 done
 
-command -v jq >/dev/null 2>&1 || die 'jq is not installed. Install it: https://jqlang.github.io/jq/'
+command -v jq > /dev/null 2>&1 || die 'jq is not installed. Install it: https://jqlang.github.io/jq/'
 [[ -z "$file" || -f "$file" ]] || die "File not found: $file"
 
 tmp=$(mktemp "${TMPDIR:-/tmp}/json-to-env.XXXXXX")

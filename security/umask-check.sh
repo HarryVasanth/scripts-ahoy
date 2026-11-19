@@ -6,7 +6,10 @@ set -euo pipefail
 
 shopt -s nullglob
 
-die() { printf 'Error: %s\n' "$*" >&2; exit 1; }
+die() {
+  printf 'Error: %s\n' "$*" >&2
+  exit 1
+}
 
 usage() {
   awk 'NR > 1 && /^#/ { sub(/^# ?/, ""); print; next } NR > 1 { exit }' "$0"
@@ -14,7 +17,10 @@ usage() {
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    -h|--help) usage; exit 0 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     *) die "unknown option $1" ;;
   esac
 done
@@ -24,9 +30,9 @@ VALUE=$((8#$CURRENT))
 
 printf '🔎 Current umask\n\n'
 printf '  %-12s %s\n' 'Mask' "$CURRENT"
-printf '  %-12s %s\n' 'Allowed' "$(umask -S 2>/dev/null || printf 'unknown')"
+printf '  %-12s %s\n' 'Allowed' "$(umask -S 2> /dev/null || printf 'unknown')"
 
-if [ $(( (~VALUE) & 8#2 )) -ne 0 ]; then
+if [ $(((~VALUE) & 8#2)) -ne 0 ]; then
   printf '\n⚠️  Other users can write new files.\n'
 fi
 
@@ -40,7 +46,7 @@ for f in "${FILES[@]}"; do
   while IFS= read -r line; do
     printf '  %s:%s\n' "$f" "$line"
     FOUND=1
-  done < <(grep -nE '^[[:space:]]*[Uu][Mm][Aa][Ss][Kk][[:space:]=]+[0-7]{3,4}' "$f" 2>/dev/null || true)
+  done < <(grep -nE '^[[:space:]]*[Uu][Mm][Aa][Ss][Kk][[:space:]=]+[0-7]{3,4}' "$f" 2> /dev/null || true)
 done
 
 if [ "$FOUND" -eq 0 ]; then

@@ -12,7 +12,7 @@ if [[ $(uname -s) != Darwin ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 caffeinate-until - keep the Mac awake.
 
 Usage: caffeinate-until --time SECONDS
@@ -26,7 +26,7 @@ Example: caffeinate-until -- rsync -a /data /backup
 EOF
 }
 
-if ! command -v caffeinate >/dev/null 2>&1; then
+if ! command -v caffeinate > /dev/null 2>&1; then
   printf 'Error: caffeinate is missing. This tool needs macOS.\n' >&2
   exit 1
 fi
@@ -37,11 +37,17 @@ command_args=()
 while [[ $# -gt 0 ]]; do
   case "$1" in
     -t | --time)
-      [[ $# -ge 2 ]] || { printf 'Error: %s needs a value.\n' "$1" >&2; exit 1; }
+      [[ $# -ge 2 ]] || {
+        printf 'Error: %s needs a value.\n' "$1" >&2
+        exit 1
+      }
       seconds=$2
       shift 2
       ;;
-    -h | --help) show_help; exit 0 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
     --)
       shift
       command_args=("$@")

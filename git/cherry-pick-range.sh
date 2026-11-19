@@ -10,7 +10,10 @@ BRANCH=
 NOCOMMIT=0
 RANGE=
 
-die() { printf 'Error: %s\n' "$*" >&2; exit 1; }
+die() {
+  printf 'Error: %s\n' "$*" >&2
+  exit 1
+}
 
 usage() {
   awk 'NR > 1 && /^#/ { sub(/^# ?/, ""); print; next } NR > 1 { exit }' "$0"
@@ -18,9 +21,19 @@ usage() {
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    -b) [ "$#" -ge 2 ] || die "-b needs a branch."; BRANCH=$2; shift 2 ;;
-    -n|--no-commit) NOCOMMIT=1; shift ;;
-    -h|--help) usage; exit 0 ;;
+    -b)
+      [ "$#" -ge 2 ] || die "-b needs a branch."
+      BRANCH=$2
+      shift 2
+      ;;
+    -n | --no-commit)
+      NOCOMMIT=1
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     -*) die "unknown option $1" ;;
     *)
       [ -z "$RANGE" ] || die "give one range only."
@@ -31,16 +44,16 @@ while [ "$#" -gt 0 ]; do
 done
 
 [ -n "$RANGE" ] || die "give a range, for example main~3..main. See --help."
-git rev-parse --git-dir >/dev/null 2>&1 || die "this is not a git repository."
-COUNT=$(git rev-list --count "$RANGE" 2>/dev/null) || die "bad range: $RANGE"
+git rev-parse --git-dir > /dev/null 2>&1 || die "this is not a git repository."
+COUNT=$(git rev-list --count "$RANGE" 2> /dev/null) || die "bad range: $RANGE"
 [ "$COUNT" -gt 0 ] || die "the range has no commits: $RANGE"
-ORIGINAL=$(git symbolic-ref --short -q HEAD 2>/dev/null || git rev-parse --short HEAD)
+ORIGINAL=$(git symbolic-ref --short -q HEAD 2> /dev/null || git rev-parse --short HEAD)
 
 if [ -n "$BRANCH" ]; then
-  git rev-parse --verify -q "refs/heads/$BRANCH" >/dev/null || die "no such branch: $BRANCH"
+  git rev-parse --verify -q "refs/heads/$BRANCH" > /dev/null || die "no such branch: $BRANCH"
   if [ "$BRANCH" != "$ORIGINAL" ]; then
-    [ -z "$(git status --porcelain 2>/dev/null)" ] ||
-      die "the worktree has changes. Commit or stash them first."
+    [ -z "$(git status --porcelain 2> /dev/null)" ] \
+      || die "the worktree has changes. Commit or stash them first."
     git checkout "$BRANCH"
   fi
 fi

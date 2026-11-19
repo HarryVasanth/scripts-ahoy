@@ -9,7 +9,7 @@ set -euo pipefail
 numbers=0
 file=""
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Convert CSV to JSON on standard output.
 Usage: csv-to-json.sh [--numbers] [FILE]
 
@@ -21,16 +21,31 @@ EOF
 }
 while (($# > 0)); do
   case "$1" in
-    --numbers) numbers=1; shift ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+    --numbers)
+      numbers=1
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
     *) break ;;
   esac
 done
-(($# <= 1)) || { printf 'error: give one file only\n' >&2; exit 1; }
+(($# <= 1)) || {
+  printf 'error: give one file only\n' >&2
+  exit 1
+}
 if (($# == 1)); then
   file="$1"
-  [[ -r "$file" ]] || { printf 'error: cannot read %s\n' "$file" >&2; exit 1; }
+  [[ -r "$file" ]] || {
+    printf 'error: cannot read %s\n' "$file" >&2
+    exit 1
+  }
 fi
 convert() {
   awk -v numbers="$numbers" '

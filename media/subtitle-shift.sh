@@ -9,7 +9,7 @@ force=false
 replace=false
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Move all subtitles earlier or later. Positive values add time.
 The source stays unless --replace. Output: NAME-shifted.srt.
   -s SECONDS    Shift by this many seconds, such as 1.5 or -2 (default: 0)
@@ -20,33 +20,59 @@ The source stays unless --replace. Output: NAME-shifted.srt.
 EOF
 }
 
-die() { printf '❌ %s\n' "$*" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$*" >&2
+  exit 1
+}
 
 while [ $# -gt 0 ]; do
   case "$1" in
-    -s) offset=${2:-}; shift 2 || die "Option -s needs a value." ;;
-    -o) output=${2:-}; shift 2 || die "Option -o needs a value." ;;
-    --force) force=true; shift ;;
-    --replace) replace=true; shift ;;
-    -h|--help) usage; exit 0 ;;
-    --) shift; break ;;
+    -s)
+      offset=${2:-}
+      shift 2 || die "Option -s needs a value."
+      ;;
+    -o)
+      output=${2:-}
+      shift 2 || die "Option -o needs a value."
+      ;;
+    --force)
+      force=true
+      shift
+      ;;
+    --replace)
+      replace=true
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      break
+      ;;
     -*) die "Unknown option: $1" ;;
     *) break ;;
   esac
 done
 
-case "$offset" in ''|*[!0-9.+-]*) die "Offset must be a number of seconds, such as 1.5 or -2." ;; esac
-[ "$#" -eq 1 ] || { usage >&2; die "Give me exactly one SRT file."; }
+case "$offset" in '' | *[!0-9.+-]*) die "Offset must be a number of seconds, such as 1.5 or -2." ;; esac
+[ "$#" -eq 1 ] || {
+  usage >&2
+  die "Give me exactly one SRT file."
+}
 [ -f "$1" ] || die "Not a file: $1"
 src=$1
 if [ -z "$output" ]; then
-  if [ "$replace" = true ]; then output=$src
+  if [ "$replace" = true ]; then
+    output=$src
   else output="$(dirname "$src")/$(basename "$src" .srt)-shifted.srt"; fi
 fi
 if [ -e "$output" ] && [ "$force" = false ] && [ "$replace" = false ]; then
   die "Output exists: $output (use --force to overwrite)"
 fi
-tmpdir=$(mktemp -d); trap 'rm -rf "$tmpdir"' EXIT
+tmpdir=$(mktemp -d)
+trap 'rm -rf "$tmpdir"' EXIT
 
 printf '⏱️  %s by %s seconds -> %s\n' "$src" "$offset" "$output" >&2
 awk -v off="$offset" '

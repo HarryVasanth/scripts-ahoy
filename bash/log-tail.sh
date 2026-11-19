@@ -9,7 +9,7 @@ follow=0
 files=()
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Tail one or more log files.
 Usage: log-tail.sh [-n LINES] [-f] FILE...
 
@@ -23,22 +23,49 @@ EOF
 
 while (($# > 0)); do
   case "$1" in
-    -n|--lines)
-      (($# >= 2)) || { printf 'error: %s needs a count\n' "$1" >&2; exit 1; }
-      lines="$2"; shift 2 ;;
-    -f|--follow) follow=1; shift ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
-    *) files+=("$1"); shift ;;
+    -n | --lines)
+      (($# >= 2)) || {
+        printf 'error: %s needs a count\n' "$1" >&2
+        exit 1
+      }
+      lines="$2"
+      shift 2
+      ;;
+    -f | --follow)
+      follow=1
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
+    *)
+      files+=("$1")
+      shift
+      ;;
   esac
 done
 
-[[ "$lines" =~ ^[0-9]+$ ]] ||
-  { printf 'error: LINES must be a number\n' >&2; exit 1; }
-((${#files[@]} > 0)) || { printf 'error: give at least one file\n' >&2; usage >&2; exit 1; }
+[[ "$lines" =~ ^[0-9]+$ ]] \
+  || {
+    printf 'error: LINES must be a number\n' >&2
+    exit 1
+  }
+((${#files[@]} > 0)) || {
+  printf 'error: give at least one file\n' >&2
+  usage >&2
+  exit 1
+}
 
 for f in "${files[@]}"; do
-  [[ -r "$f" ]] || { printf 'error: cannot read %s\n' "$f" >&2; exit 1; }
+  [[ -r "$f" ]] || {
+    printf 'error: cannot read %s\n' "$f" >&2
+    exit 1
+  }
 done
 
 if ((follow)); then

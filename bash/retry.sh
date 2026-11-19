@@ -10,7 +10,7 @@ max=60
 status=0
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Run a command until it succeeds, with a growing delay.
 Usage: retry.sh [-n TRIES] [-d DELAY] [-m MAX] -- COMMAND [ARGS...]
 
@@ -25,27 +25,61 @@ EOF
 
 while (($# > 0)); do
   case "$1" in
-    -n|--tries)
-      (($# >= 2)) || { printf 'error: %s needs a value\n' "$1" >&2; exit 1; }
-      tries="$2"; shift 2 ;;
-    -d|--delay)
-      (($# >= 2)) || { printf 'error: %s needs a value\n' "$1" >&2; exit 1; }
-      delay="$2"; shift 2 ;;
-    -m|--max)
-      (($# >= 2)) || { printf 'error: %s needs a value\n' "$1" >&2; exit 1; }
-      max="$2"; shift 2 ;;
-    -h|--help) usage; exit 0 ;;
-    --) shift; break ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+    -n | --tries)
+      (($# >= 2)) || {
+        printf 'error: %s needs a value\n' "$1" >&2
+        exit 1
+      }
+      tries="$2"
+      shift 2
+      ;;
+    -d | --delay)
+      (($# >= 2)) || {
+        printf 'error: %s needs a value\n' "$1" >&2
+        exit 1
+      }
+      delay="$2"
+      shift 2
+      ;;
+    -m | --max)
+      (($# >= 2)) || {
+        printf 'error: %s needs a value\n' "$1" >&2
+        exit 1
+      }
+      max="$2"
+      shift 2
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      break
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
     *) break ;;
   esac
 done
 
-(($# > 0)) || { printf 'error: give a command to run\n' >&2; usage >&2; exit 1; }
+(($# > 0)) || {
+  printf 'error: give a command to run\n' >&2
+  usage >&2
+  exit 1
+}
 for value in "$tries" "$delay" "$max"; do
-  [[ "$value" =~ ^[0-9]+$ ]] || { printf 'error: numbers only for -n, -d and -m\n' >&2; exit 1; }
+  [[ "$value" =~ ^[0-9]+$ ]] || {
+    printf 'error: numbers only for -n, -d and -m\n' >&2
+    exit 1
+  }
 done
-((tries > 0)) || { printf 'error: TRIES must be at least 1\n' >&2; exit 1; }
+((tries > 0)) || {
+  printf 'error: TRIES must be at least 1\n' >&2
+  exit 1
+}
 
 attempt=1
 while :; do

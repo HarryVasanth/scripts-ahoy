@@ -11,7 +11,7 @@ dry=0
 yes=0
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Remove old entries at the top of a temporary directory.
 Usage: clean-temp.sh [-d DAYS] [--dry-run] [--yes] [DIR]
 
@@ -26,24 +26,44 @@ EOF
 
 while (($# > 0)); do
   case "$1" in
-    -d|--days)
-      (($# >= 2)) || { printf 'error: %s needs a value\n' "$1" >&2; exit 1; }
-      days="$2"; shift ;;
+    -d | --days)
+      (($# >= 2)) || {
+        printf 'error: %s needs a value\n' "$1" >&2
+        exit 1
+      }
+      days="$2"
+      shift
+      ;;
     --dry-run) dry=1 ;;
     --yes) yes=1 ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
     *) break ;;
   esac
   shift
 done
 
-(($# <= 1)) || { printf 'error: give one directory only\n' >&2; exit 1; }
-[[ "$days" =~ ^[0-9]+$ ]] || { printf 'error: DAYS must be a whole number\n' >&2; exit 1; }
+(($# <= 1)) || {
+  printf 'error: give one directory only\n' >&2
+  exit 1
+}
+[[ "$days" =~ ^[0-9]+$ ]] || {
+  printf 'error: DAYS must be a whole number\n' >&2
+  exit 1
+}
 if (($# == 1)); then dir="$1"; fi
 dir="${dir%/}"
 [[ -n "$dir" ]] || dir="/"
-[[ -d "$dir" ]] || { printf 'error: %s is not a directory\n' "$dir" >&2; exit 1; }
+[[ -d "$dir" ]] || {
+  printf 'error: %s is not a directory\n' "$dir" >&2
+  exit 1
+}
 if [[ "$dir" == "/" || "$dir" == "/System" || "$dir" == "$HOME" ]]; then
   printf 'error: %s is too important to clean\n' "$dir" >&2
   exit 1
@@ -68,8 +88,11 @@ if ((!yes)); then
   answer=""
   read -r answer || true
   case "$answer" in
-    y|Y|yes|YES) ;;
-    *) printf 'Cancelled. Nothing was deleted.\n' >&2; exit 1 ;;
+    y | Y | yes | YES) ;;
+    *)
+      printf 'Cancelled. Nothing was deleted.\n' >&2
+      exit 1
+      ;;
   esac
 fi
 

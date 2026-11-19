@@ -8,14 +8,26 @@ set -euo pipefail
 usage() {
   printf 'Usage: %s <url>\nExample: %s https://example.com\n' "${0##*/}" "${0##*/}"
 }
-if [[ ${1:-} == "-h" || ${1:-} == "--help" ]]; then usage; exit 0; fi
-if [[ $# -lt 1 || -z ${1:-} ]]; then usage >&2; exit 1; fi
-command -v curl >/dev/null 2>&1 || { printf 'Error: curl is not installed.\n' >&2; exit 1; }
+if [[ ${1:-} == "-h" || ${1:-} == "--help" ]]; then
+  usage
+  exit 0
+fi
+if [[ $# -lt 1 || -z ${1:-} ]]; then
+  usage >&2
+  exit 1
+fi
+command -v curl > /dev/null 2>&1 || {
+  printf 'Error: curl is not installed.\n' >&2
+  exit 1
+}
 
 url=$1
 case "$url" in
-  http://*|https://*) ;;
-  *) printf 'Error: give a URL that starts with http:// or https://.\n' >&2; exit 1 ;;
+  http://* | https://*) ;;
+  *)
+    printf 'Error: give a URL that starts with http:// or https://.\n' >&2
+    exit 1
+    ;;
 esac
 
 tmp=$(mktemp)
@@ -32,7 +44,7 @@ while IFS= read -r line; do
   line=${line# }
   line=${line%$'\r'}
   [[ -n $line ]] || continue
-  found=$(( found + 1 ))
+  found=$((found + 1))
   name=${line%%=*}
   printf '   %s\n' "$name"
   lower=$(printf '%s' "$line" | tr '[:upper:]' '[:lower:]')
@@ -45,7 +57,7 @@ while IFS= read -r line; do
   printf '      Flags:%s\n' "${flags:- none}"
 
   case "; $lower" in
-    *'; max-age='*|*'; expires='*) printf '      Type:  persistent\n' ;;
+    *'; max-age='* | *'; expires='*) printf '      Type:  persistent\n' ;;
     *) printf '      Type:  session\n' ;;
   esac
   case "; $lower" in *'; secure'*) ;; *) printf '      ⚠️  No Secure flag.\n' ;; esac
@@ -58,7 +70,7 @@ while IFS= read -r line; do
   fi
 done < <(grep -i '^set-cookie:' "$tmp" || true)
 
-if (( found == 0 )); then
+if ((found == 0)); then
   printf '   No Set-Cookie headers on this response.\n'
   exit 1
 fi

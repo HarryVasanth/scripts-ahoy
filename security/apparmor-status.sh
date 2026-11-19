@@ -8,7 +8,10 @@ set -euo pipefail
 
 TOP=10
 
-die() { printf 'Error: %s\n' "$*" >&2; exit 1; }
+die() {
+  printf 'Error: %s\n' "$*" >&2
+  exit 1
+}
 
 usage() {
   awk 'NR > 1 && /^#/ { sub(/^# ?/, ""); print; next } NR > 1 { exit }' "$0"
@@ -16,14 +19,21 @@ usage() {
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    -n) [ "$#" -ge 2 ] || die "-n needs a number."; TOP=$2; shift 2 ;;
-    -h|--help) usage; exit 0 ;;
+    -n)
+      [ "$#" -ge 2 ] || die "-n needs a number."
+      TOP=$2
+      shift 2
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     *) die "unknown option $1" ;;
   esac
 done
 
 case "$TOP" in
-  ''|*[!0-9]*|0) die "-n needs a number above zero." ;;
+  '' | *[!0-9]* | 0) die "-n needs a number above zero." ;;
 esac
 
 if [ "$(uname -s)" = Darwin ]; then
@@ -32,9 +42,9 @@ if [ "$(uname -s)" = Darwin ]; then
 fi
 
 STATUS=
-if command -v aa-status >/dev/null 2>&1; then
+if command -v aa-status > /dev/null 2>&1; then
   STATUS=aa-status
-elif command -v apparmor_status >/dev/null 2>&1; then
+elif command -v apparmor_status > /dev/null 2>&1; then
   STATUS=apparmor_status
 else
   printf 'ℹ️  No AppArmor tools found. This host may use SELinux.\n' >&2
@@ -43,16 +53,16 @@ else
 fi
 
 printf '🔎 AppArmor profiles\n\n'
-sudo -n "$STATUS" 2>/dev/null || "$STATUS" 2>/dev/null ||
-  printf '   Needs root. Run: sudo %s\n' "$STATUS"
+sudo -n "$STATUS" 2> /dev/null || "$STATUS" 2> /dev/null \
+  || printf '   Needs root. Run: sudo %s\n' "$STATUS"
 
 printf '\n🔎 Recent denials\n\n'
 DENIALS=
-if command -v journalctl >/dev/null 2>&1; then
-  DENIALS=$(journalctl -k --since '24 hours ago' --no-pager 2>/dev/null | grep -i 'apparmor="DENIED"' || true)
+if command -v journalctl > /dev/null 2>&1; then
+  DENIALS=$(journalctl -k --since '24 hours ago' --no-pager 2> /dev/null | grep -i 'apparmor="DENIED"' || true)
 fi
 if [ -z "$DENIALS" ]; then
-  DENIALS=$(dmesg 2>/dev/null | grep -i 'apparmor="DENIED"' || true)
+  DENIALS=$(dmesg 2> /dev/null | grep -i 'apparmor="DENIED"' || true)
 fi
 
 if [ -z "$DENIALS" ]; then

@@ -5,7 +5,7 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Usage: makefile-help [-f FILE]
 
 List every target that has a "## description" comment on the same line.
@@ -16,13 +16,23 @@ The default file is Makefile in the current directory.
 EOF
 }
 
-die() { printf '❌ %s\n' "$1" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$1" >&2
+  exit 1
+}
 
 file="Makefile"
 while (($# > 0)); do
   case "$1" in
-    -f) shift; (($# > 0)) || die 'Option -f needs a file.'; file="$1" ;;
-    -h|--help) usage; exit 0 ;;
+    -f)
+      shift
+      (($# > 0)) || die 'Option -f needs a file.'
+      file="$1"
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     -*) die "Unknown option: $1" ;;
     *) die "Unexpected argument: $1" ;;
   esac

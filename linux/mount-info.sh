@@ -11,7 +11,7 @@ if [[ $(uname -s) != Linux ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 mount-info - list mounts with their type, size and options.
 
 Usage: mount-info [MOUNTPOINT]
@@ -24,8 +24,15 @@ EOF
 target=
 for arg in "$@"; do
   case "$arg" in
-    -h | --help) show_help; exit 0 ;;
-    -*) printf 'Error: unknown argument: %s\n' "$arg" >&2; show_help >&2; exit 1 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
+    -*)
+      printf 'Error: unknown argument: %s\n' "$arg" >&2
+      show_help >&2
+      exit 1
+      ;;
     *)
       if [[ -n "$target" ]]; then
         printf 'Error: give one mount point at most.\n' >&2
@@ -36,7 +43,7 @@ for arg in "$@"; do
   esac
 done
 
-if command -v findmnt >/dev/null 2>&1; then
+if command -v findmnt > /dev/null 2>&1; then
   if [[ -n "$target" ]]; then
     if ! findmnt -o TARGET,SOURCE,FSTYPE,SIZE,USED,AVAIL,OPTIONS "$target"; then
       printf 'Error: no mount found for %s\n' "$target" >&2

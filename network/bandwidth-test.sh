@@ -16,9 +16,16 @@ size=25
 args=()
 for arg in "$@"; do
   case "$arg" in
-    -h|--help) usage; exit 0 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     --size) size="__next__" ;;
-    -*) printf 'Error: unknown option "%s".\n' "$arg" >&2; usage >&2; exit 1 ;;
+    -*)
+      printf 'Error: unknown option "%s".\n' "$arg" >&2
+      usage >&2
+      exit 1
+      ;;
     *)
       if [[ $size == "__next__" ]]; then
         size=$arg
@@ -29,16 +36,16 @@ for arg in "$@"; do
   esac
 done
 
-if [[ $size == "__next__" || ! $size =~ ^[0-9]+$ ]] || (( size < 1 || size > 500 )); then
+if [[ $size == "__next__" || ! $size =~ ^[0-9]+$ ]] || ((size < 1 || size > 500)); then
   printf 'Error: the size must be a number of MB from 1 to 500.\n' >&2
   exit 1
 fi
-if ! command -v curl >/dev/null 2>&1; then
+if ! command -v curl > /dev/null 2>&1; then
   printf 'Error: curl is not installed.\n' >&2
   exit 1
 fi
 
-bytes=$(( size * 1000000 ))
+bytes=$((size * 1000000))
 url=${args[0]:-"https://speed.cloudflare.com/__down?bytes=$bytes"}
 
 if ! stats=$(curl -sS -L --max-time 180 -o /dev/null \
@@ -49,7 +56,7 @@ fi
 
 read -r code got secs rate <<< "$stats"
 case "$code" in
-  200|206) ;;
+  200 | 206) ;;
   *)
     printf 'Error: the server answered with HTTP %s.\n' "$code" >&2
     exit 1

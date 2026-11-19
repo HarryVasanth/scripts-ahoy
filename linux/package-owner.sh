@@ -11,7 +11,7 @@ if [[ $(uname -s) != Linux ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 package-owner - show which package owns a file.
 
 Usage: package-owner FILE
@@ -45,10 +45,10 @@ if [[ ! -e "$file" ]]; then
   exit 1
 fi
 
-path=$(readlink -f "$file" 2>/dev/null || printf '%s' "$file")
+path=$(readlink -f "$file" 2> /dev/null || printf '%s' "$file")
 
-if command -v dpkg >/dev/null 2>&1; then
-  if owner=$(dpkg -S "$path" 2>/dev/null); then
+if command -v dpkg > /dev/null 2>&1; then
+  if owner=$(dpkg -S "$path" 2> /dev/null); then
     printf '📦 %s\n' "$owner"
     exit 0
   fi
@@ -56,8 +56,8 @@ if command -v dpkg >/dev/null 2>&1; then
   exit 1
 fi
 
-if command -v rpm >/dev/null 2>&1; then
-  if owner=$(rpm -qf "$path" 2>/dev/null); then
+if command -v rpm > /dev/null 2>&1; then
+  if owner=$(rpm -qf "$path" 2> /dev/null); then
     printf '📦 %s\n' "$owner"
     exit 0
   fi

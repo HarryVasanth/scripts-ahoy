@@ -6,7 +6,7 @@ set -euo pipefail
 # Needs: ip or ifconfig
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 network-info - show the local network configuration.
 
 Usage: network-info [INTERFACE]
@@ -21,16 +21,25 @@ EOF
 iface=""
 for arg in "$@"; do
   case "$arg" in
-    -h | --help) show_help; exit 0 ;;
-    -*) printf 'Error: unknown argument: %s\n' "$arg" >&2; exit 1 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
+    -*)
+      printf 'Error: unknown argument: %s\n' "$arg" >&2
+      exit 1
+      ;;
     *)
-      [[ -z "$iface" ]] || { printf 'Error: give one interface only.\n' >&2; exit 1; }
+      [[ -z "$iface" ]] || {
+        printf 'Error: give one interface only.\n' >&2
+        exit 1
+      }
       iface=$arg
       ;;
   esac
 done
 
-if command -v ip >/dev/null 2>&1; then
+if command -v ip > /dev/null 2>&1; then
   if [[ -n "$iface" ]]; then
     printf '== %s ==\n' "$iface"
     ip -brief addr show "$iface"
@@ -52,12 +61,12 @@ else
     ifconfig -a
     printf '\n== Routes ==\n'
   fi
-  netstat -rn -f inet 2>/dev/null | head -n 15
+  netstat -rn -f inet 2> /dev/null | head -n 15
 fi
 
 printf '\n== DNS servers ==\n'
-if command -v scutil >/dev/null 2>&1; then
-  scutil --dns 2>/dev/null | awk '/nameserver\[/ {print "  " $3}' | sort -u
+if command -v scutil > /dev/null 2>&1; then
+  scutil --dns 2> /dev/null | awk '/nameserver\[/ {print "  " $3}' | sort -u
 else
-  awk '/^nameserver/ {print "  " $2}' /etc/resolv.conf 2>/dev/null || printf '  Unknown.\n'
+  awk '/^nameserver/ {print "  " $2}' /etc/resolv.conf 2> /dev/null || printf '  Unknown.\n'
 fi

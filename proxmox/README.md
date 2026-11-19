@@ -4,30 +4,30 @@ Proxmox VE and PBS maintenance helpers.
 
 ## Scripts
 
-| Script | What it does | Usage | Added |
-|---|---|---|---|
-| [vm-stop.sh](vm-stop.sh) | Shut down a VM, or stop it at once with --force. | `vm-stop [-H user@host] [-f] [--dry-run] [-y] VMID` | 2016-02 |
-| [ct-stop.sh](ct-stop.sh) | Stop a container, or stop it at once with --force. | `ct-stop [-H user@host] [-f] [--dry-run] [-y] CTID` | 2018-06 |
-| [backup-list.sh](backup-list.sh) | List backup files in a Proxmox storage. | `backup-list [-H user@host] [-s STORAGE] [--vmid VMID]` | 2019-01 |
-| [task-list.sh](task-list.sh) | Show recent tasks from the cluster task log. | `task-list [-H user@host] [-n LIMIT]` | 2020-02 |
-| [vm-start.sh](vm-start.sh) | Start a VM and wait until it reports running. | `vm-start [-H user@host] [-t SECONDS] VMID` | 2020-06 |
-| [ct-start.sh](ct-start.sh) | Start a container and wait until it reports running. | `ct-start [-H user@host] [-t SECONDS] CTID` | 2021-03 |
-| [vm-snapshot.sh](vm-snapshot.sh) | Take, list or delete snapshots of one VM. | `vm-snapshot [-l] [-d NAME] [--dry-run] [-y] [-H user@host] VMID [NAME]` | 2021-11 |
-| [pve7-post-install.sh](pve/pve7-post-install.sh) | Set up a fresh Proxmox VE 7 host: free repos, no nag screen, useful tools. | `sudo ./pve7-post-install.sh` | 2022-06 |
-| [pbs2-post-install.sh](pbs/pbs2-post-install.sh) | Set up a fresh Proxmox Backup Server 2 host: free repos and no nag screen. | `sudo ./pbs2-post-install.sh` | 2022-06 |
-| [vm-config.sh](vm-config.sh) | Show a short configuration summary for one VM. | `vm-config [-H user@host] VMID` | 2022-07 |
-| [node-status.sh](node-status.sh) | Show CPU, RAM and storage status for one node. | `node-status [-H user@host] [--node NODE]` | 2022-11 |
-| [clean-old-kernels.sh](all/clean-old-kernels.sh) | Remove old Proxmox kernels and keep the running one. | `./clean-old-kernels.sh [--dry-run] [--force]` | 2023-01 |
-| [cluster-health.sh](cluster-health.sh) | Report the health of a Proxmox cluster: quorum, nodes and services. | `cluster-health [-H user@host]` | 2024-01 |
-| [cert-renew.sh](cert-renew.sh) | Renew the Proxmox VE node certificate through ACME. | `cert-renew [--dry-run] [-y]` | 2024-06 |
-| [vm-migrate.sh](vm-migrate.sh) | Migrate a VM to another cluster node. | `vm-migrate [-H user@host] [--online] [--with-local-disks] [--dry-run] [-y] VMID NODE` | 2025-07 |
-| [storage-usage.sh](storage-usage.sh) | Show free space for Proxmox storages and, when present, ZFS pools. | `storage-usage [-H user@host] [--node NODE]` | 2025-12 |
-| [template-update.sh](template-update.sh) | Refresh LXC appliance templates in a Proxmox storage. | `template-update [-s STORAGE] [--all] [--dry-run] [-y] [TEMPLATE...]` | 2026-01 |
-| [vm-backup.sh](vm-backup.sh) | Back up one VM or container with vzdump. | `vm-backup [-s STORAGE] [-m MODE] [-c COMPRESS] [--dry-run] [-y] VMID` | 2026-04 |
-| [ct-list.sh](ct-list.sh) | List containers across the cluster with status. | `ct-list [-H user@host] [--node NODE]` | 2026-06 |
-| [vm-list.sh](vm-list.sh) | List VMs and containers across a Proxmox cluster with live usage. | `vm-list [-H user@host] [--type vm\|ct\|all] [--node NODE]` | 2026-07 |
-| [ups-status.sh](ups-status.sh) | Show the state of a UPS that Network UPS Tools or apcupsd reports. | `ups-status [-u UPS] [-w SECONDS]` | 2026-08 |
-| [pct-snapshot.sh](pct-snapshot.sh) | Take, list, roll back or delete snapshots of one container. | `pct-snapshot [-l] [-r NAME] [-d NAME] [--dry-run] [-y] CTID [SNAPNAME]` | 2026-10 |
+| Script                                           | What it does                                                               | Usage                                                                                  | Added   |
+| ------------------------------------------------ | -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ------- |
+| [vm-stop.sh](vm-stop.sh)                         | Shut down a VM, or stop it at once with --force.                           | `vm-stop [-H user@host] [-f] [--dry-run] [-y] VMID`                                    | 2016-02 |
+| [ct-stop.sh](ct-stop.sh)                         | Stop a container, or stop it at once with --force.                         | `ct-stop [-H user@host] [-f] [--dry-run] [-y] CTID`                                    | 2018-06 |
+| [backup-list.sh](backup-list.sh)                 | List backup files in a Proxmox storage.                                    | `backup-list [-H user@host] [-s STORAGE] [--vmid VMID]`                                | 2019-01 |
+| [task-list.sh](task-list.sh)                     | Show recent tasks from the cluster task log.                               | `task-list [-H user@host] [-n LIMIT]`                                                  | 2020-02 |
+| [vm-start.sh](vm-start.sh)                       | Start a VM and wait until it reports running.                              | `vm-start [-H user@host] [-t SECONDS] VMID`                                            | 2020-06 |
+| [ct-start.sh](ct-start.sh)                       | Start a container and wait until it reports running.                       | `ct-start [-H user@host] [-t SECONDS] CTID`                                            | 2021-03 |
+| [vm-snapshot.sh](vm-snapshot.sh)                 | Take, list or delete snapshots of one VM.                                  | `vm-snapshot [-l] [-d NAME] [--dry-run] [-y] [-H user@host] VMID [NAME]`               | 2021-11 |
+| [pve7-post-install.sh](pve/pve7-post-install.sh) | Set up a fresh Proxmox VE 7 host: free repos, no nag screen, useful tools. | `sudo ./pve7-post-install.sh`                                                          | 2022-06 |
+| [pbs2-post-install.sh](pbs/pbs2-post-install.sh) | Set up a fresh Proxmox Backup Server 2 host: free repos and no nag screen. | `sudo ./pbs2-post-install.sh`                                                          | 2022-06 |
+| [vm-config.sh](vm-config.sh)                     | Show a short configuration summary for one VM.                             | `vm-config [-H user@host] VMID`                                                        | 2022-07 |
+| [node-status.sh](node-status.sh)                 | Show CPU, RAM and storage status for one node.                             | `node-status [-H user@host] [--node NODE]`                                             | 2022-11 |
+| [clean-old-kernels.sh](all/clean-old-kernels.sh) | Remove old Proxmox kernels and keep the running one.                       | `./clean-old-kernels.sh [--dry-run] [--force]`                                         | 2023-01 |
+| [cluster-health.sh](cluster-health.sh)           | Report the health of a Proxmox cluster: quorum, nodes and services.        | `cluster-health [-H user@host]`                                                        | 2024-01 |
+| [cert-renew.sh](cert-renew.sh)                   | Renew the Proxmox VE node certificate through ACME.                        | `cert-renew [--dry-run] [-y]`                                                          | 2024-06 |
+| [vm-migrate.sh](vm-migrate.sh)                   | Migrate a VM to another cluster node.                                      | `vm-migrate [-H user@host] [--online] [--with-local-disks] [--dry-run] [-y] VMID NODE` | 2025-07 |
+| [storage-usage.sh](storage-usage.sh)             | Show free space for Proxmox storages and, when present, ZFS pools.         | `storage-usage [-H user@host] [--node NODE]`                                           | 2025-12 |
+| [template-update.sh](template-update.sh)         | Refresh LXC appliance templates in a Proxmox storage.                      | `template-update [-s STORAGE] [--all] [--dry-run] [-y] [TEMPLATE...]`                  | 2026-01 |
+| [vm-backup.sh](vm-backup.sh)                     | Back up one VM or container with vzdump.                                   | `vm-backup [-s STORAGE] [-m MODE] [-c COMPRESS] [--dry-run] [-y] VMID`                 | 2026-04 |
+| [ct-list.sh](ct-list.sh)                         | List containers across the cluster with status.                            | `ct-list [-H user@host] [--node NODE]`                                                 | 2026-06 |
+| [vm-list.sh](vm-list.sh)                         | List VMs and containers across a Proxmox cluster with live usage.          | `vm-list [-H user@host] [--type vm\|ct\|all] [--node NODE]`                            | 2026-07 |
+| [ups-status.sh](ups-status.sh)                   | Show the state of a UPS that Network UPS Tools or apcupsd reports.         | `ups-status [-u UPS] [-w SECONDS]`                                                     | 2026-08 |
+| [pct-snapshot.sh](pct-snapshot.sh)               | Take, list, roll back or delete snapshots of one container.                | `pct-snapshot [-l] [-r NAME] [-d NAME] [--dry-run] [-y] CTID [SNAPNAME]`               | 2026-10 |
 
 ## Requirements
 

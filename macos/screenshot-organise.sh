@@ -9,7 +9,7 @@ if [[ $(uname -s) != Darwin ]]; then
   exit 1
 fi
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 screenshot-organise - sort screenshots into year and month folders.
 
 Usage: screenshot-organise [--dir DIR] [--dry-run] [--yes]
@@ -28,17 +28,36 @@ assume_yes=0
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --dir)
-      [[ $# -ge 2 ]] || { printf 'Error: --dir needs a value.\n' >&2; exit 1; }
+      [[ $# -ge 2 ]] || {
+        printf 'Error: --dir needs a value.\n' >&2
+        exit 1
+      }
       dir=$2
       shift 2
       ;;
-    --dry-run) dry_run=1; shift ;;
-    -y | --yes) assume_yes=1; shift ;;
-    -h | --help) show_help; exit 0 ;;
-    *) printf 'Error: unknown argument: %s\n' "$1" >&2; show_help >&2; exit 1 ;;
+    --dry-run)
+      dry_run=1
+      shift
+      ;;
+    -y | --yes)
+      assume_yes=1
+      shift
+      ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
+    *)
+      printf 'Error: unknown argument: %s\n' "$1" >&2
+      show_help >&2
+      exit 1
+      ;;
   esac
 done
-[[ -d "$dir" ]] || { printf 'Error: the folder does not exist: %s\n' "$dir" >&2; exit 1; }
+[[ -d "$dir" ]] || {
+  printf 'Error: the folder does not exist: %s\n' "$dir" >&2
+  exit 1
+}
 files=()
 while IFS= read -r -d '' file; do
   files+=("$file")
@@ -55,7 +74,10 @@ if [[ $dry_run -eq 0 && $assume_yes -eq 0 ]]; then
   read -r answer || answer=""
   case "$answer" in
     [yY]*) ;;
-    *) printf 'Nothing changed.\n'; exit 0 ;;
+    *)
+      printf 'Nothing changed.\n'
+      exit 0
+      ;;
   esac
 fi
 moved=0

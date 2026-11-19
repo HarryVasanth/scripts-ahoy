@@ -11,7 +11,7 @@ if [[ $(uname -s) != Linux ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 logrotate-check - test the logrotate configuration.
 
 Usage: logrotate-check [CONFIG]
@@ -37,7 +37,7 @@ case $# in
     ;;
 esac
 
-if ! command -v logrotate >/dev/null 2>&1; then
+if ! command -v logrotate > /dev/null 2>&1; then
   printf 'Error: logrotate is not installed.\n' >&2
   printf 'Install it: sudo apt install logrotate  (or: sudo dnf install logrotate)\n' >&2
   exit 1
@@ -52,7 +52,7 @@ tmp=$(mktemp) || exit 1
 trap 'rm -f "$tmp"' EXIT
 
 status=0
-logrotate -d "$config" >"$tmp" 2>&1 || status=$?
+logrotate -d "$config" > "$tmp" 2>&1 || status=$?
 errors=$(grep -ci 'error' "$tmp" || true)
 logs=$(grep -c '^considering log' "$tmp" || true)
 

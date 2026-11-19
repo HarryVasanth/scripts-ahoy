@@ -7,7 +7,7 @@ set -euo pipefail
 default=""
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Ask a yes/no question.
 Usage: ask.sh [-y|-n] PROMPT...
 
@@ -21,15 +21,31 @@ EOF
 
 while (($# > 0)); do
   case "$1" in
-    -y|--yes) default="y"; shift ;;
-    -n|--no) default="n"; shift ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+    -y | --yes)
+      default="y"
+      shift
+      ;;
+    -n | --no)
+      default="n"
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
     *) break ;;
   esac
 done
 
-(($# > 0)) || { printf 'error: give a question to ask\n' >&2; usage >&2; exit 1; }
+(($# > 0)) || {
+  printf 'error: give a question to ask\n' >&2
+  usage >&2
+  exit 1
+}
 question="$*"
 
 hint="[y/n]"
@@ -53,8 +69,14 @@ while :; do
     answer="$default"
   fi
   case "$answer" in
-    y|yes) printf '✅ Yes\n'; exit 0 ;;
-    n|no) printf '❌ No\n'; exit 1 ;;
+    y | yes)
+      printf '✅ Yes\n'
+      exit 0
+      ;;
+    n | no)
+      printf '❌ No\n'
+      exit 1
+      ;;
     *) printf 'Please answer y or n.\n' >&2 ;;
   esac
 done

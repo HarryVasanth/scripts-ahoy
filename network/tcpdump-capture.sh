@@ -15,16 +15,25 @@ usage() {
 
 iface=""
 count=200
-while (( $# > 0 )); do
+while (($# > 0)); do
   case "$1" in
-    -h|--help) usage; exit 0 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     -i)
-      [[ $# -ge 2 ]] || { printf 'Error: -i needs a value.\n' >&2; exit 1; }
+      [[ $# -ge 2 ]] || {
+        printf 'Error: -i needs a value.\n' >&2
+        exit 1
+      }
       iface=$2
       shift 2
       ;;
     -c)
-      [[ $# -ge 2 ]] || { printf 'Error: -c needs a value.\n' >&2; exit 1; }
+      [[ $# -ge 2 ]] || {
+        printf 'Error: -c needs a value.\n' >&2
+        exit 1
+      }
       count=$2
       shift 2
       ;;
@@ -32,20 +41,32 @@ while (( $# > 0 )); do
   esac
 done
 
-(( EUID == 0 )) || { printf 'Error: run this script as root. Try: sudo %s ...\n' "${0##*/}" >&2; exit 1; }
-command -v tcpdump >/dev/null 2>&1 || { printf 'Error: tcpdump is not installed.\n' >&2; exit 1; }
-[[ $count =~ ^[1-9][0-9]*$ ]] || { printf 'Error: count must be a positive number.\n' >&2; exit 1; }
-if (( $# == 0 )); then
+((EUID == 0)) || {
+  printf 'Error: run this script as root. Try: sudo %s ...\n' "${0##*/}" >&2
+  exit 1
+}
+command -v tcpdump > /dev/null 2>&1 || {
+  printf 'Error: tcpdump is not installed.\n' >&2
+  exit 1
+}
+[[ $count =~ ^[1-9][0-9]*$ ]] || {
+  printf 'Error: count must be a positive number.\n' >&2
+  exit 1
+}
+if (($# == 0)); then
   printf 'Error: give a capture filter, for example: tcp port 443\n' >&2
   exit 1
 fi
 if [[ -z $iface ]]; then
   if [[ $(uname -s) == Darwin ]]; then
-    iface=$(route -n get default 2>/dev/null | awk '/interface:/ { print $2; exit }') || iface=""
+    iface=$(route -n get default 2> /dev/null | awk '/interface:/ { print $2; exit }') || iface=""
   else
-    iface=$(ip route show default 2>/dev/null | awk '{ print $5; exit }') || iface=""
+    iface=$(ip route show default 2> /dev/null | awk '{ print $5; exit }') || iface=""
   fi
-  [[ -n $iface ]] || { printf 'Error: cannot find the default interface. Use -i.\n' >&2; exit 1; }
+  [[ -n $iface ]] || {
+    printf 'Error: cannot find the default interface. Use -i.\n' >&2
+    exit 1
+  }
 fi
 
 out="tcpdump-$(date +%Y%m%d-%H%M%S).pcap"

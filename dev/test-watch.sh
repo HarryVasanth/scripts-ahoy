@@ -6,7 +6,7 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Usage: test-watch [-d DIR] [-i SECONDS] -- <command...>
 
 Run the command once, then run it again after any file changes.
@@ -21,28 +21,41 @@ Example:
 EOF
 }
 
-die() { printf '❌ %s\n' "$1" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$1" >&2
+  exit 1
+}
 
 dir="."
 interval=2
 while (($# > 0)); do
   case "$1" in
-    -d|--dir|-i|--interval)
+    -d | --dir | -i | --interval)
       (($# > 1)) || die "$1 needs a value."
       case "$1" in
-        -d|--dir) dir="$2" ;;
-        -i|--interval) interval="$2" ;;
+        -d | --dir) dir="$2" ;;
+        -i | --interval) interval="$2" ;;
       esac
-      shift ;;
-    -h|--help) usage; exit 0 ;;
-    --) shift; break ;;
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      break
+      ;;
     -*) die "Unknown option: $1" ;;
     *) break ;;
   esac
   shift
 done
 
-(($# > 0)) || { usage >&2; die 'Pass a command to run.'; }
+(($# > 0)) || {
+  usage >&2
+  die 'Pass a command to run.'
+}
 [[ -d "$dir" ]] || die "Directory not found: $dir"
 if [[ ! "$interval" =~ ^[0-9]+$ ]] || ((interval == 0)); then die 'The interval must be a positive number.'; fi
 
@@ -68,7 +81,7 @@ run_once "$@"
 while :; do
   sleep "$interval"
   changed=$(find "$dir" \( -name .git -o -name node_modules -o -name .venv \) -prune \
-    -o -type f -newer "$marker" -print 2>/dev/null | head -n 1) || true
+    -o -type f -newer "$marker" -print 2> /dev/null | head -n 1) || true
   if [[ -n "$changed" ]]; then
     printf '\n🔁 Change: %s\n' "$changed" >&2
     run_once "$@"

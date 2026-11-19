@@ -8,7 +8,7 @@ set -euo pipefail
 sep="-"
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Make a lowercase slug from text.
 Usage: slugify.sh [-s SEP] [TEXT...]
 
@@ -21,17 +21,31 @@ EOF
 
 while (($# > 0)); do
   case "$1" in
-    -s|--separator)
-      (($# >= 2)) || { printf 'error: %s needs a value\n' "$1" >&2; exit 1; }
-      sep="$2"; shift ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+    -s | --separator)
+      (($# >= 2)) || {
+        printf 'error: %s needs a value\n' "$1" >&2
+        exit 1
+      }
+      sep="$2"
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
     *) break ;;
   esac
   shift
 done
 
-[[ "$sep" == "-" || "$sep" == "_" ]] || { printf 'error: SEP must be - or _\n' >&2; exit 1; }
+[[ "$sep" == "-" || "$sep" == "_" ]] || {
+  printf 'error: SEP must be - or _\n' >&2
+  exit 1
+}
 
 if (($# > 0)); then
   text="$*"
@@ -39,9 +53,9 @@ else
   text=$(cat)
 fi
 
-slug=$(printf '%s\n' "$text" |
-  tr '[:upper:]' '[:lower:]' |
-  tr '\n' ' ' |
-  sed -E "s/[^a-z0-9]+/$sep/g; s/^$sep+//; s/$sep+\$//")
+slug=$(printf '%s\n' "$text" \
+  | tr '[:upper:]' '[:lower:]' \
+  | tr '\n' ' ' \
+  | sed -E "s/[^a-z0-9]+/$sep/g; s/^$sep+//; s/$sep+\$//")
 
 printf '%s\n' "$slug"

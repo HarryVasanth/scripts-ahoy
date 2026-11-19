@@ -11,7 +11,7 @@ force=false
 replace=false
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Remove all metadata from images. The source stays in place unless --replace.
 
 Options:
@@ -25,23 +25,47 @@ Default output name: NAME-clean.EXT
 EOF
 }
 
-die() { printf '❌ %s\n' "$*" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$*" >&2
+  exit 1
+}
 
 while [ $# -gt 0 ]; do
   case "$1" in
-    -o) outdir=${2:-}; shift 2 || die "Option -o needs a value." ;;
-    --keep-orientation) keep_orientation=true; shift ;;
-    --force) force=true; shift ;;
-    --replace) replace=true; shift ;;
-    -h|--help) usage; exit 0 ;;
-    --) shift; break ;;
+    -o)
+      outdir=${2:-}
+      shift 2 || die "Option -o needs a value."
+      ;;
+    --keep-orientation)
+      keep_orientation=true
+      shift
+      ;;
+    --force)
+      force=true
+      shift
+      ;;
+    --replace)
+      replace=true
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      break
+      ;;
     -*) die "Unknown option: $1" ;;
     *) break ;;
   esac
 done
 
-[ "$#" -gt 0 ] || { usage >&2; die "Give me at least one image."; }
-command -v exiftool >/dev/null 2>&1 || die "ExifTool is missing. Install it with: brew install exiftool, or sudo apt install libimage-exiftool-perl."
+[ "$#" -gt 0 ] || {
+  usage >&2
+  die "Give me at least one image."
+}
+command -v exiftool > /dev/null 2>&1 || die "ExifTool is missing. Install it with: brew install exiftool, or sudo apt install libimage-exiftool-perl."
 
 tmpdir=$(mktemp -d)
 trap 'rm -rf "$tmpdir"' EXIT

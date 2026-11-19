@@ -6,7 +6,7 @@ set -euo pipefail
 # Needs: zpool (zfsutils-linux)
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 zfs-scrub - start, stop or show a ZFS scrub.
 
 Usage: zfs-scrub [--start|--stop|--status] [POOL...]
@@ -20,7 +20,7 @@ With no pool name the tool uses every pool.
 EOF
 }
 
-if ! command -v zpool >/dev/null 2>&1; then
+if ! command -v zpool > /dev/null 2>&1; then
   printf 'Error: zpool is missing. Install zfsutils-linux (or zfs on FreeBSD).\n' >&2
   exit 1
 fi
@@ -32,8 +32,14 @@ for arg in "$@"; do
     --start) action="start" ;;
     --stop) action="stop" ;;
     --status) action="status" ;;
-    -h | --help) show_help; exit 0 ;;
-    -*) printf 'Error: unknown argument: %s\n' "$arg" >&2; exit 1 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
+    -*)
+      printf 'Error: unknown argument: %s\n' "$arg" >&2
+      exit 1
+      ;;
     *) pools+=("$arg") ;;
   esac
 done

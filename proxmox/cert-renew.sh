@@ -10,7 +10,7 @@ dry_run=false
 yes=false
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Show the certificate status and renew it with ACME.
 
 Options:
@@ -20,19 +20,31 @@ Options:
 EOF
 }
 
-die() { printf '❌ %s\n' "$*" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$*" >&2
+  exit 1
+}
 
 while [ $# -gt 0 ]; do
   case "$1" in
-    --dry-run) dry_run=true; shift ;;
-    -y) yes=true; shift ;;
-    -h|--help) usage; exit 0 ;;
+    --dry-run)
+      dry_run=true
+      shift
+      ;;
+    -y)
+      yes=true
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     *) die "Unknown option: $1" ;;
   esac
 done
 
 [ "$(id -u)" -eq 0 ] || die "Run this script as root."
-command -v pvenode >/dev/null 2>&1 || die "pvenode is missing. This script must run on a Proxmox VE node."
+command -v pvenode > /dev/null 2>&1 || die "pvenode is missing. This script must run on a Proxmox VE node."
 
 printf '🔐 Current certificate status:\n'
 if ! pvenode acme cert status; then
@@ -47,8 +59,11 @@ if [ "$yes" = false ]; then
   printf '\nRenew the certificate now? [y/N] '
   read -r reply
   case "$reply" in
-    [yY]|[yY][eE][sS]) ;;
-    *) printf 'Cancelled. Nothing was changed.\n' >&2; exit 1 ;;
+    [yY] | [yY][eE][sS]) ;;
+    *)
+      printf 'Cancelled. Nothing was changed.\n' >&2
+      exit 1
+      ;;
   esac
 fi
 

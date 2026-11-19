@@ -7,7 +7,7 @@ set -euo pipefail
 wpm=200
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Show the reading time of one or more text files.
 Usage: reading-time.sh [-w WPM] [FILE...]
 
@@ -20,24 +20,41 @@ EOF
 
 while (($# > 0)); do
   case "$1" in
-    -w|--wpm)
-      (($# >= 2)) || { printf 'error: %s needs a value\n' "$1" >&2; exit 1; }
-      wpm="$2"; shift ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+    -w | --wpm)
+      (($# >= 2)) || {
+        printf 'error: %s needs a value\n' "$1" >&2
+        exit 1
+      }
+      wpm="$2"
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
     *) break ;;
   esac
   shift
 done
 
-[[ "$wpm" =~ ^[1-9][0-9]*$ ]] || { printf 'error: WPM must be a positive number\n' >&2; exit 1; }
+[[ "$wpm" =~ ^[1-9][0-9]*$ ]] || {
+  printf 'error: WPM must be a positive number\n' >&2
+  exit 1
+}
 for f in "$@"; do
-  [[ -r "$f" ]] || { printf 'error: cannot read %s\n' "$f" >&2; exit 1; }
+  [[ -r "$f" ]] || {
+    printf 'error: cannot read %s\n' "$f" >&2
+    exit 1
+  }
 done
 
 report() {
   local label="$1" count="$2" minutes
-  minutes=$(( (count + wpm - 1) / wpm ))
+  minutes=$(((count + wpm - 1) / wpm))
   if ((minutes < 1)); then
     minutes=1
   fi

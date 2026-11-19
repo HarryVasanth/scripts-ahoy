@@ -9,7 +9,7 @@ remote=
 node=
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Print used and total space for each storage in gigabytes.
 ZFS pools are shown when the zpool command is available.
 
@@ -20,13 +20,25 @@ Options:
 EOF
 }
 
-die() { printf '❌ %s\n' "$*" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$*" >&2
+  exit 1
+}
 
 while [ $# -gt 0 ]; do
   case "$1" in
-    -H) remote=${2:-}; shift 2 || die "Option -H needs a value." ;;
-    --node) node=${2:-}; shift 2 || die "Option --node needs a value." ;;
-    -h|--help) usage; exit 0 ;;
+    -H)
+      remote=${2:-}
+      shift 2 || die "Option -H needs a value."
+      ;;
+    --node)
+      node=${2:-}
+      shift 2 || die "Option --node needs a value."
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     *) die "Unknown option: $1" ;;
   esac
 done
@@ -39,7 +51,7 @@ else
 fi
 
 for tool in pvesh jq; do
-  command -v "$tool" >/dev/null 2>&1 || die "$tool is missing. This script must run on a Proxmox VE node."
+  command -v "$tool" > /dev/null 2>&1 || die "$tool is missing. This script must run on a Proxmox VE node."
 done
 
 printf '💾 Storages:\n'
@@ -55,8 +67,8 @@ run pvesh get /cluster/resources --type storage --output-format json \
       | @tsv' \
   | awk -F'\t' '{ printf "   %-18s %-12s %-8s %6s %6s %4s%%\n", $1, $2, $3, $4, $5, $6 }'
 
-if [ -n "$remote" ] || command -v zpool >/dev/null 2>&1; then
-  pools=$(run zpool list -H -o name,size,alloc,free,cap,health 2>/dev/null) || pools=
+if [ -n "$remote" ] || command -v zpool > /dev/null 2>&1; then
+  pools=$(run zpool list -H -o name,size,alloc,free,cap,health 2> /dev/null) || pools=
   if [ -n "$pools" ]; then
     printf '\n💽 ZFS pools:\n'
     printf '   %-18s %6s %6s %6s %5s %s\n' NAME SIZE ALLOC FREE USE HEALTH

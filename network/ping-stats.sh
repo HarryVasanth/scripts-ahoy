@@ -11,14 +11,23 @@ usage() {
 args=()
 for arg in "$@"; do
   case "$arg" in
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'Error: unknown option "%s".\n' "$arg" >&2; exit 1 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'Error: unknown option "%s".\n' "$arg" >&2
+      exit 1
+      ;;
     *) args+=("$arg") ;;
   esac
 done
-if (( ${#args[@]} < 1 )); then usage >&2; exit 1; fi
+if ((${#args[@]} < 1)); then
+  usage >&2
+  exit 1
+fi
 
-if (( ${#args[@]} == 1 )); then
+if ((${#args[@]} == 1)); then
   count=5
   host=${args[0]}
 else
@@ -26,12 +35,24 @@ else
   host=${args[1]}
 fi
 [[ $count =~ ^[1-9][0-9]*$ ]] \
-  || { printf 'Error: count must be from 1 to 100.\n' >&2; exit 1; }
-(( count <= 100 )) \
-  || { printf 'Error: count must be from 1 to 100.\n' >&2; exit 1; }
+  || {
+    printf 'Error: count must be from 1 to 100.\n' >&2
+    exit 1
+  }
+((count <= 100)) \
+  || {
+    printf 'Error: count must be from 1 to 100.\n' >&2
+    exit 1
+  }
 [[ $host =~ ^[A-Za-z0-9._:-]+$ ]] \
-  || { printf 'Error: "%s" is not a valid host.\n' "$host" >&2; exit 1; }
-command -v ping >/dev/null 2>&1 || { printf 'Error: ping is not installed.\n' >&2; exit 1; }
+  || {
+    printf 'Error: "%s" is not a valid host.\n' "$host" >&2
+    exit 1
+  }
+command -v ping > /dev/null 2>&1 || {
+  printf 'Error: ping is not installed.\n' >&2
+  exit 1
+}
 
 out=$(ping -c "$count" "$host" 2>&1) || true
 loss=$(printf '%s\n' "$out" | sed -n 's/.* \([0-9.]*\)% packet loss.*/\1/p' | head -n 1)

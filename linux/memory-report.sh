@@ -11,7 +11,7 @@ if [[ ! -r /proc/meminfo ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 memory-report - show RAM, swap and cache use.
 
 Usage: memory-report
@@ -23,8 +23,15 @@ EOF
 
 for arg in "$@"; do
   case "$arg" in
-    -h | --help) show_help; exit 0 ;;
-    *) printf 'Error: unknown argument: %s\n' "$arg" >&2; show_help >&2; exit 1 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
+    *)
+      printf 'Error: unknown argument: %s\n' "$arg" >&2
+      show_help >&2
+      exit 1
+      ;;
   esac
 done
 

@@ -5,7 +5,7 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Usage: gitignore-init [--force] [DIR]
 
 Detect the project type in DIR and write a starter .gitignore.
@@ -16,14 +16,20 @@ The default directory is the current one.
 EOF
 }
 
-die() { printf '❌ %s\n' "$1" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$1" >&2
+  exit 1
+}
 
 force=0
 dir="."
 while (($# > 0)); do
   case "$1" in
     --force) force=1 ;;
-    -h|--help) usage; exit 0 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     -*) die "Unknown option: $1" ;;
     *) dir="$1" ;;
   esac
@@ -39,7 +45,10 @@ fi
 tmp=$(mktemp "$dir/.gitignore.XXXXXX")
 trap 'rm -f "$tmp"' EXIT
 stacks=""
-add() { stacks="$stacks $1"; printf '\n# %s\n%b' "$1" "$2"; }
+add() {
+  stacks="$stacks $1"
+  printf '\n# %s\n%b' "$1" "$2"
+}
 
 {
   printf '# OS files\n.DS_Store\nThumbs.db\n\n# Logs and local settings\n*.log\n.env\n'
@@ -51,7 +60,7 @@ add() { stacks="$stacks $1"; printf '\n# %s\n%b' "$1" "$2"; }
   fi
   if [[ -f "$dir/Gemfile" ]]; then add Ruby '.bundle/\nvendor/bundle/\n'; fi
   if [[ -f "$dir/composer.json" ]]; then add PHP 'vendor/\n'; fi
-  if compgen -G "$dir/*.tf" >/dev/null; then add Terraform '.terraform/\n*.tfstate\n*.tfstate.backup\n'; fi
+  if compgen -G "$dir/*.tf" > /dev/null; then add Terraform '.terraform/\n*.tfstate\n*.tfstate.backup\n'; fi
   if [[ -f "$dir/Dockerfile" ]]; then stacks="$stacks Docker"; fi
 } > "$tmp"
 

@@ -7,7 +7,7 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Usage: go-mod-tidy [DIR]
 
 Run "go mod tidy" and then "go mod verify" in DIR.
@@ -17,20 +17,29 @@ The default directory is the current one.
 EOF
 }
 
-die() { printf '❌ %s\n' "$1" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$1" >&2
+  exit 1
+}
 
 dir="."
 case "${1:-}" in
-  -h|--help) usage; exit 0 ;;
+  -h | --help)
+    usage
+    exit 0
+    ;;
   -*) die "Unknown option: $1" ;;
   "") ;;
-  *) dir="$1"; (($# == 1)) || die 'Pass one directory only.' ;;
+  *)
+    dir="$1"
+    (($# == 1)) || die 'Pass one directory only.'
+    ;;
 esac
 
 [[ -d "$dir" ]] || die "Directory not found: $dir"
 [[ -f "$dir/go.mod" ]] || die "No go.mod in $dir. Run this inside a Go module."
-command -v go >/dev/null 2>&1 ||
-  die 'go is not installed. Install Go from https://go.dev/dl/'
+command -v go > /dev/null 2>&1 \
+  || die 'go is not installed. Install Go from https://go.dev/dl/'
 
 cd "$dir"
 

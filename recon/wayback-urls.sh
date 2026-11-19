@@ -19,7 +19,7 @@ if [[ $# -lt 1 || -z ${1:-} ]]; then
   usage >&2
   exit 1
 fi
-if ! command -v curl >/dev/null 2>&1; then
+if ! command -v curl > /dev/null 2>&1; then
   printf 'Error: curl is not installed.\n' >&2
   exit 1
 fi
@@ -33,7 +33,7 @@ if [[ ! $domain =~ ^[A-Za-z0-9._-]+$ ]]; then
   printf 'Error: "%s" is not a valid domain.\n' "$domain" >&2
   exit 1
 fi
-if [[ ! $limit =~ ^[0-9]+$ ]] || (( limit < 1 || limit > 1000 )); then
+if [[ ! $limit =~ ^[0-9]+$ ]] || ((limit < 1 || limit > 1000)); then
   printf 'Error: the limit must be from 1 to 1000.\n' >&2
   exit 1
 fi

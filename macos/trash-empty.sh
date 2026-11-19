@@ -11,7 +11,7 @@ if [[ $(uname -s) != Darwin ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 trash-empty - empty the Trash.
 
 Usage: trash-empty [--dry-run] [-y|--yes]
@@ -30,7 +30,10 @@ for arg in "$@"; do
   case "$arg" in
     --dry-run) dry_run=1 ;;
     -y | --yes) yes=1 ;;
-    -h | --help) show_help; exit 0 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
     *)
       printf 'Error: unknown argument: %s\n' "$arg" >&2
       show_help >&2
@@ -44,8 +47,8 @@ if [[ ! -d "$trash" ]]; then
   exit 0
 fi
 
-count=$(find "$trash" -mindepth 1 -maxdepth 1 2>/dev/null | wc -l | tr -d ' ' || true)
-size=$(du -sh "$trash" 2>/dev/null | awk '{print $1}' || true)
+count=$(find "$trash" -mindepth 1 -maxdepth 1 2> /dev/null | wc -l | tr -d ' ' || true)
+size=$(du -sh "$trash" 2> /dev/null | awk '{print $1}' || true)
 printf '🗑️  Trash: %s items, %s\n' "$count" "${size:-unknown}"
 if [[ $dry_run -eq 1 ]]; then
   printf '🧪 Dry run. Nothing was deleted.\n'
@@ -61,10 +64,13 @@ if [[ $yes -eq 0 ]]; then
   read -r reply
   case "$reply" in
     y | Y | yes | YES) ;;
-    *) printf 'Cancelled.\n'; exit 0 ;;
+    *)
+      printf 'Cancelled.\n'
+      exit 0
+      ;;
   esac
 fi
 
 printf '🧹 Emptying the Trash...\n'
-osascript -e 'tell application "Finder" to empty trash' >/dev/null
+osascript -e 'tell application "Finder" to empty trash' > /dev/null
 printf '✅ The Trash is empty.\n'

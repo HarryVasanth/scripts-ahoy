@@ -18,7 +18,7 @@ if [[ $# -lt 1 || -z ${1:-} ]]; then
   usage >&2
   exit 1
 fi
-if ! command -v openssl >/dev/null 2>&1; then
+if ! command -v openssl > /dev/null 2>&1; then
   printf 'Error: openssl is not installed.\n' >&2
   exit 1
 fi
@@ -39,7 +39,7 @@ if [[ ! $host =~ ^[A-Za-z0-9._-]+$ ]] || [[ ! $port =~ ^[0-9]+$ ]]; then
   exit 1
 fi
 
-pem=$(openssl s_client -connect "$host:$port" -servername "$host" -showcerts </dev/null 2>/dev/null) || pem=""
+pem=$(openssl s_client -connect "$host:$port" -servername "$host" -showcerts < /dev/null 2> /dev/null) || pem=""
 if [[ $pem != *"BEGIN CERTIFICATE"* ]]; then
   printf 'Error: no certificate from %s:%s.\n' "$host" "$port" >&2
   exit 1
@@ -49,11 +49,11 @@ tmp=$(mktemp)
 trap 'rm -f "$tmp"' EXIT
 printf '%s\n' "$pem" | awk '/BEGIN CERTIFICATE/,/END CERTIFICATE/' > "$tmp"
 
-subject=$(openssl x509 -in "$tmp" -noout -subject 2>/dev/null | sed 's/^subject=//')
-issuer=$(openssl x509 -in "$tmp" -noout -issuer 2>/dev/null | sed 's/^issuer=//')
-serial=$(openssl x509 -in "$tmp" -noout -serial 2>/dev/null | cut -d= -f2)
-dates=$(openssl x509 -in "$tmp" -noout -dates 2>/dev/null)
-details=$(openssl x509 -in "$tmp" -noout -text 2>/dev/null)
+subject=$(openssl x509 -in "$tmp" -noout -subject 2> /dev/null | sed 's/^subject=//')
+issuer=$(openssl x509 -in "$tmp" -noout -issuer 2> /dev/null | sed 's/^issuer=//')
+serial=$(openssl x509 -in "$tmp" -noout -serial 2> /dev/null | cut -d= -f2)
+dates=$(openssl x509 -in "$tmp" -noout -dates 2> /dev/null)
+details=$(openssl x509 -in "$tmp" -noout -text 2> /dev/null)
 algo=$(printf '%s\n' "$details" | awk '/Signature Algorithm/ { sub(/.*: /, ""); print; exit }')
 bits=$(printf '%s\n' "$details" | awk '/Public-Key:/ { gsub(/[()]/, "", $2); print $2; exit }')
 sans=$(printf '%s\n' "$details" | awk '/X509v3 Subject Alternative Name/ { getline; gsub(/^[ \t]+/, ""); print; exit }')

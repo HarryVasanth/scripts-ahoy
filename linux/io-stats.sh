@@ -9,7 +9,7 @@ interval=1
 count=3
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 io-stats - show per-device disk read and write rates.
 
 Usage: io-stats [-i SECONDS] [-n COUNT]
@@ -24,21 +24,42 @@ EOF
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    -i | --interval) [[ $# -ge 2 ]] || { printf 'Error: %s needs a value.\n' "$1" >&2; exit 1; }; interval=$2; shift 2 ;;
-    -n | --count) [[ $# -ge 2 ]] || { printf 'Error: %s needs a value.\n' "$1" >&2; exit 1; }; count=$2; shift 2 ;;
-    -h | --help) show_help; exit 0 ;;
-    *) printf 'Error: unknown argument: %s\n' "$1" >&2; show_help >&2; exit 1 ;;
+    -i | --interval)
+      [[ $# -ge 2 ]] || {
+        printf 'Error: %s needs a value.\n' "$1" >&2
+        exit 1
+      }
+      interval=$2
+      shift 2
+      ;;
+    -n | --count)
+      [[ $# -ge 2 ]] || {
+        printf 'Error: %s needs a value.\n' "$1" >&2
+        exit 1
+      }
+      count=$2
+      shift 2
+      ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
+    *)
+      printf 'Error: unknown argument: %s\n' "$1" >&2
+      show_help >&2
+      exit 1
+      ;;
   esac
 done
 
-if [[ ! $interval =~ ^[0-9]+$ ]] || [[ $interval -eq 0 ]] ||
-  [[ ! $count =~ ^[0-9]+$ ]] || [[ $count -eq 0 ]]; then
+if [[ ! $interval =~ ^[0-9]+$ ]] || [[ $interval -eq 0 ]] \
+  || [[ ! $count =~ ^[0-9]+$ ]] || [[ $count -eq 0 ]]; then
   printf 'Error: the interval and the count must be positive numbers.\n' >&2
   exit 1
 fi
 
 if [[ ! -r /proc/diskstats ]]; then
-  if command -v iostat >/dev/null 2>&1; then
+  if command -v iostat > /dev/null 2>&1; then
     iostat -d -k "$interval" "$count"
     exit 0
   fi
@@ -53,9 +74,9 @@ snapshot() {
 }
 
 for ((i = 1; i <= count; i++)); do
-  snapshot >"$tmp/first"
+  snapshot > "$tmp/first"
   sleep "$interval"
-  snapshot >"$tmp/second"
+  snapshot > "$tmp/second"
   printf '\n📊 Sample %s over %s s (KB/s)\n' "$i" "$interval"
   printf '  %-12s %10s %10s\n' 'DEVICE' 'READ' 'WRITE'
   # Fields: name, reads, sectors read, writes, sectors written.

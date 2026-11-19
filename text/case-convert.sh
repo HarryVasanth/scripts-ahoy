@@ -7,7 +7,7 @@ set -euo pipefail
 
 style=""
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Change text to a chosen naming style.
 Usage: case-convert.sh --to STYLE [TEXT...]
 
@@ -20,19 +20,37 @@ EOF
 
 while (($# > 0)); do
   case "$1" in
-    -t|--to)
-      (($# >= 2)) || { printf 'error: %s needs a value\n' "$1" >&2; exit 1; }
-      style="$2"; shift ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+    -t | --to)
+      (($# >= 2)) || {
+        printf 'error: %s needs a value\n' "$1" >&2
+        exit 1
+      }
+      style="$2"
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
     *) break ;;
   esac
   shift
 done
 case "$style" in
-  lower|upper|title|snake|kebab|camel|pascal|constant) ;;
-  "") printf 'error: choose a style with --to\n' >&2; usage >&2; exit 1 ;;
-  *) printf 'error: unknown style %s\n' "$style" >&2; exit 1 ;;
+  lower | upper | title | snake | kebab | camel | pascal | constant) ;;
+  "")
+    printf 'error: choose a style with --to\n' >&2
+    usage >&2
+    exit 1
+    ;;
+  *)
+    printf 'error: unknown style %s\n' "$style" >&2
+    exit 1
+    ;;
 esac
 
 if (($# > 0)); then

@@ -6,7 +6,7 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Usage: docker-usage [--prune] [--all] [--volumes] [--dry-run] [--yes]
 
 With no flags, print the disk usage and the image list.
@@ -21,7 +21,10 @@ With --prune, remove unused data and then show the new usage.
 EOF
 }
 
-die() { printf '❌ %s\n' "$1" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$1" >&2
+  exit 1
+}
 
 prune=0
 all=0
@@ -33,16 +36,22 @@ while (($# > 0)); do
     --prune) prune=1 ;;
     --all) all=1 ;;
     --volumes) volumes=1 ;;
-    --dry-run) dry_run=1; prune=1 ;;
+    --dry-run)
+      dry_run=1
+      prune=1
+      ;;
     --yes) yes=1 ;;
-    -h|--help) usage; exit 0 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     *) die "Unknown option: $1" ;;
   esac
   shift
 done
 
-command -v docker >/dev/null 2>&1 || die 'docker is not installed. Install Docker Desktop or docker-ce.'
-docker info >/dev/null 2>&1 || die 'Docker is not running. Start Docker Desktop or the docker service.'
+command -v docker > /dev/null 2>&1 || die 'docker is not installed. Install Docker Desktop or docker-ce.'
+docker info > /dev/null 2>&1 || die 'Docker is not running. Start Docker Desktop or the docker service.'
 if ((all == 1)); then label='all unused images'; else label='dangling images'; fi
 
 if ((prune == 1)); then
@@ -65,7 +74,10 @@ if ((prune == 1)); then
   printf '.\n' >&2
   if ((yes == 0)); then
     read -r -p 'Continue? [y/N] ' reply
-    [[ "$reply" =~ ^[Yy]$ ]] || { printf '👋 Nothing was removed.\n' >&2; exit 0; }
+    [[ "$reply" =~ ^[Yy]$ ]] || {
+      printf '👋 Nothing was removed.\n' >&2
+      exit 0
+    }
   fi
   docker container prune -f
   if ((all == 1)); then docker image prune -a -f; else docker image prune -f; fi

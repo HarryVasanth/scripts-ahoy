@@ -5,7 +5,7 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Usage: tf-state-list [-d DIR] [-f PATTERN] [--count]
 
 Print one resource address per line. The filter matches addresses
@@ -18,29 +18,36 @@ that contain the pattern, and ignores case.
 EOF
 }
 
-die() { printf '❌ %s\n' "$1" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$1" >&2
+  exit 1
+}
 
 dir="."
 pattern=""
 count_only=0
 while (($# > 0)); do
   case "$1" in
-    -d|--dir|-f|--filter)
+    -d | --dir | -f | --filter)
       (($# > 1)) || die "$1 needs a value."
       case "$1" in
-        -d|--dir) dir="$2" ;;
-        -f|--filter) pattern="$2" ;;
+        -d | --dir) dir="$2" ;;
+        -f | --filter) pattern="$2" ;;
       esac
-      shift ;;
+      shift
+      ;;
     --count) count_only=1 ;;
-    -h|--help) usage; exit 0 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     *) die "Unknown option: $1" ;;
   esac
   shift
 done
 
-command -v terraform >/dev/null 2>&1 ||
-  die 'terraform is not installed. Install it: https://developer.hashicorp.com/terraform/install'
+command -v terraform > /dev/null 2>&1 \
+  || die 'terraform is not installed. Install it: https://developer.hashicorp.com/terraform/install'
 [[ -d "$dir" ]] || die "Directory not found: $dir"
 
 if ! out=$(terraform -chdir="$dir" state list 2>&1); then
@@ -55,7 +62,10 @@ fi
 
 if [[ -n "$pattern" ]]; then
   out=$(printf '%s\n' "$out" | grep -i -- "$pattern" || true)
-  [[ -n "$out" ]] || { printf 'ℹ️  No match for %s.\n' "$pattern" >&2; exit 0; }
+  [[ -n "$out" ]] || {
+    printf 'ℹ️  No match for %s.\n' "$pattern" >&2
+    exit 0
+  }
 fi
 
 if ((count_only == 1)); then

@@ -8,7 +8,10 @@ set -euo pipefail
 
 PATHS=()
 
-die() { printf 'Error: %s\n' "$*" >&2; exit 1; }
+die() {
+  printf 'Error: %s\n' "$*" >&2
+  exit 1
+}
 
 usage() {
   awk 'NR > 1 && /^#/ { sub(/^# ?/, ""); print; next } NR > 1 { exit }' "$0"
@@ -16,10 +19,22 @@ usage() {
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    -h|--help) usage; exit 0 ;;
-    --) shift; while [ "$#" -gt 0 ]; do PATHS+=("$1"); shift; done ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      while [ "$#" -gt 0 ]; do
+        PATHS+=("$1")
+        shift
+      done
+      ;;
     -*) die "unknown option $1" ;;
-    *) PATHS+=("$1"); shift ;;
+    *)
+      PATHS+=("$1")
+      shift
+      ;;
   esac
 done
 
@@ -38,7 +53,7 @@ fi
 report() {
   local label=$1 out count
   shift
-  out=$(find "${PATHS[@]}" -xdev "$@" 2>/dev/null || true)
+  out=$(find "${PATHS[@]}" -xdev "$@" 2> /dev/null || true)
   if [ -z "$out" ]; then
     printf '✅ %s: none.\n' "$label"
     return 0
@@ -52,5 +67,5 @@ report 'World-writable files' -type f -perm -0002
 printf '\n'
 report 'World-writable folders without the sticky bit' -type d -perm -0002 ! -perm -1000
 
-STICKY=$(find "${PATHS[@]}" -xdev -type d -perm -0002 -perm -1000 2>/dev/null | wc -l | tr -d ' ')
+STICKY=$(find "${PATHS[@]}" -xdev -type d -perm -0002 -perm -1000 2> /dev/null | wc -l | tr -d ' ')
 printf '\nℹ️  %s world-writable folder(s) have the sticky bit. These are common, for example /tmp.\n' "$STICKY"

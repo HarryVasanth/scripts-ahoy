@@ -9,7 +9,10 @@ DIR=
 FOUND=0
 FILES=()
 
-die() { printf 'Error: %s\n' "$*" >&2; exit 1; }
+die() {
+  printf 'Error: %s\n' "$*" >&2
+  exit 1
+}
 
 usage() {
   awk 'NR > 1 && /^#/ { sub(/^# ?/, ""); print; next } NR > 1 { exit }' "$0"
@@ -17,8 +20,15 @@ usage() {
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    -d) [ "$#" -ge 2 ] || die "-d needs a path."; DIR=$2; shift 2 ;;
-    -h|--help) usage; exit 0 ;;
+    -d)
+      [ "$#" -ge 2 ] || die "-d needs a path."
+      DIR=$2
+      shift 2
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     *) die "unknown option $1" ;;
   esac
 done
@@ -46,8 +56,8 @@ for f in "${FILES[@]}"; do
 done
 [ "$READABLE" -gt 0 ] || die "no readable sudoers files. Try: sudo $0"
 
-if [ -z "$DIR" ] && [ -r /etc/sudoers ] && command -v visudo >/dev/null 2>&1; then
-  if visudo -c >/dev/null 2>&1; then
+if [ -z "$DIR" ] && [ -r /etc/sudoers ] && command -v visudo > /dev/null 2>&1; then
+  if visudo -c > /dev/null 2>&1; then
     printf '✅ visudo reports no syntax errors.\n'
   else
     printf '❌ visudo reports a syntax error. Check the files below.\n'
@@ -57,7 +67,7 @@ fi
 
 scan() {
   local pattern=$1 label=$2 hits
-  hits=$(grep -HnE "$pattern" "${FILES[@]}" 2>/dev/null | grep -vE ':[0-9]+:[[:space:]]*#' || true)
+  hits=$(grep -HnE "$pattern" "${FILES[@]}" 2> /dev/null | grep -vE ':[0-9]+:[[:space:]]*#' || true)
   [ -n "$hits" ] || return 0
   printf '⚠️  %s\n' "$label"
   printf '%s\n' "$hits" | sed 's/^/   /'

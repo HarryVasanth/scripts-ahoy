@@ -9,7 +9,7 @@ maxlevel=3
 file=""
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Print a Markdown list of links to the headings in a file.
 Usage: markdown-toc.sh [-l LEVEL] [FILE]
 
@@ -22,21 +22,41 @@ EOF
 
 while (($# > 0)); do
   case "$1" in
-    -l|--level)
-      (($# >= 2)) || { printf 'error: %s needs a value\n' "$1" >&2; exit 1; }
-      maxlevel="$2"; shift ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+    -l | --level)
+      (($# >= 2)) || {
+        printf 'error: %s needs a value\n' "$1" >&2
+        exit 1
+      }
+      maxlevel="$2"
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
     *) break ;;
   esac
   shift
 done
 
-(($# <= 1)) || { printf 'error: give one file only\n' >&2; exit 1; }
-[[ "$maxlevel" =~ ^[1-6]$ ]] || { printf 'error: LEVEL must be 1 to 6\n' >&2; exit 1; }
+(($# <= 1)) || {
+  printf 'error: give one file only\n' >&2
+  exit 1
+}
+[[ "$maxlevel" =~ ^[1-6]$ ]] || {
+  printf 'error: LEVEL must be 1 to 6\n' >&2
+  exit 1
+}
 if (($# == 1)); then
   file="$1"
-  [[ -r "$file" ]] || { printf 'error: cannot read %s\n' "$file" >&2; exit 1; }
+  [[ -r "$file" ]] || {
+    printf 'error: cannot read %s\n' "$file" >&2
+    exit 1
+  }
 fi
 
 toc() {

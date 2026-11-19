@@ -8,7 +8,7 @@ set -euo pipefail
 remote=
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Check quorum, node state and failed services.
 Use -H to run the checks on another node over SSH.
 
@@ -18,12 +18,21 @@ Options:
 EOF
 }
 
-die() { printf '❌ %s\n' "$*" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$*" >&2
+  exit 1
+}
 
 while [ $# -gt 0 ]; do
   case "$1" in
-    -H) remote=${2:-}; shift 2 || die "Option -H needs a value." ;;
-    -h|--help) usage; exit 0 ;;
+    -H)
+      remote=${2:-}
+      shift 2 || die "Option -H needs a value."
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     *) die "Unknown option: $1" ;;
   esac
 done
@@ -36,12 +45,12 @@ else
 fi
 
 for tool in pvecm pvesh jq; do
-  command -v "$tool" >/dev/null 2>&1 || die "$tool is missing. This script must run on a Proxmox VE node."
+  command -v "$tool" > /dev/null 2>&1 || die "$tool is missing. This script must run on a Proxmox VE node."
 done
 
 printf '🩺 Cluster health\n\n'
 printf 'Quorum:\n'
-if quorum=$(run pvecm status 2>/dev/null); then
+if quorum=$(run pvecm status 2> /dev/null); then
   printf '%s\n' "$quorum" | grep -E '^(Cluster name|Quorum|Nodes|Expected votes|Highest expected|Flags)' || true
 else
   printf '   This node is not in a cluster.\n'

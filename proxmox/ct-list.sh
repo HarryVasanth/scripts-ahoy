@@ -8,7 +8,7 @@ remote=
 node=
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Show every container and its live state.
 
 Options:
@@ -18,28 +18,43 @@ Options:
 EOF
 }
 
-die() { printf '❌ %s\n' "$*" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$*" >&2
+  exit 1
+}
 
 while [ $# -gt 0 ]; do
   case "$1" in
-    -H) remote=${2:-}; shift 2 || die "Option -H needs a value." ;;
-    --node) node=${2:-}; shift 2 || die "Option --node needs a value." ;;
-    -h|--help) usage; exit 0 ;;
-    --) shift; break ;;
+    -H)
+      remote=${2:-}
+      shift 2 || die "Option -H needs a value."
+      ;;
+    --node)
+      node=${2:-}
+      shift 2 || die "Option --node needs a value."
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      break
+      ;;
     -*) die "Unknown option: $1" ;;
     *) break ;;
   esac
 done
 
 if [ -n "$remote" ]; then
-  command -v ssh >/dev/null 2>&1 || die "ssh is missing. Install OpenSSH."
+  command -v ssh > /dev/null 2>&1 || die "ssh is missing. Install OpenSSH."
   # shellcheck disable=SC2029  # The command must expand on the remote side.
   get() { ssh "$remote" pvesh get /cluster/resources --output-format json; }
 else
-  command -v pvesh >/dev/null 2>&1 || die "pvesh is missing. This script must run on a Proxmox VE node."
+  command -v pvesh > /dev/null 2>&1 || die "pvesh is missing. This script must run on a Proxmox VE node."
   get() { pvesh get /cluster/resources --output-format json; }
 fi
-command -v jq >/dev/null 2>&1 || die "jq is missing. Install it with: sudo apt install jq."
+command -v jq > /dev/null 2>&1 || die "jq is missing. Install it with: sudo apt install jq."
 
 printf '%-6s %-24s %-8s %-12s %5s %10s %9s\n' VMID NAME STATUS NODE CPU% MEM/MB UP_HOURS
 get | jq -r --arg node "$node" '

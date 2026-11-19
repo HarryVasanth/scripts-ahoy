@@ -11,7 +11,7 @@ if [[ $(uname -s) != Darwin ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 software-update - check for updates, or install all of them.
 
 Usage: software-update [--install] [--dry-run] [-y|--yes]
@@ -33,7 +33,10 @@ for arg in "$@"; do
     --install) install=1 ;;
     --dry-run) dry_run=1 ;;
     -y | --yes) yes=1 ;;
-    -h | --help) show_help; exit 0 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
     *)
       printf 'Error: unknown argument: %s\n' "$arg" >&2
       show_help >&2

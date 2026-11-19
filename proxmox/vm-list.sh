@@ -10,7 +10,7 @@ type=all
 node=
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Show every VM and container in the cluster.
 
 Options:
@@ -21,20 +21,35 @@ Options:
 EOF
 }
 
-die() { printf '❌ %s\n' "$*" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$*" >&2
+  exit 1
+}
 
 while [ $# -gt 0 ]; do
   case "$1" in
-    -H) remote=${2:-}; shift 2 || die "Option -H needs a value." ;;
-    --type) type=${2:-}; shift 2 || die "Option --type needs a value." ;;
-    --node) node=${2:-}; shift 2 || die "Option --node needs a value." ;;
-    -h|--help) usage; exit 0 ;;
+    -H)
+      remote=${2:-}
+      shift 2 || die "Option -H needs a value."
+      ;;
+    --type)
+      type=${2:-}
+      shift 2 || die "Option --type needs a value."
+      ;;
+    --node)
+      node=${2:-}
+      shift 2 || die "Option --node needs a value."
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     *) die "Unknown option: $1" ;;
   esac
 done
 
 case "$type" in
-  vm|ct|all) ;;
+  vm | ct | all) ;;
   *) die "Type must be vm, ct or all." ;;
 esac
 
@@ -45,7 +60,7 @@ else
 fi
 
 for tool in pvesh jq; do
-  command -v "$tool" >/dev/null 2>&1 || die "$tool is missing. This script must run on a Proxmox VE node."
+  command -v "$tool" > /dev/null 2>&1 || die "$tool is missing. This script must run on a Proxmox VE node."
 done
 
 printf '%-6s %-24s %-5s %-8s %-12s %5s %10s %9s\n' VMID NAME TYPE STATUS NODE CPU% MEM/MB UP_HOURS

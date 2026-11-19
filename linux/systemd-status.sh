@@ -6,7 +6,7 @@ set -euo pipefail
 # Needs: systemctl, journalctl (systemd)
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 systemd-status - show failed systemd units.
 
 Usage: systemd-status [--all]
@@ -22,7 +22,10 @@ show_all=0
 for arg in "$@"; do
   case "$arg" in
     -a | --all) show_all=1 ;;
-    -h | --help) show_help; exit 0 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
     *)
       printf 'Error: unknown argument: %s\n' "$arg" >&2
       show_help >&2
@@ -31,7 +34,7 @@ for arg in "$@"; do
   esac
 done
 
-if ! command -v systemctl >/dev/null 2>&1; then
+if ! command -v systemctl > /dev/null 2>&1; then
   printf 'Error: systemctl is missing. This tool needs systemd.\n' >&2
   exit 1
 fi
@@ -52,7 +55,7 @@ printf '❌ Failed units:\n\n%s\n' "$failed"
 while read -r unit _; do
   [[ -z "$unit" ]] && continue
   printf '\n--- %s ---\n' "$unit"
-  journalctl -u "$unit" -n 5 --no-pager -o cat 2>/dev/null || true
-done <<<"$failed"
+  journalctl -u "$unit" -n 5 --no-pager -o cat 2> /dev/null || true
+done <<< "$failed"
 
 exit 1

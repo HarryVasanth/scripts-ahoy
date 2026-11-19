@@ -11,7 +11,7 @@ if [[ $(uname -s) != Darwin ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 lock-keychain - lock a keychain.
 
 Usage: lock-keychain [PATH]
@@ -23,7 +23,7 @@ Apps must ask for the password again after the keychain is locked.
 EOF
 }
 
-if ! command -v security >/dev/null 2>&1; then
+if ! command -v security > /dev/null 2>&1; then
   printf 'Error: the security tool is missing. This tool needs macOS.\n' >&2
   exit 1
 fi
@@ -31,10 +31,19 @@ fi
 keychain=""
 for arg in "$@"; do
   case "$arg" in
-    -h | --help) show_help; exit 0 ;;
-    -*) printf 'Error: unknown argument: %s\n' "$arg" >&2; exit 1 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
+    -*)
+      printf 'Error: unknown argument: %s\n' "$arg" >&2
+      exit 1
+      ;;
     *)
-      [[ -z "$keychain" ]] || { printf 'Error: give one keychain only.\n' >&2; exit 1; }
+      [[ -z "$keychain" ]] || {
+        printf 'Error: give one keychain only.\n' >&2
+        exit 1
+      }
       keychain=$arg
       ;;
   esac

@@ -11,7 +11,7 @@ if [[ $(uname -s) != Linux ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 ntp-status - show the time sync state of the host.
 
 Usage: ntp-status
@@ -25,31 +25,38 @@ EOF
 
 for arg in "$@"; do
   case "$arg" in
-    -h | --help) show_help; exit 0 ;;
-    *) printf 'Error: unknown argument: %s\n' "$arg" >&2; show_help >&2; exit 1 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
+    *)
+      printf 'Error: unknown argument: %s\n' "$arg" >&2
+      show_help >&2
+      exit 1
+      ;;
   esac
 done
 
 found=0
-if command -v timedatectl >/dev/null 2>&1; then
+if command -v timedatectl > /dev/null 2>&1; then
   printf '🕒 timedatectl\n'
-  timedatectl status 2>/dev/null |
-    grep -Ei 'Local time|Universal time|Time zone|synchronized|NTP service' |
-    sed 's/^ */  /' || true
+  timedatectl status 2> /dev/null \
+    | grep -Ei 'Local time|Universal time|Time zone|synchronized|NTP service' \
+    | sed 's/^ */  /' || true
   found=1
 fi
 
-if command -v chronyc >/dev/null 2>&1; then
+if command -v chronyc > /dev/null 2>&1; then
   printf '\n🕒 chronyc\n'
-  chronyc tracking 2>/dev/null |
-    grep -E 'Reference ID|Stratum|System time|Last offset|Leap status' |
-    sed 's/^ */  /' || true
+  chronyc tracking 2> /dev/null \
+    | grep -E 'Reference ID|Stratum|System time|Last offset|Leap status' \
+    | sed 's/^ */  /' || true
   found=1
 fi
 
-if command -v ntpq >/dev/null 2>&1; then
+if command -v ntpq > /dev/null 2>&1; then
   printf '\n🕒 ntpq\n'
-  ntpq -p 2>/dev/null || true
+  ntpq -p 2> /dev/null || true
   found=1
 fi
 

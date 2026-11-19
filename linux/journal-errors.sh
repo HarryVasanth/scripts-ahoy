@@ -6,7 +6,7 @@ set -euo pipefail
 # Needs: journalctl (systemd)
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 journal-errors - show recent journal errors.
 
 Usage: journal-errors [options]
@@ -29,21 +29,33 @@ unit=""
 while [[ $# -gt 0 ]]; do
   case "$1" in
     -s | --since)
-      [[ $# -ge 2 ]] || { printf 'Error: %s needs a value.\n' "$1" >&2; exit 1; }
+      [[ $# -ge 2 ]] || {
+        printf 'Error: %s needs a value.\n' "$1" >&2
+        exit 1
+      }
       since=$2
       shift 2
       ;;
     -n | --lines)
-      [[ $# -ge 2 ]] || { printf 'Error: %s needs a value.\n' "$1" >&2; exit 1; }
+      [[ $# -ge 2 ]] || {
+        printf 'Error: %s needs a value.\n' "$1" >&2
+        exit 1
+      }
       lines=$2
       shift 2
       ;;
     -u | --unit)
-      [[ $# -ge 2 ]] || { printf 'Error: %s needs a value.\n' "$1" >&2; exit 1; }
+      [[ $# -ge 2 ]] || {
+        printf 'Error: %s needs a value.\n' "$1" >&2
+        exit 1
+      }
       unit=$2
       shift 2
       ;;
-    -h | --help) show_help; exit 0 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
     *)
       printf 'Error: unknown argument: %s\n' "$1" >&2
       show_help >&2
@@ -57,7 +69,7 @@ if [[ ! $lines =~ ^[0-9]+$ ]] || [[ $lines -lt 1 ]]; then
   exit 1
 fi
 
-if ! command -v journalctl >/dev/null 2>&1; then
+if ! command -v journalctl > /dev/null 2>&1; then
   printf 'Error: journalctl is missing. This tool needs systemd.\n' >&2
   exit 1
 fi
@@ -67,7 +79,7 @@ if [[ -n "$unit" ]]; then
   args+=(-u "$unit")
 fi
 
-output=$(journalctl "${args[@]}" 2>/dev/null || true)
+output=$(journalctl "${args[@]}" 2> /dev/null || true)
 
 if [[ -z "$output" || "$output" == *"No entries"* ]]; then
   printf '✅ No errors since %s.\n' "$since"

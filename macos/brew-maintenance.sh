@@ -6,12 +6,12 @@ if [[ $(uname -s) != Darwin ]]; then
   printf 'Error: this tool needs macOS.\n' >&2
   exit 1
 fi
-if ! command -v brew >/dev/null 2>&1; then
+if ! command -v brew > /dev/null 2>&1; then
   printf 'Error: brew is missing. Install it from https://brew.sh\n' >&2
   exit 1
 fi
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 brew-maintenance - update Homebrew and clean old files.
 
 Usage: brew-maintenance [--dry-run] [--yes] [--no-upgrade]
@@ -30,7 +30,10 @@ for arg in "$@"; do
     --dry-run) dry_run=1 ;;
     -y | --yes) assume_yes=1 ;;
     --no-upgrade) do_upgrade=0 ;;
-    -h | --help) show_help; exit 0 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
     *)
       printf 'Error: unknown argument: %s\n' "$arg" >&2
       show_help >&2

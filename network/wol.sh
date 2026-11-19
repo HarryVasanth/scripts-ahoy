@@ -16,14 +16,20 @@ dry=0
 args=()
 for arg in "$@"; do
   case "$arg" in
-    -h|--help) usage; exit 0 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     --dry-run) dry=1 ;;
-    -*) printf 'Error: unknown option "%s".\n' "$arg" >&2; exit 1 ;;
+    -*)
+      printf 'Error: unknown option "%s".\n' "$arg" >&2
+      exit 1
+      ;;
     *) args+=("$arg") ;;
   esac
 done
 
-if (( ${#args[@]} < 1 )); then
+if ((${#args[@]} < 1)); then
   usage >&2
   exit 1
 fi
@@ -41,31 +47,31 @@ if [[ ! $broadcast =~ ^[0-9]{1,3}(\.[0-9]{1,3}){3}$ ]]; then
   printf 'Error: "%s" is not an IPv4 broadcast address.\n' "$broadcast" >&2
   exit 1
 fi
-if [[ ! $port =~ ^[0-9]+$ ]] || (( port < 1 || port > 65535 )); then
+if [[ ! $port =~ ^[0-9]+$ ]] || ((port < 1 || port > 65535)); then
   printf 'Error: "%s" is not a valid port.\n' "$port" >&2
   exit 1
 fi
 
 packet='\xff\xff\xff\xff\xff\xff'
 i=0
-while (( i < 12 )); do
+while ((i < 12)); do
   packet="${packet}\\x${raw:$i:2}"
-  i=$(( i + 2 ))
+  i=$((i + 2))
 done
 
 full=""
 repeats=0
-while (( repeats < 16 )); do
+while ((repeats < 16)); do
   full="${full}${packet}"
-  repeats=$(( repeats + 1 ))
+  repeats=$((repeats + 1))
 done
 
-if (( dry == 1 )); then
+if ((dry == 1)); then
   printf '🔎 Dry run: would send a 102-byte magic packet to %s:%s.\n' "$broadcast" "$port"
   exit 0
 fi
 
-if ! printf '%b' "$full" > "/dev/udp/$broadcast/$port" 2>/dev/null; then
+if ! printf '%b' "$full" > "/dev/udp/$broadcast/$port" 2> /dev/null; then
   printf 'Error: cannot send to %s:%s. Check the broadcast address.\n' "$broadcast" "$port" >&2
   exit 1
 fi

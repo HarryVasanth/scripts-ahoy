@@ -5,17 +5,21 @@
 set -euo pipefail
 
 case "${1:-}" in
-  -h|--help)
-    cat <<'EOF'
+  -h | --help)
+    cat << 'EOF'
 Show facts about the current shell.
 Usage: shell-info.sh
 
 Prints the login shell, the bash version, the active options, and each
 PATH entry with a mark when the directory is missing.
 EOF
-    exit 0 ;;
+    exit 0
+    ;;
   "") ;;
-  *) printf 'error: unexpected argument %s\n' "$1" >&2; exit 1 ;;
+  *)
+    printf 'error: unexpected argument %s\n' "$1" >&2
+    exit 1
+    ;;
 esac
 
 printf '🐚 Login shell: %s\n' "${SHELL:-unknown}"
@@ -41,7 +45,7 @@ while IFS= read -r dir; do
     printf '  ❌ %s\n' "$dir"
     missing=$((missing + 1))
   fi
-done <<EOF
+done << EOF
 $(printf '%s' "$PATH" | tr ':' '\n')
 EOF
 

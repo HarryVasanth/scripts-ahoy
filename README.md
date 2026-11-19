@@ -8,20 +8,20 @@ confirmation. Every shell script is checked with ShellCheck.
 
 ## Categories
 
-| | Category | Scripts | What it covers |
-|---|---|---:|---|
-| 🐚 | [Bash](bash/README.md) | 29 | Small helpers for daily shell work. |
-| 📝 | [Text](text/README.md) | 23 | Clean, convert, and inspect text and data files. |
-| 🌐 | [Network](network/README.md) | 23 | Check links, DNS, ports, and TLS from the command line. |
-| 🔎 | [Recon](recon/README.md) | 21 | Public-source lookups for a domain you own or may test. |
-| 🛡️ | [Security](security/README.md) | 23 | Read-only checks for common hardening mistakes. |
-| 🌿 | [Git](git/README.md) | 24 | Keep repositories tidy and easy to inspect. |
-| 🐧 | [Linux](linux/README.md) | 25 | Service, disk, and update checks for Linux hosts. |
-| 🍎 | [macOS](macos/README.md) | 23 | macOS housekeeping with sane defaults and dry runs. |
-| 🛠️ | [Dev](dev/README.md) | 23 | Project and container chores. |
-| 🎬 | [Media](media/README.md) | 21 | Resize, convert, and inspect media without a GUI. |
-| ☁️ | [Cloud](cloud/README.md) | 19 | Small wrappers for AWS, Kubernetes, and Terraform. |
-| 🧰 | [Proxmox](proxmox/README.md) | 22 | Proxmox VE and PBS maintenance helpers. |
+|     | Category                       | Scripts | What it covers                                          |
+| --- | ------------------------------ | ------: | ------------------------------------------------------- |
+| 🐚  | [Bash](bash/README.md)         |      29 | Small helpers for daily shell work.                     |
+| 📝  | [Text](text/README.md)         |      23 | Clean, convert, and inspect text and data files.        |
+| 🌐  | [Network](network/README.md)   |      23 | Check links, DNS, ports, and TLS from the command line. |
+| 🔎  | [Recon](recon/README.md)       |      21 | Public-source lookups for a domain you own or may test. |
+| 🛡️  | [Security](security/README.md) |      23 | Read-only checks for common hardening mistakes.         |
+| 🌿  | [Git](git/README.md)           |      24 | Keep repositories tidy and easy to inspect.             |
+| 🐧  | [Linux](linux/README.md)       |      25 | Service, disk, and update checks for Linux hosts.       |
+| 🍎  | [macOS](macos/README.md)       |      23 | macOS housekeeping with sane defaults and dry runs.     |
+| 🛠️  | [Dev](dev/README.md)           |      23 | Project and container chores.                           |
+| 🎬  | [Media](media/README.md)       |      21 | Resize, convert, and inspect media without a GUI.       |
+| ☁️  | [Cloud](cloud/README.md)       |      19 | Small wrappers for AWS, Kubernetes, and Terraform.      |
+| 🧰  | [Proxmox](proxmox/README.md)   |      22 | Proxmox VE and PBS maintenance helpers.                 |
 
 ## Quick start
 

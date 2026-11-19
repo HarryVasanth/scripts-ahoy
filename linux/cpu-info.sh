@@ -11,7 +11,7 @@ if [[ ! -r /proc/cpuinfo ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 cpu-info - show the CPU model, cores, flags and frequency.
 
 Usage: cpu-info
@@ -23,8 +23,15 @@ EOF
 
 for arg in "$@"; do
   case "$arg" in
-    -h | --help) show_help; exit 0 ;;
-    *) printf 'Error: unknown argument: %s\n' "$arg" >&2; show_help >&2; exit 1 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
+    *)
+      printf 'Error: unknown argument: %s\n' "$arg" >&2
+      show_help >&2
+      exit 1
+      ;;
   esac
 done
 
@@ -32,7 +39,7 @@ model=$(awk -F': ' '/^model name/ {print $2; exit}' /proc/cpuinfo)
 if [[ -z "$model" ]]; then
   model=$(awk -F': ' '/^(Hardware|Model)/ {print $2; exit}' /proc/cpuinfo)
 fi
-cores=$(getconf _NPROCESSORS_ONLN 2>/dev/null || awk '/^processor/ {n++} END {print n + 0}' /proc/cpuinfo)
+cores=$(getconf _NPROCESSORS_ONLN 2> /dev/null || awk '/^processor/ {n++} END {print n + 0}' /proc/cpuinfo)
 flags=$(awk -F': ' '/^(flags|Features)/ {print $2; exit}' /proc/cpuinfo)
 mhz=$(awk -F': ' '/^cpu MHz/ {printf "%.0f", $2; exit}' /proc/cpuinfo)
 

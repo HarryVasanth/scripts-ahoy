@@ -19,7 +19,7 @@ TMP_CERTSPOTTER=""
 TMP_HOSTSEARCH=""
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Usage: subdomain-enum.sh <domain> [options]
 
 Find subdomains for a domain in public certificate logs.
@@ -57,7 +57,7 @@ die() {
 }
 
 have() {
-  command -v "$1" >/dev/null 2>&1
+  command -v "$1" > /dev/null 2>&1
 }
 
 cleanup() {
@@ -87,10 +87,10 @@ normalise_names() {
   local domain="$1"
   local keep_wildcards="$2"
 
-  tr '[:upper:]' '[:lower:]' |
-    tr -d '\r' |
-    sed 's/^[[:space:]]*//; s/[[:space:]]*$//' |
-    awk -v d="$domain" -v keep="$keep_wildcards" '
+  tr '[:upper:]' '[:lower:]' \
+    | tr -d '\r' \
+    | sed 's/^[[:space:]]*//; s/[[:space:]]*$//' \
+    | awk -v d="$domain" -v keep="$keep_wildcards" '
       {
         name = $0
         wild = 0
@@ -103,8 +103,8 @@ normalise_names() {
         if (wild && keep == 1) print "*." name
         else print name
       }
-    ' |
-    sort -u
+    ' \
+    | sort -u
 }
 
 # Fetch a URL to a file with a few polite retries.
@@ -140,11 +140,11 @@ from_crtsh() {
     return 1
   fi
 
-  if ! jq -e 'type == "array"' "$TMP_CRT" >/dev/null 2>&1; then
+  if ! jq -e 'type == "array"' "$TMP_CRT" > /dev/null 2>&1; then
     return 1
   fi
 
-  jq -r '.[].name_value // empty' "$TMP_CRT" 2>/dev/null
+  jq -r '.[].name_value // empty' "$TMP_CRT" 2> /dev/null
 }
 
 from_certspotter() {
@@ -159,11 +159,11 @@ from_certspotter() {
     return 1
   fi
 
-  if ! jq -e 'type == "array"' "$TMP_CERTSPOTTER" >/dev/null 2>&1; then
+  if ! jq -e 'type == "array"' "$TMP_CERTSPOTTER" > /dev/null 2>&1; then
     return 1
   fi
 
-  jq -r '.[].dns_names[]? // empty' "$TMP_CERTSPOTTER" 2>/dev/null
+  jq -r '.[].dns_names[]? // empty' "$TMP_CERTSPOTTER" 2> /dev/null
 }
 
 from_hackertarget() {
@@ -178,7 +178,7 @@ from_hackertarget() {
     return 1
   fi
 
-  cut -d',' -f1 <"$TMP_HOSTSEARCH"
+  cut -d',' -f1 < "$TMP_HOSTSEARCH"
 }
 
 # Try each source in order. Print the names from the first source that works.
@@ -277,7 +277,7 @@ main() {
     if [[ -e $OUTPUT && ! -w $OUTPUT ]]; then
       die "Output file is not writable: $OUTPUT"
     fi
-    printf '%s\n' "$results" >"$OUTPUT" || die "Could not write to ${OUTPUT}."
+    printf '%s\n' "$results" > "$OUTPUT" || die "Could not write to ${OUTPUT}."
     log "Saved ${count} names to ${OUTPUT}."
   else
     printf '%s\n' "$results"

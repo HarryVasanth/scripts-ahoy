@@ -8,7 +8,7 @@ to_tabs=0
 width=4
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Change tabs into spaces, or spaces into tabs.
 Usage: tab-to-space.sh [-s] [-w WIDTH] [FILE...]
 
@@ -23,12 +23,26 @@ EOF
 
 while (($# > 0)); do
   case "$1" in
-    -s|--spaces-to-tabs) to_tabs=1; shift ;;
-    -w|--width)
-      (($# >= 2)) || { printf 'error: %s needs a width\n' "$1" >&2; exit 1; }
-      width="$2"; shift 2 ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+    -s | --spaces-to-tabs)
+      to_tabs=1
+      shift
+      ;;
+    -w | --width)
+      (($# >= 2)) || {
+        printf 'error: %s needs a width\n' "$1" >&2
+        exit 1
+      }
+      width="$2"
+      shift 2
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
     *) break ;;
   esac
 done
@@ -39,7 +53,10 @@ if ! [[ "$width" =~ ^[0-9]+$ ]] || ((width == 0)); then
 fi
 
 for f in "$@"; do
-  [[ -r "$f" ]] || { printf 'error: cannot read %s\n' "$f" >&2; exit 1; }
+  [[ -r "$f" ]] || {
+    printf 'error: cannot read %s\n' "$f" >&2
+    exit 1
+  }
 done
 
 if ((to_tabs)); then

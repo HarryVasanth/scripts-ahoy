@@ -5,7 +5,7 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Usage: env-example [--force] [FILE]
 
 Read FILE and write FILE.example with every value emptied.
@@ -16,14 +16,20 @@ Comments and key order stay the same. The default file is .env.
 EOF
 }
 
-die() { printf '❌ %s\n' "$1" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$1" >&2
+  exit 1
+}
 
 force=0
 file=".env"
 while (($# > 0)); do
   case "$1" in
     --force) force=1 ;;
-    -h|--help) usage; exit 0 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     -*) die "Unknown option: $1" ;;
     *) file="$1" ;;
   esac

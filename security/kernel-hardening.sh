@@ -7,7 +7,10 @@ set -euo pipefail
 
 BAD=0
 
-die() { printf 'Error: %s\n' "$*" >&2; exit 1; }
+die() {
+  printf 'Error: %s\n' "$*" >&2
+  exit 1
+}
 
 usage() {
   awk 'NR > 1 && /^#/ { sub(/^# ?/, ""); print; next } NR > 1 { exit }' "$0"
@@ -15,16 +18,19 @@ usage() {
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    -h|--help) usage; exit 0 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     *) die "unknown option $1" ;;
   esac
 done
 
-command -v sysctl >/dev/null 2>&1 || die "sysctl is not installed."
+command -v sysctl > /dev/null 2>&1 || die "sysctl is not installed."
 
 check() {
   local key=$1 want=$2 val
-  val=$(sysctl -n "$key" 2>/dev/null || true)
+  val=$(sysctl -n "$key" 2> /dev/null || true)
   if [ -z "$val" ]; then
     printf '➖ %-44s not present\n' "$key"
     return 0

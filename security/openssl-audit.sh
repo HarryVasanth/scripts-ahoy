@@ -10,7 +10,10 @@ PORT=443
 HOST=
 WEAK=0
 
-die() { printf 'Error: %s\n' "$*" >&2; exit 1; }
+die() {
+  printf 'Error: %s\n' "$*" >&2
+  exit 1
+}
 
 usage() {
   awk 'NR > 1 && /^#/ { sub(/^# ?/, ""); print; next } NR > 1 { exit }' "$0"
@@ -18,27 +21,41 @@ usage() {
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    -p) [ "$#" -ge 2 ] || die "-p needs a port."; PORT=$2; shift 2 ;;
-    -h|--help) usage; exit 0 ;;
+    -p)
+      [ "$#" -ge 2 ] || die "-p needs a port."
+      PORT=$2
+      shift 2
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     -*) die "unknown option $1" ;;
-    *) [ -z "$HOST" ] || die "give one host name only."; HOST=$1; shift ;;
+    *)
+      [ -z "$HOST" ] || die "give one host name only."
+      HOST=$1
+      shift
+      ;;
   esac
 done
 
 [ -n "$HOST" ] || die "give a host name. See --help."
 case "$PORT" in
-  ''|*[!0-9]*) die "-p needs a number." ;;
+  '' | *[!0-9]*) die "-p needs a number." ;;
 esac
-command -v openssl >/dev/null 2>&1 || die "openssl is not installed."
+command -v openssl > /dev/null 2>&1 || die "openssl is not installed."
 
 probe() {
   local pid watcher rc=0
-  (printf '' | openssl s_client -connect "$HOST:$PORT" "$@" >/dev/null 2>&1) &
+  (printf '' | openssl s_client -connect "$HOST:$PORT" "$@" > /dev/null 2>&1) &
   pid=$!
-  (sleep 10; kill "$pid" 2>/dev/null) >/dev/null 2>&1 &
+  (
+    sleep 10
+    kill "$pid" 2> /dev/null
+  ) > /dev/null 2>&1 &
   watcher=$!
   wait "$pid" || rc=$?
-  kill "$watcher" 2>/dev/null || true
+  kill "$watcher" 2> /dev/null || true
   return "$rc"
 }
 

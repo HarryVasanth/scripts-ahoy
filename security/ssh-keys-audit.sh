@@ -5,7 +5,10 @@
 
 set -euo pipefail
 
-die() { printf 'Error: %s\n' "$*" >&2; exit 1; }
+die() {
+  printf 'Error: %s\n' "$*" >&2
+  exit 1
+}
 
 usage() {
   awk 'NR > 1 && /^#/ { sub(/^# ?/, ""); print; next } NR > 1 { exit }' "$0"
@@ -13,17 +16,20 @@ usage() {
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    -h|--help) usage; exit 0 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     *) die "unknown option $1" ;;
   esac
 done
 
-if stat -c '%a' "$0" >/dev/null 2>&1; then
-  mode_of() { stat -c '%a' "$1" 2>/dev/null; }
-  owner_of() { stat -c '%U' "$1" 2>/dev/null; }
+if stat -c '%a' "$0" > /dev/null 2>&1; then
+  mode_of() { stat -c '%a' "$1" 2> /dev/null; }
+  owner_of() { stat -c '%U' "$1" 2> /dev/null; }
 else
-  mode_of() { stat -f '%Lp' "$1" 2>/dev/null; }
-  owner_of() { stat -f '%Su' "$1" 2>/dev/null; }
+  mode_of() { stat -f '%Lp' "$1" 2> /dev/null; }
+  owner_of() { stat -f '%Su' "$1" 2> /dev/null; }
 fi
 
 DIRS=("$HOME/.ssh" /root/.ssh)
@@ -37,7 +43,7 @@ for d in "${DIRS[@]}"; do
   [ -d "$d" ] || continue
   dmode=$(mode_of "$d")
   dtail=${dmode: -3}
-  if [ $(( 8#${dtail:1:1} & 2 )) -ne 0 ] || [ $(( 8#${dtail:2:1} & 2 )) -ne 0 ]; then
+  if [ $((8#${dtail:1:1} & 2)) -ne 0 ] || [ $((8#${dtail:2:1} & 2)) -ne 0 ]; then
     printf '⚠️  Folder is group or world writable: %s (%s)\n' "$d" "$dmode"
     ISSUES=$((ISSUES + 1))
   fi
@@ -47,7 +53,7 @@ for d in "${DIRS[@]}"; do
     mode=$(mode_of "$f")
     owner=$(owner_of "$f")
     tail3=${mode: -3}
-    if [ $(( 8#${tail3:1:1} & 2 )) -ne 0 ] || [ $(( 8#${tail3:2:1} & 2 )) -ne 0 ]; then
+    if [ $((8#${tail3:1:1} & 2)) -ne 0 ] || [ $((8#${tail3:2:1} & 2)) -ne 0 ]; then
       printf '⚠️  Bad mode: %s (%s, owner %s)\n' "$f" "$mode" "$owner"
       ISSUES=$((ISSUES + 1))
     else

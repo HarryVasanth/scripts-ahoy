@@ -11,7 +11,7 @@ if [[ ! -r /proc/loadavg ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 load-average - compare the load average with the CPU count.
 
 Usage: load-average [-w PCT]
@@ -29,11 +29,17 @@ warn=100
 while [[ $# -gt 0 ]]; do
   case "$1" in
     -w | --warn)
-      [[ $# -ge 2 ]] || { printf 'Error: %s needs a value.\n' "$1" >&2; exit 1; }
+      [[ $# -ge 2 ]] || {
+        printf 'Error: %s needs a value.\n' "$1" >&2
+        exit 1
+      }
       warn=$2
       shift 2
       ;;
-    -h | --help) show_help; exit 0 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
     *)
       printf 'Error: unknown argument: %s\n' "$1" >&2
       show_help >&2
@@ -48,7 +54,7 @@ if [[ ! $warn =~ ^[0-9]+$ ]] || [[ $warn -eq 0 ]]; then
 fi
 
 read -r one five fifteen running lastpid < /proc/loadavg
-cores=$(getconf _NPROCESSORS_ONLN 2>/dev/null || awk '/^processor/ {n++} END {print n + 0}' /proc/cpuinfo)
+cores=$(getconf _NPROCESSORS_ONLN 2> /dev/null || awk '/^processor/ {n++} END {print n + 0}' /proc/cpuinfo)
 per_cpu=$(awk -v l="$one" -v c="$cores" 'BEGIN {printf "%.0f", c > 0 ? l * 100 / c : 0}')
 
 printf '⚙️  CPUs: %s\n' "$cores"

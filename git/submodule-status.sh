@@ -5,7 +5,10 @@
 
 set -euo pipefail
 
-die() { printf 'Error: %s\n' "$*" >&2; exit 1; }
+die() {
+  printf 'Error: %s\n' "$*" >&2
+  exit 1
+}
 
 usage() {
   awk 'NR > 1 && /^#/ { sub(/^# ?/, ""); print; next } NR > 1 { exit }' "$0"
@@ -13,19 +16,22 @@ usage() {
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    -h|--help) usage; exit 0 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     *) die "unknown option $1" ;;
   esac
 done
 
-git rev-parse --git-dir >/dev/null 2>&1 || die "this is not a git repository."
+git rev-parse --git-dir > /dev/null 2>&1 || die "this is not a git repository."
 
 if [ ! -f .gitmodules ]; then
   printf '✅ No submodules. There is no .gitmodules file.\n'
   exit 0
 fi
 
-STATUS=$(git submodule status 2>/dev/null || true)
+STATUS=$(git submodule status 2> /dev/null || true)
 if [ -z "$STATUS" ]; then
   printf '⚠️  .gitmodules exists, but git lists no submodules.\n'
   exit 0

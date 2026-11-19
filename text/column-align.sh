@@ -10,7 +10,7 @@ right=0
 file=""
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Pad fields so that every column lines up.
 Usage: column-align.sh [-s SEP] [-r] [FILE]
 
@@ -24,21 +24,38 @@ EOF
 
 while (($# > 0)); do
   case "$1" in
-    -s|--sep)
-      (($# >= 2)) || { printf 'error: %s needs a value\n' "$1" >&2; exit 1; }
-      sep="$2"; shift ;;
-    -r|--right) right=1 ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+    -s | --sep)
+      (($# >= 2)) || {
+        printf 'error: %s needs a value\n' "$1" >&2
+        exit 1
+      }
+      sep="$2"
+      shift
+      ;;
+    -r | --right) right=1 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
     *) break ;;
   esac
   shift
 done
 
-(($# <= 1)) || { printf 'error: give one file only\n' >&2; exit 1; }
+(($# <= 1)) || {
+  printf 'error: give one file only\n' >&2
+  exit 1
+}
 if (($# == 1)); then
   file="$1"
-  [[ -r "$file" ]] || { printf 'error: cannot read %s\n' "$file" >&2; exit 1; }
+  [[ -r "$file" ]] || {
+    printf 'error: cannot read %s\n' "$file" >&2
+    exit 1
+  }
 fi
 align() {
   awk -v sep="$sep" -v right="$right" '

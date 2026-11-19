@@ -10,7 +10,7 @@ counts=0
 files=()
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Find email addresses in text.
 Usage: extract-emails.sh [-a] [-c] [FILE...]
 
@@ -24,19 +24,40 @@ EOF
 
 while (($# > 0)); do
   case "$1" in
-    -a|--all) all=1; shift ;;
-    -c|--count) counts=1; shift ;;
-    -h|--help) usage; exit 0 ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
-    *) files+=("$1"); shift ;;
+    -a | --all)
+      all=1
+      shift
+      ;;
+    -c | --count)
+      counts=1
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
+    *)
+      files+=("$1")
+      shift
+      ;;
   esac
 done
 
-((all == 0 || counts == 0)) || { printf 'error: use -a or -c, not both\n' >&2; exit 1; }
+((all == 0 || counts == 0)) || {
+  printf 'error: use -a or -c, not both\n' >&2
+  exit 1
+}
 
 if ((${#files[@]} > 0)); then
   for f in "${files[@]}"; do
-    [[ -r "$f" ]] || { printf 'error: cannot read %s\n' "$f" >&2; exit 1; }
+    [[ -r "$f" ]] || {
+      printf 'error: cannot read %s\n' "$f" >&2
+      exit 1
+    }
   done
 fi
 

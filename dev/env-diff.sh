@@ -4,7 +4,7 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Usage: env-diff [--strict] <file-a> <file-b>
 
 Show keys that exist in one file only, and keys with different values.
@@ -15,16 +15,19 @@ Values are never printed. Comments and blank lines are ignored.
 EOF
 }
 
-die() { printf '❌ %s\n' "$1" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$1" >&2
+  exit 1
+}
 
 keys_of() {
-  sed -n 's/^[[:space:]]*\(export[[:space:]][[:space:]]*\)\{0,1\}\([A-Za-z_][A-Za-z0-9_]*\)[[:space:]]*=.*/\2/p' "$1" |
-    LC_ALL=C sort -u
+  sed -n 's/^[[:space:]]*\(export[[:space:]][[:space:]]*\)\{0,1\}\([A-Za-z_][A-Za-z0-9_]*\)[[:space:]]*=.*/\2/p' "$1" \
+    | LC_ALL=C sort -u
 }
 
 value_of() {
-  sed -n "s/^[[:space:]]*\(export[[:space:]][[:space:]]*\)\{0,1\}${2}[[:space:]]*=[[:space:]]*//p" "$1" |
-    tail -n 1 | sed 's/[[:space:]]*$//' | tr -d '\r'
+  sed -n "s/^[[:space:]]*\(export[[:space:]][[:space:]]*\)\{0,1\}${2}[[:space:]]*=[[:space:]]*//p" "$1" \
+    | tail -n 1 | sed 's/[[:space:]]*$//' | tr -d '\r'
 }
 
 strict=0
@@ -32,14 +35,20 @@ files=()
 while (($# > 0)); do
   case "$1" in
     --strict) strict=1 ;;
-    -h|--help) usage; exit 0 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     -*) die "Unknown option: $1" ;;
     *) files+=("$1") ;;
   esac
   shift
 done
 
-((${#files[@]} == 2)) || { usage >&2; die 'Pass exactly two files.'; }
+((${#files[@]} == 2)) || {
+  usage >&2
+  die 'Pass exactly two files.'
+}
 a="${files[0]}"
 b="${files[1]}"
 [[ -f "$a" ]] || die "File not found: $a"
@@ -75,6 +84,9 @@ if [[ -s "$tmp/changed" ]]; then
   sed 's/^/   /' "$tmp/changed"
   different=1
 fi
-((different == 1)) || { printf '\n✅ The files match.\n'; exit 0; }
+((different == 1)) || {
+  printf '\n✅ The files match.\n'
+  exit 0
+}
 ((strict == 1)) && exit 1
 exit 0

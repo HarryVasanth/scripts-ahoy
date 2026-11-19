@@ -17,7 +17,7 @@ if [[ ! -r /etc/passwd ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 user-audit - audit local accounts.
 Usage: user-audit
 Checks:
@@ -32,7 +32,10 @@ EOF
 
 for arg in "$@"; do
   case "$arg" in
-    -h | --help) show_help; exit 0 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
     *)
       printf 'Error: unknown argument: %s\n' "$arg" >&2
       show_help >&2
@@ -71,7 +74,7 @@ else
 fi
 
 printf '\nAdministrator group members:\n'
-admin=$(getent group sudo wheel 2>/dev/null | awk -F: '$4 != "" {print "  " $1 ": " $4}')
+admin=$(getent group sudo wheel 2> /dev/null | awk -F: '$4 != "" {print "  " $1 ": " $4}')
 printf '%s\n' "${admin:-  None.}"
 printf '  Keep this list small.\n'
 

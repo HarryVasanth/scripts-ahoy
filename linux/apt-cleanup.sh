@@ -7,7 +7,7 @@ set -euo pipefail
 # Note: this tool needs root. Run it as: sudo apt-cleanup
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 apt-cleanup - clean the apt package cache.
 
 Usage: apt-cleanup [--dry-run] [--yes]
@@ -26,7 +26,10 @@ for arg in "$@"; do
   case "$arg" in
     --dry-run) dry_run=1 ;;
     -y | --yes) assume_yes=1 ;;
-    -h | --help) show_help; exit 0 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
     *)
       printf 'Error: unknown argument: %s\n' "$arg" >&2
       show_help >&2
@@ -35,7 +38,7 @@ for arg in "$@"; do
   esac
 done
 
-if ! command -v apt-get >/dev/null 2>&1; then
+if ! command -v apt-get > /dev/null 2>&1; then
   printf 'Error: apt-get is missing. This tool needs Debian or Ubuntu.\n' >&2
   exit 1
 fi
@@ -44,7 +47,7 @@ if [[ $dry_run -eq 1 ]]; then
   printf '🔍 Dry run. Nothing will change.\n\n'
   printf 'Packages that autoremove would delete:\n'
   apt-get -s autoremove --purge | awk '/^Remv/ {print "  " $0}' || true
-  printf '\nDownload cache size: %s\n' "$(du -sh /var/cache/apt/archives 2>/dev/null | cut -f1)"
+  printf '\nDownload cache size: %s\n' "$(du -sh /var/cache/apt/archives 2> /dev/null | cut -f1)"
   exit 0
 fi
 

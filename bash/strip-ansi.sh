@@ -6,7 +6,7 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Strip terminal escape sequences from text.
 Usage: strip-ansi.sh [FILE...]
 
@@ -19,9 +19,15 @@ EOF
 files=()
 while (($# > 0)); do
   case "$1" in
-    -h|--help) usage; exit 0 ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     -) files+=("/dev/stdin") ;;
-    -*) printf 'error: unknown option %s\n' "$1" >&2; exit 1 ;;
+    -*)
+      printf 'error: unknown option %s\n' "$1" >&2
+      exit 1
+      ;;
     *) files+=("$1") ;;
   esac
   shift
@@ -29,7 +35,10 @@ done
 
 if ((${#files[@]} > 0)); then
   for f in "${files[@]}"; do
-    [[ -r "$f" ]] || { printf 'error: cannot read %s\n' "$f" >&2; exit 1; }
+    [[ -r "$f" ]] || {
+      printf 'error: cannot read %s\n' "$f" >&2
+      exit 1
+    }
   done
 fi
 

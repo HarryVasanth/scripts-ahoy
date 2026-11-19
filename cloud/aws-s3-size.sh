@@ -6,7 +6,7 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Usage: aws-s3-size <s3://bucket[/prefix]>
 
 List every object under the target and print the total count and size.
@@ -16,11 +16,20 @@ The size is the stored size, before any transfer.
 EOF
 }
 
-die() { printf '❌ %s\n' "$1" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$1" >&2
+  exit 1
+}
 
 case "${1:-}" in
-  -h|--help) usage; exit 0 ;;
-  "") usage >&2; die 'Pass an S3 path, for example s3://my-bucket/reports/' ;;
+  -h | --help)
+    usage
+    exit 0
+    ;;
+  "")
+    usage >&2
+    die 'Pass an S3 path, for example s3://my-bucket/reports/'
+    ;;
   -*) die "Unknown option: $1" ;;
 esac
 (($# == 1)) || die 'Pass one S3 path only.'
@@ -30,9 +39,9 @@ case "$target" in
   *) die "The path must start with s3://, got: $target" ;;
 esac
 
-command -v aws >/dev/null 2>&1 ||
-  die 'aws is not installed. See https://aws.amazon.com/cli/'
-if ! aws sts get-caller-identity >/dev/null 2>&1; then
+command -v aws > /dev/null 2>&1 \
+  || die 'aws is not installed. See https://aws.amazon.com/cli/'
+if ! aws sts get-caller-identity > /dev/null 2>&1; then
   die 'No AWS session. Run "aws configure", or refresh your SSO login.'
 fi
 

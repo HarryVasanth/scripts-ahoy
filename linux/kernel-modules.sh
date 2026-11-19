@@ -11,7 +11,7 @@ if [[ ! -r /proc/modules ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 kernel-modules - list loaded modules and their parameters.
 
 Usage: kernel-modules [MODULE]
@@ -39,7 +39,7 @@ esac
 if [[ -z "$module" ]]; then
   count=$(awk 'END {print NR}' /proc/modules)
   printf '🧩 %s modules are loaded\n\n' "$count"
-  if command -v lsmod >/dev/null 2>&1; then
+  if command -v lsmod > /dev/null 2>&1; then
     lsmod
   else
     awk '{printf "%-28s %8s %s\n", $1, $2, $4}' /proc/modules
@@ -63,7 +63,7 @@ found=0
 for param in "$dir"/*; do
   [[ -e "$param" ]] || continue
   found=1
-  printf '  %-28s %s\n' "$(basename "$param")" "$(cat "$param" 2>/dev/null || printf '(not readable)')"
+  printf '  %-28s %s\n' "$(basename "$param")" "$(cat "$param" 2> /dev/null || printf '(not readable)')"
 done
 if [[ $found -eq 0 ]]; then
   printf '  This module has no parameters.\n'

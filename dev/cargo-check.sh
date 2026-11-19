@@ -6,7 +6,7 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Usage: cargo-check [DIR]
 
 Run three checks in DIR and report every failure at the end.
@@ -16,20 +16,29 @@ The default directory is the current one.
 EOF
 }
 
-die() { printf '❌ %s\n' "$1" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$1" >&2
+  exit 1
+}
 
 dir="."
 case "${1:-}" in
-  -h|--help) usage; exit 0 ;;
+  -h | --help)
+    usage
+    exit 0
+    ;;
   -*) die "Unknown option: $1" ;;
   "") ;;
-  *) dir="$1"; (($# == 1)) || die 'Pass one directory only.' ;;
+  *)
+    dir="$1"
+    (($# == 1)) || die 'Pass one directory only.'
+    ;;
 esac
 
 [[ -d "$dir" ]] || die "Directory not found: $dir"
 [[ -f "$dir/Cargo.toml" ]] || die "No Cargo.toml in $dir."
-command -v cargo >/dev/null 2>&1 ||
-  die 'cargo is not installed. Install Rust with https://rustup.rs/'
+command -v cargo > /dev/null 2>&1 \
+  || die 'cargo is not installed. Install Rust with https://rustup.rs/'
 
 cd "$dir"
 

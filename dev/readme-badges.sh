@@ -4,7 +4,7 @@
 set -euo pipefail
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Usage: readme-badges --repo OWNER/NAME [options]
 
 Print one Markdown line with the badges that you ask for.
@@ -18,7 +18,10 @@ Print one Markdown line with the badges that you ask for.
 EOF
 }
 
-die() { printf '❌ %s\n' "$1" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$1" >&2
+  exit 1
+}
 
 repo=""
 license=""
@@ -27,7 +30,7 @@ branch="main"
 tag=""
 while (($# > 0)); do
   case "$1" in
-    --repo|--license|--workflow|--branch|--tag)
+    --repo | --license | --workflow | --branch | --tag)
       (($# > 1)) || die "$1 needs a value."
       case "$1" in
         --repo) repo="$2" ;;
@@ -36,8 +39,12 @@ while (($# > 0)); do
         --branch) branch="$2" ;;
         --tag) tag="$2" ;;
       esac
-      shift ;;
-    -h|--help) usage; exit 0 ;;
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
     *) die "Unknown option: $1" ;;
   esac
   shift

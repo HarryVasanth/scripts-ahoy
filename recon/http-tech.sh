@@ -8,16 +8,28 @@ set -euo pipefail
 usage() {
   printf 'Usage: %s <url>\nExample: %s https://example.com\n' "${0##*/}" "${0##*/}"
 }
-if [[ ${1:-} == "-h" || ${1:-} == "--help" ]]; then usage; exit 0; fi
-if [[ $# -lt 1 || -z ${1:-} ]]; then usage >&2; exit 1; fi
-command -v curl >/dev/null 2>&1 || { printf 'Error: curl is not installed.\n' >&2; exit 1; }
+if [[ ${1:-} == "-h" || ${1:-} == "--help" ]]; then
+  usage
+  exit 0
+fi
+if [[ $# -lt 1 || -z ${1:-} ]]; then
+  usage >&2
+  exit 1
+fi
+command -v curl > /dev/null 2>&1 || {
+  printf 'Error: curl is not installed.\n' >&2
+  exit 1
+}
 
 url=$1
 headers=$(mktemp)
 body=$(mktemp)
 trap 'rm -f "$headers" "$body"' EXIT
 code=$(curl -sS -L --max-time 15 -A 'Mozilla/5.0 (tech-check)' -D "$headers" -o "$body" \
-  -w '%{http_code}' "$url") || { printf 'Error: cannot reach "%s".\n' "$url" >&2; exit 1; }
+  -w '%{http_code}' "$url") || {
+  printf 'Error: cannot reach "%s".\n' "$url" >&2
+  exit 1
+}
 
 header() {
   awk -v want="$1" '{ line = tolower($0); key = tolower(want) ":" }
@@ -51,7 +63,7 @@ if has 'drupal-settings-json\|sites/default/files'; then found+=("Drupal"); fi
 if has 'cdn.shopify.com'; then found+=("Shopify"); fi
 
 printf '🔍 %s (HTTP %s)\n' "$url" "$code"
-if (( ${#found[@]} == 0 )); then
+if ((${#found[@]} == 0)); then
   printf '   No clear markers found.\n'
 else
   printf '   • %s\n' "${found[@]}"

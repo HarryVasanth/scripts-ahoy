@@ -11,7 +11,7 @@ force=false
 replace=false
 
 usage() {
-  cat <<'EOF'
+  cat << 'EOF'
 Resize images to fit a box. Images are never enlarged.
 Default output: NAME-resized.EXT next to the source.
   -w WIDTH     Maximum width (default: 1920)
@@ -23,16 +23,40 @@ Default output: NAME-resized.EXT next to the source.
 EOF
 }
 
-die() { printf '❌ %s\n' "$*" >&2; exit 1; }
+die() {
+  printf '❌ %s\n' "$*" >&2
+  exit 1
+}
 while [ $# -gt 0 ]; do
   case "$1" in
-    -w) width=${2:-}; shift 2 || die "Option -w needs a value." ;;
-    -H) height=${2:-}; shift 2 || die "Option -H needs a value." ;;
-    -o) outdir=${2:-}; shift 2 || die "Option -o needs a value." ;;
-    --force) force=true; shift ;;
-    --replace) replace=true; shift ;;
-    -h|--help) usage; exit 0 ;;
-    --) shift; break ;;
+    -w)
+      width=${2:-}
+      shift 2 || die "Option -w needs a value."
+      ;;
+    -H)
+      height=${2:-}
+      shift 2 || die "Option -H needs a value."
+      ;;
+    -o)
+      outdir=${2:-}
+      shift 2 || die "Option -o needs a value."
+      ;;
+    --force)
+      force=true
+      shift
+      ;;
+    --replace)
+      replace=true
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      break
+      ;;
     -*) die "Unknown option: $1" ;;
     *) break ;;
   esac
@@ -40,10 +64,13 @@ done
 case "${width}${height}" in
   *[!0-9]*) die "Width and height must be whole numbers." ;;
 esac
-[ "$#" -gt 0 ] || { usage >&2; die "Give me at least one image."; }
-if command -v magick >/dev/null 2>&1; then
+[ "$#" -gt 0 ] || {
+  usage >&2
+  die "Give me at least one image."
+}
+if command -v magick > /dev/null 2>&1; then
   im=(magick)
-elif command -v convert >/dev/null 2>&1; then
+elif command -v convert > /dev/null 2>&1; then
   im=(convert)
 else
   die "ImageMagick is missing. Install it with: brew install imagemagick, or sudo apt install imagemagick."

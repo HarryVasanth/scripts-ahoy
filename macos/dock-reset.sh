@@ -11,7 +11,7 @@ if [[ $(uname -s) != Darwin ]]; then
 fi
 
 show_help() {
-  cat <<'EOF'
+  cat << 'EOF'
 dock-reset - reset the Dock to the default layout.
 
 Usage: dock-reset [--dry-run] [--yes]
@@ -32,7 +32,10 @@ for arg in "$@"; do
   case "$arg" in
     --dry-run) dry_run=1 ;;
     -y | --yes) assume_yes=1 ;;
-    -h | --help) show_help; exit 0 ;;
+    -h | --help)
+      show_help
+      exit 0
+      ;;
     *)
       printf 'Error: unknown argument: %s\n' "$arg" >&2
       show_help >&2
@@ -62,7 +65,7 @@ if [[ $assume_yes -eq 0 ]]; then
   esac
 fi
 
-defaults delete com.apple.dock 2>/dev/null || printf 'No Dock preferences to delete.\n'
+defaults delete com.apple.dock 2> /dev/null || printf 'No Dock preferences to delete.\n'
 killall Dock
 
 printf '✅ The Dock is back to its default layout.\n'
